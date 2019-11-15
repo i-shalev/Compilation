@@ -8,7 +8,7 @@ public class Main
 {
 	static public void main(String argv[])
 	{
-		Lexer l.;
+		Lexer l;
 		Symbol s;
 		FileReader file_reader;
 		PrintWriter file_writer;
