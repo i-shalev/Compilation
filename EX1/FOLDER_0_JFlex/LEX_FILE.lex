@@ -106,14 +106,41 @@ ID				        = [a-z]({Letters}|{Digits0})*
 
 <YYINITIAL> {
 
+//keywords
+"class"             { return symbol(TokenNames.CLASS);}
+"nil"               { return symbol(TokenNames.NIL);}
+"array"             { return symbol(TokenNames.ARRAY);}
+"while"             { return symbol(TokenNames.WHILE);}
+"extends"           { return symbol(TokenNames.EXTENDS);}
+"return"            { return symbol(TokenNames.RETURN);}
+"new"               { return symbol(TokenNames.NEW);}
+"if"                { return symbol(TokenNames.IF);}
+
+//regular expressions
+{INTEGER}			{ return symbol(TokenNames.NUMBER, new Integer(yytext()));}
+{ID}				{ return symbol(TokenNames.ID,     new String( yytext()));}
+{WhiteSpace}		{ /* just skip what was found, do nothing */ }
+<<EOF>>				{ return symbol(TokenNames.EOF);}
+
+
+//symbols
 "+"					{ return symbol(TokenNames.PLUS);}
 "-"					{ return symbol(TokenNames.MINUS);}
-"PPP"				{ return symbol(TokenNames.TIMES);}
+"*"				    { return symbol(TokenNames.TIMES);}
 "/"					{ return symbol(TokenNames.DIVIDE);}
 "("					{ return symbol(TokenNames.LPAREN);}
 ")"					{ return symbol(TokenNames.RPAREN);}
-{Integer}			{ return symbol(TokenNames.NUMBER, new Integer(yytext()));}
-{ID}				{ return symbol(TokenNames.ID,     new String( yytext()));}   
-{WhiteSpace}		{ /* just skip what was found, do nothing */ }
-<<EOF>>				{ return symbol(TokenNames.EOF);}
+"["					{ return symbol(TokenNames.LBRACK);}
+"]"					{ return symbol(TokenNames.RBRACK);}
+"{"					{ return symbol(TokenNames.LBRACE);}
+"}"					{ return symbol(TokenNames.RBRACE);}
+","					{ return symbol(TokenNames.COMMA);}
+"."					{ return symbol(TokenNames.DOT);}
+";"					{ return symbol(TokenNames.SEMICOLON);}
+"..."				{ return symbol(TokenNames.ELLIPSIS);}
+":="				{ return symbol(TokenNames.ASSIGN);}
+"="					{ return symbol(TokenNames.EQ);}
+"<"					{ return symbol(TokenNames.LT);}
+">"					{ return symbol(TokenNames.GT);}
+.                   { return symbol(TokenNames.error);}
 }
