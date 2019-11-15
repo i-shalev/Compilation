@@ -86,7 +86,7 @@ EndCommentMultiLine     = \*\/
 CommentOneLine          = "//"{Char}*
 Comment                 = CommentOneLine | {StartCommentMultiLine}{Char}*{EndCommentMultiLine}
 
-ID				        = [a-z]({Letters}|{Digits0})*
+ID				        = {Letters}({Letters}|{Digits0})*
 
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
