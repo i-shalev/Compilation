@@ -78,13 +78,13 @@ Digits                  = [1-9]
 Digits0                 = [0-9]
 Number                  = 0|{Digits}{Digits0}*
 Integer			        = -?{Digits}{Digits0}*|{Number}
-String                  = "{Letters}*"
+String                  = \"{Letters}*\"
 
 Char                    = {Letters} | {Digits0} | {WhiteSpace} | [\(\)\[\]\{\}\?!\+\-\*/\.;]
 StartCommentMultiLine   = \/\*
 EndCommentMultiLine     = \*\/
 CommentOneLine          = "//"{Char}*
-Comment                 = CommentOneLine | {StartCommentMultiLine}{Char}*{EndCommentMultiLine}
+Comment                 = {CommentOneLine} | {StartCommentMultiLine}{Char}*{EndCommentMultiLine}
 
 ID				        = {Letters}({Letters}|{Digits0})*
 
