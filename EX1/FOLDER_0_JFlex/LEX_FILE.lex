@@ -70,10 +70,23 @@ import java_cup.runtime.*;
 /***********************/
 /* MACRO DECALARATIONS */
 /***********************/
-LineTerminator	= \r|\n|\r\n
-WhiteSpace		= {LineTerminator} | [ \t\f]
-INTEGER			= 0 | [1-9][0-9]*
-ID				= [a-z]+
+
+LineTerminator	        = \r|\n|\r\n
+WhiteSpace		        = {LineTerminator}|[ \t\f]
+Letters                 = [a-z] | [A-Z]
+Digits                  = [1-9]
+Digits0                 = [0-9]
+Number                  = 0|{Digits}{Digits0}*
+Integer			        = -?{Digits}{Digits0}*|{Number}
+String                  = "{Letters}*"
+
+Char                    = {Letters} | {Digits0} | {WhiteSpace} | [\(\)\[\]\{\}\?!\+\-\*/\.;]
+StartCommentMultiLine   = \/\*
+EndCommentMultiLine     = \*\/
+CommentOneLine          = \/\/{Char}*
+Comment                 = CommentOneLine | {StartCommentMultiLine}{Char}*{EndCommentMultiLine}
+
+ID				        = [a-z]({Letters}|{Digits0})*
 
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
@@ -99,7 +112,7 @@ ID				= [a-z]+
 "/"					{ return symbol(TokenNames.DIVIDE);}
 "("					{ return symbol(TokenNames.LPAREN);}
 ")"					{ return symbol(TokenNames.RPAREN);}
-{INTEGER}			{ return symbol(TokenNames.NUMBER, new Integer(yytext()));}
+{Integer}			{ return symbol(TokenNames.NUMBER, new Integer(yytext()));}
 {ID}				{ return symbol(TokenNames.ID,     new String( yytext()));}   
 {WhiteSpace}		{ /* just skip what was found, do nothing */ }
 <<EOF>>				{ return symbol(TokenNames.EOF);}
