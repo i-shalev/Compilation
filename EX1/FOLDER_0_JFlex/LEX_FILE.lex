@@ -83,7 +83,7 @@ String                  = "{Letters}*"
 Char                    = {Letters} | {Digits0} | {WhiteSpace} | [\(\)\[\]\{\}\?!\+\-\*/\.;]
 StartCommentMultiLine   = \/\*
 EndCommentMultiLine     = \*\/
-CommentOneLine          = \/\/{Char}*
+CommentOneLine          = "//"{Char}*
 Comment                 = CommentOneLine | {StartCommentMultiLine}{Char}*{EndCommentMultiLine}
 
 ID				        = [a-z]({Letters}|{Digits0})*
@@ -117,8 +117,10 @@ ID				        = [a-z]({Letters}|{Digits0})*
 "if"                { return symbol(TokenNames.IF);}
 
 //regular expressions
-{INTEGER}			{ return symbol(TokenNames.NUMBER, new Integer(yytext()));}
+{Comment}           { return symbol(TokenNames.COMMENT);}
+{Integer}			{ return symbol(TokenNames.INT, new Integer(yytext()));}
 {ID}				{ return symbol(TokenNames.ID,     new String( yytext()));}
+{String}			{ return symbol(TokenNames.STRING,     new String( yytext()));}
 {WhiteSpace}		{ /* just skip what was found, do nothing */ }
 <<EOF>>				{ return symbol(TokenNames.EOF);}
 
