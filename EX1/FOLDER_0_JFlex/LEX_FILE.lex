@@ -80,10 +80,10 @@ Number                  = 0|{Digits}{Digits0}*
 Integer			        = -?{Digits}{Digits0}*|{Number}
 String                  = \"{Letters}*\"
 
-Char                    = {Letters} | {Digits0} | {WhiteSpace} | [\(\)\[\]\{\}\?!\+\-\*/\.;]
+Char                    = {Letters} | {Digits0} | [ \t\f] | [\(\)\[\]\{\}\?!\+\-\*/\.;]
 StartCommentMultiLine   = \/\*
 EndCommentMultiLine     = \*\/
-CommentOneLine          = "//"{Char}*
+CommentOneLine          = "//"{Char}*{LineTerminator}
 Comment                 = {CommentOneLine} | {StartCommentMultiLine}{Char}*{EndCommentMultiLine}
 
 ID				        = {Letters}({Letters}|{Digits0})*
