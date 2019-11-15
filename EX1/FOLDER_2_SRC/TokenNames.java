@@ -32,6 +32,7 @@ public interface TokenNames {
   public static final int GT = 29;
   public static final int INT = 30;
   public static final int STRING = 31;
+  public static final int COMMENT = 32;
 
   public static String toString(int token){
     switch(token){
@@ -66,6 +67,7 @@ public interface TokenNames {
       case GT: return "GT";
       case INT: return "INT";
       case STRING: return "STRING";
+      case COMMENT: return "COMMENT";
       default: return "ERROR";
 
     }

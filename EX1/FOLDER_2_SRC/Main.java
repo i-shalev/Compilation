@@ -44,21 +44,24 @@ public class Main
 				/************************/
 				/* [6] Print to console */
 				/************************/
+				System.out.print(TokenNames.toString(s.sym));
+				if(s.value!=null){
+					System.out.print("("+s.value+")");
+				}
 				System.out.print("[");
 				System.out.print(l.getLine());
 				System.out.print(",");
 				System.out.print(l.getTokenStartPosition());
-				System.out.print("]:");
-				System.out.print(s.value);
-				System.out.print("\n");
+				System.out.println("]");
+
 
 				/*********************/
 				/* [7] Print to file */
 				/*********************/
-				file_writer.print(l.getLine());
+				/*file_writer.print(l.getLine());
 				file_writer.print(": ");
 				file_writer.print(s.value);
-				file_writer.print("\n");
+				file_writer.print("\n");*/
 
 				/***********************/
 				/* [8] Read next token */
