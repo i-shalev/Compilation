@@ -49,6 +49,7 @@ public class Main
 				/************************/
 				/* [6] Print to console */
 				/************************/
+				/*
 				System.out.print(TokenNames.toString(s.sym));
 				if(s.value!=null){
 					System.out.print("("+s.value+")");
@@ -57,12 +58,17 @@ public class Main
 				System.out.print(l.getLine());
 				System.out.print(",");
 				System.out.print(l.getTokenStartPosition());
-				System.out.println("]");
+				System.out.println("]");*/
 
 
 				/*********************/
 				/* [7] Print to file */
 				/*********************/
+				if(TokenNames.toString((s.sym)).equals("ERROR")){
+					file_writer = new PrintWriter(outputFilename);
+					file_writer.println("ERROR");
+					break;
+				}
                 file_writer.print(TokenNames.toString(s.sym));
                 if(s.value!=null){
                     file_writer.print("("+s.value+")");

@@ -1,1 +1,1 @@
-classclass
+return 7;
