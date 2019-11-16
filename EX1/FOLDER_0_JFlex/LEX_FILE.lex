@@ -86,7 +86,7 @@ StartCommentMultiLine   = "/*"
 EndCommentMultiLine     = "*/"
 CommentOneLine          = "//"{Char}*{LineTerminator}
 Comment                 = {CommentOneLine} | {StartCommentMultiLine}({LineTerminator}|{Char})*{EndCommentMultiLine}
-
+BadComment              = {StartCommentMultiLine}({LineTerminator}|{Char})*
 ID				        = {Letters}({Letters}|{Digits0})*
 
 /******************************/
@@ -118,7 +118,9 @@ ID				        = {Letters}({Letters}|{Digits0})*
 "if"                { return symbol(TokenNames.IF);}
 
 //regular expressions
+
 {Comment}           { return symbol(TokenNames.COMMENT);}
+{BadComment}        { return symbol(TokenNames.error);}
 {BadInteger}        { return symbol(TokenNames.error);}
 {Integer}			{
 
