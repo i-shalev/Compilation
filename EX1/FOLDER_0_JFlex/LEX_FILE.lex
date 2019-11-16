@@ -81,12 +81,15 @@ Number                  = 0|{Digits}{Digits0}*
 Integer			        = -?{Digits}{Digits0}*|{Number}
 String                  = \"{Letters}*\"
 BadInteger              = -?0{Digits0}{Digits0}* | "-0" | {Digits0}{Digits0}{Digits0}{Digits0}{Digits0}{Digits0}{Digits0}*
-Char                    = {Letters} | {Digits0} | [ \t\f] | [\(\)\[\]\{\}\?!\+\-\*/\.;]
+Char                    = {Letters} | {Digits0} | [ \t\f] | "(" | ")" | "[" | "]" | "{" | "}" | "?" | "!" | "+" | "-" | "*" | "/" |"." | ";"
+CharNoSlash             = {Letters} | {Digits0} | [ \t\f] | "(" | ")" | "[" | "]" | "{" | "}" | "?" | "!" | "+" | "-" | "*" |"." | ";"
+CharNoStar              = {Letters} | {Digits0} | [ \t\f] | "(" | ")" | "[" | "]" | "{" | "}" | "?" | "!" | "+" | "-" | "/" |"." | ";"
 StartCommentMultiLine   = "/*"
 EndCommentMultiLine     = "*/"
 CommentOneLine          = "//"{Char}*{LineTerminator}
-Comment                 = {CommentOneLine} | {StartCommentMultiLine}({LineTerminator}|{Char})*{EndCommentMultiLine}
-BadComment              = {StartCommentMultiLine}({LineTerminator}|{Char})*
+CommentContent          = {LineTerminator}|{CharNoSlash}|{CharNoStar}{Char}
+Comment                 = {CommentOneLine} | {StartCommentMultiLine}({CommentContent})*{EndCommentMultiLine}
+BadComment              = {StartCommentMultiLine}({CommentContent})*
 ID				        = {Letters}({Letters}|{Digits0})*
 
 /******************************/
@@ -135,7 +138,7 @@ ID				        = {Letters}({Letters}|{Digits0})*
         if(new Integer(yytext())>Math.pow(2,15)-1 || new Integer(yytext())<-1*Math.pow(2,15))
             return symbol(TokenNames.error);
          else{
-            return symbol(TokenNames.NUMBER, new Integer(yytext()));
+            return symbol(TokenNames.INT, new Integer(yytext()));
          }
          }
 
