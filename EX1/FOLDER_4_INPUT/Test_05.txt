@@ -1,0 +1,5 @@
+"String" //bla
+7 /*foo**/ 8
+class
+new
+arrray[]
