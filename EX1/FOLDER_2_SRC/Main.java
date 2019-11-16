@@ -42,7 +42,7 @@ public class Main
 			while (s.sym != TokenNames.EOF)
 			{
 
-			    if(TokenNames.toString(s.sym)=="COMMENT"){
+			    if(TokenNames.toString(s.sym).equals("COMMENT")){
                     s = l.next_token();
                     continue;
                 }
