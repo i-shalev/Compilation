@@ -49,7 +49,7 @@ public class Main
 				/************************/
 				/* [6] Print to console */
 				/************************/
-
+				/*
 				System.out.print(TokenNames.toString(s.sym));
 				if(s.value!=null){
 					System.out.print("("+s.value+")");
@@ -59,7 +59,7 @@ public class Main
 				System.out.print(",");
 				System.out.print(l.getTokenStartPosition());
 				System.out.println("]");
-
+				*/
 
 				/*********************/
 				/* [7] Print to file */
