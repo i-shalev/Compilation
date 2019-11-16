@@ -81,10 +81,10 @@ Integer			        = -?{Digits}{Digits0}*|{Number}
 String                  = \"{Letters}*\"
 
 Char                    = {Letters} | {Digits0} | [ \t\f] | [\(\)\[\]\{\}\?!\+\-\*/\.;]
-StartCommentMultiLine   = \/\*
-EndCommentMultiLine     = \*\/
+StartCommentMultiLine   = "/*"
+EndCommentMultiLine     = "*/"
 CommentOneLine          = "//"{Char}*{LineTerminator}
-Comment                 = {CommentOneLine} | {StartCommentMultiLine}{Char}*{EndCommentMultiLine}
+Comment                 = {CommentOneLine} | {StartCommentMultiLine}({LineTerminator}|{Char})*{EndCommentMultiLine}
 
 ID				        = {Letters}({Letters}|{Digits0})*
 
