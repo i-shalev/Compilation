@@ -10,7 +10,26 @@ public class Tests {
         String[] tests = new String[] {
                 "01_Print_Primes",
                 "02_Bubble_Sort",
-                "03_Merge_Lists"
+                "03_Merge_Lists",
+                "01",
+                "02",
+                "03",
+                "04",
+                "05",
+                "06",
+                "07",
+                "08",
+                "09",
+                "10",
+                "11",
+                "12",
+                "13",
+                "14",
+                "15",
+                "16",
+                "17",
+                "01_Itay",
+                "02_Itay"
         };
 
 
@@ -18,7 +37,7 @@ public class Tests {
             numberOfTests++;
             String[] args = new String[]{
                     currentDir + "\\EX1\\FOLDER_4_INPUT\\Test_" + testName + ".txt",
-                    currentDir + "\\EX1\\FOLDER_5_OUTPUT\\OutputTokens.txt",
+                    currentDir + "\\EX1\\FOLDER_5_OUTPUT\\OutputTokens_" + testName + ".txt",
                     currentDir + "\\EX1\\FOLDER_6_EXPECTED_OUTPUT\\TEST_" + testName + "_Expected_Output.txt"
             };
             if (runTest(args)) {
