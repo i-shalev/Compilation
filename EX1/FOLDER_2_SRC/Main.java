@@ -41,6 +41,11 @@ public class Main
 			/********************************/
 			while (s.sym != TokenNames.EOF)
 			{
+
+			    if(TokenNames.toString(s.sym)=="COMMENT"){
+                    s = l.next_token();
+                    continue;
+                }
 				/************************/
 				/* [6] Print to console */
 				/************************/
@@ -58,11 +63,15 @@ public class Main
 				/*********************/
 				/* [7] Print to file */
 				/*********************/
-				/*file_writer.print(l.getLine());
-				file_writer.print(": ");
-				file_writer.print(s.value);
-				file_writer.print("\n");*/
-
+                file_writer.print(TokenNames.toString(s.sym));
+                if(s.value!=null){
+                    file_writer.print("("+s.value+")");
+                }
+                file_writer.print("[");
+                file_writer.print(l.getLine());
+                file_writer.print(",");
+                file_writer.print(l.getTokenStartPosition());
+                file_writer.println("]");
 				/***********************/
 				/* [8] Read next token */
 				/***********************/
