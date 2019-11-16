@@ -6,6 +6,7 @@
 /* USER CODE */
 /*************/
 import java_cup.runtime.*;
+import java.lang.Math;
 
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
@@ -79,7 +80,7 @@ Digits0                 = [0-9]
 Number                  = 0|{Digits}{Digits0}*
 Integer			        = -?{Digits}{Digits0}*|{Number}
 String                  = \"{Letters}*\"
-
+BadInteger              = -?0{Digits0}{Digits0}* | "-0" | {Digits0}{Digits0}{Digits0}{Digits0}{Digits0}{Digits0}{Digits0}*
 Char                    = {Letters} | {Digits0} | [ \t\f] | [\(\)\[\]\{\}\?!\+\-\*/\.;]
 StartCommentMultiLine   = "/*"
 EndCommentMultiLine     = "*/"
@@ -118,7 +119,25 @@ ID				        = {Letters}({Letters}|{Digits0})*
 
 //regular expressions
 {Comment}           { return symbol(TokenNames.COMMENT);}
-{Integer}			{ return symbol(TokenNames.INT, new Integer(yytext()));}
+{BadInteger}        { return symbol(TokenNames.error);}
+{Integer}			{
+
+ try{
+        Integer x = new Integer(yytext());
+ }
+ catch (Exception e)
+ 		{
+ 			return symbol(TokenNames.error);
+ 		}
+ finally{
+        if(new Integer(yytext())>Math.pow(2,15)-1 || new Integer(yytext())<-1*Math.pow(2,15))
+            return symbol(TokenNames.error);
+         else{
+            return symbol(TokenNames.NUMBER, new Integer(yytext()));
+         }
+         }
+
+ }
 {ID}				{ return symbol(TokenNames.ID,     new String( yytext()));}
 {String}			{ return symbol(TokenNames.STRING,     new String( yytext()));}
 {WhiteSpace}		{ /* just skip what was found, do nothing */ }

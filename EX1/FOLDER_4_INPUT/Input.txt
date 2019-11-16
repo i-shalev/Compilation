@@ -1,6 +1,9 @@
-98a
-// this is a comment // inside
-/* bla
-bla
-bke */
-return 3;
+23
+-22
+03
+-04
+-0
+-32768
+-32769
+32767
+32768
