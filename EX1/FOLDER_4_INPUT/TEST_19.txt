@@ -28,7 +28,7 @@ void PrintPrimes(int start, int end)
         if (IsPrime(p))
         {
             PrintInt(p);
-        }
+        } 32768
     }
 }
 

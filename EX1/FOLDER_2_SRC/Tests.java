@@ -29,7 +29,9 @@ public class Tests {
                 "16",
                 "17",
                 "01_Itay",
-                "02_Itay"
+                "02_Itay",
+                "18",
+                "19"
         };
 
 
