@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -7,47 +8,25 @@ public class Tests {
         String currentDir = System.getProperty("user.dir");
         int numberOfTests = 0;
         int numberOfTestsPassed = 0;
-        String[] tests = new String[] {
-                "01_Print_Primes",
-                "02_Bubble_Sort",
-                "03_Merge_Lists",
-                "01",
-                "02",
-                "03",
-                "04",
-                "05",
-                "06",
-                "07",
-                "08",
-                "09",
-                "10",
-                "11",
-                "12",
-                "13",
-                "14",
-                "15",
-                "16",
-                "17",
-                "01_Itay",
-                "02_Itay",
-                "18",
-                "19"
-        };
-
+        String[] tests = getFilesName(currentDir+"\\EX1\\FOLDER_4_INPUT");
 
         for(String testName : tests) {
+            if(testName.equals("Input"))
+            {
+                continue;
+            }
             numberOfTests++;
             String[] args = new String[]{
-                    currentDir + "\\EX1\\FOLDER_4_INPUT\\Test_" + testName + ".txt",
+                    currentDir + "\\EX1\\FOLDER_4_INPUT\\" + testName + ".txt",
                     currentDir + "\\EX1\\FOLDER_5_OUTPUT\\OutputTokens_" + testName + ".txt",
-                    currentDir + "\\EX1\\FOLDER_6_EXPECTED_OUTPUT\\TEST_" + testName + "_Expected_Output.txt"
+                    currentDir + "\\EX1\\FOLDER_6_EXPECTED_OUTPUT\\" + testName + "_Expected_Output.txt"
             };
             if (runTest(args)) {
-                System.out.println("Test_" + testName + ": Passed");
+                System.out.println(testName + ": Passed");
                 numberOfTestsPassed++;
             }
             else{
-                System.out.println("Test_" + testName + ": Failed");
+                System.out.println(testName + ": Failed");
             }
         }
 
@@ -85,4 +64,32 @@ public class Tests {
         }
     }
 
+    private static String[] getFilesName(String path)
+    {
+        File folder = new File(path);
+        File[] listOfFiles = folder.listFiles();
+        if (listOfFiles == null) {
+            System.out.println(path);
+            return null;
+        }
+        String[] listOfNames = new String[listOfFiles.length];
+
+        for (int i = 0; i < listOfFiles.length; i++) {
+            String fileName = listOfFiles[i].getName();
+            listOfNames[i] = stripExtension(fileName);
+        }
+        return listOfNames;
+    }
+
+    static String stripExtension (String str) {
+
+        if (str == null) {
+            return null;
+        }
+        int pos = str.lastIndexOf(".");
+        if (pos == -1){
+            return str;
+        }
+        return str.substring(0, pos);
+    }
 }
