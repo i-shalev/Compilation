@@ -81,6 +81,7 @@ public class Main
 				/***********************/
 				/* [8] Read next token */
 				/***********************/
+				// read next token
 				s = l.next_token();
 			}
 
