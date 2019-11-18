@@ -1,0 +1,5 @@
+/**/9ab9
+/*ppap*/55A5class
+array[nil];
+arr[new]
+//check that all identifiers start with a letter

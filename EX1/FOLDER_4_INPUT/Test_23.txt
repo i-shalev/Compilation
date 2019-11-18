@@ -1,0 +1,4 @@
+bla foo /*
+dsf
+sdf
+unclosed comment

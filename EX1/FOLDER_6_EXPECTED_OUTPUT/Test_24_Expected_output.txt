@@ -1,0 +1,6 @@
+INT(2)[1,1]
+ID(empty)[1,3]
+ID(StRiNgs)[1,9]
+EQ[1,17]
+STRING("")[1,19]
+STRING("")[1,21]
