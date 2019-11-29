@@ -1,0 +1,3 @@
+// (){}[]?!+-*/.;  235	abf
+/* (){}[]?!+-/.*;  235	abf*/
+//check the chars in a comment

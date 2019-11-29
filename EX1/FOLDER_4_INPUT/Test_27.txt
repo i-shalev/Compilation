@@ -1,0 +1,6 @@
+/* comment
+check
+
+//*/ array;
+//oneLine comment check*/*/*
+b4/*comment*/after

@@ -1,0 +1,4 @@
+ARRAY[4,6]
+SEMICOLON[4,11]
+ID(b4)[6,1]
+ID(after)[6,14]
