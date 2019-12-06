@@ -52,28 +52,41 @@ scan with
 /*************/
 /* TERMINALS */
 /*************/
-terminal IF;
-terminal EQ;
-terminal DOT;
+terminal EOF;
 terminal PLUS;
 terminal MINUS;
 terminal TIMES;
-terminal WHILE;
 terminal DIVIDE;
 terminal LPAREN;
 terminal RPAREN;
-terminal LBRACK;
-terminal RBRACK;
+terminal SEMICOLON;
+terminal CLASS;
+terminal NIL;
+terminal ARRAY;
+terminal WHILE;
+terminal EXTENDS;
+terminal RETURN;
+terminal NEW;
+terminal IF;
 terminal LBRACE;
 terminal RBRACE;
-terminal SEMICOLON;
+terminal LBRACK;
+terminal RBRACK;
+terminal COMMA;
+terminal DOT;
+terminal ELLIPSIS;
 terminal ASSIGN;
+terminal EQ;
+terminal LT;
+terminal GT;
+terminal COMMENT;
 
 /*************/
 /* TERMINALS */
 /*************/
 terminal Integer INT;
 terminal String ID;
+terminal String STRING;
 
 /*****************/
 /* NON TERMINALS */
@@ -86,10 +99,17 @@ non terminal AST_STMT_LIST stmtList;
 /***********************/
 /* OPERATOR PRECEDENCE */
 /***********************/
+precedence nonassoc ASSIGN;
+precedence left EQ;
+precedence left LT;
+precedence left GT;
 precedence left PLUS;
 precedence left MINUS;
 precedence left TIMES;
 precedence left DIVIDE;
+precedence nonassoc LBRACK;
+precedence nonassoc LPAREN;
+precedence left DOT;
 
 /************************/
 /* START WITH: stmtList */
