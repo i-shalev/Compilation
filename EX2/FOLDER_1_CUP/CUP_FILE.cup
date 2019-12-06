@@ -80,6 +80,7 @@ terminal EQ;
 terminal LT;
 terminal GT;
 terminal COMMENT;
+terminal error;
 
 /*************/
 /* TERMINALS */
@@ -91,10 +92,25 @@ terminal String STRING;
 /*****************/
 /* NON TERMINALS */
 /*****************/
+non terminal AST_PROGRAM program;
+non terminal AST_DEC dec;
+non terminal AST_VAR_DEC varDec;
+non terminal AST_FUNC_DEC funcDec;
+non terminal AST_CLASS_DEC classDec;
+non terminal AST_ARRAY_DEC arrayDec;
 non terminal AST_EXP exp;
 non terminal AST_VAR var;
 non terminal AST_STMT stmt;
+non terminal AST_NEW_EXP newExp;
+non terminal AST_C_FIELD cField;
 non terminal AST_STMT_LIST stmtList;
+non terminal AST_ID_LIST idList;
+non terminal AST_C_FIELD_LIST cFieldList;
+non terminal AST_BINOP binop;
+non terminal AST_INT int;
+non terminal AST_MINUS_INT minusInt;
+non terminal AST_EXP_LIST expList;
+
 
 /***********************/
 /* OPERATOR PRECEDENCE */
@@ -114,15 +130,72 @@ precedence left DOT;
 /************************/
 /* START WITH: stmtList */
 /************************/
-start with stmtList;
+start with program;
 
 /********************/
 /* DERIVATION RULES */
 /********************/
 
+program     ::=     dec:d  program:p        {: RESULT = new AST_PROGRAM(d,p);      :}
+                  | dec:d                   {: RESULT = new AST_PROGRAM(d,null);      :}
+                    ;
+
+dec         ::=     varDec:v                {: RESULT = new AST_DEC(v); :}
+                  | funcDec:f               {: RESULT = new AST_DEC(f); :}
+                  | classDec:c              {: RESULT = new AST_DEC(c); :}
+                  | arrayDec:a              {: RESULT = new AST_DEC(a); :}
+                    ;
+
+varDec      ::=     ID:id1 ID:id2 SEMICOLON                 {: RESULT = new AST_VAR_DEC(id1, id2, null); :}
+                  | ID:id1 ID:id2 ASSIGN exp:e SEMICOLON    {: RESULT = new AST_VAR_DEC(id1, id2, e); :}
+                  | ID:id1 ID:id2 ASSIGN newExp:e SEMICOLON {: RESULT = new AST_VAR_DEC(id1, id2, e); :}
+                    ;
+
+funcDec      ::=    ID:id1 ID:id2 LPAREN RPAREN LBRACE stmtList:stlist RBRACE                {: RESULT = new AST_FUNC_DEC(id1, id2, stlist); :}
+                  | ID:id1 ID:id2 LPAREN idList:idlist RPAREN LBRACE stmtList:stlist RBRACE  {: RESULT = new AST_FUNC_DEC(id1, id2, idlist, stlist); :}
+                    ;
+
 stmtList	::=		stmt:s	stmtList:l		{: RESULT = new AST_STMT_LIST(s,l);    :}
-					| stmt:s				{: RESULT = new AST_STMT_LIST(s,null); :}
+				  | stmt:s				{: RESULT = new AST_STMT_LIST(s,null); :}
 					;
+
+idList      ::= 	ID:id1 ID:id2 COMMA idList:idl		{: RESULT = new AST_ID_LIST(id1, id2, idl);    :}
+                  | ID:id1 ID:id2				        {: RESULT = new AST_ID_LIST(id1, id2); :}
+                	;
+
+classDec    ::=     CLASS ID:id1 EXTENDS ID: id2 LBRACE cFieldList:cList RBRACE   {: RESULT = new AST_CLASS_DEC(id1, id2, cList); :}
+                  | CLASS ID:id1 LBRACE cFieldList:cList RBRACE   {: RESULT = new AST_CLASS_DEC(id1, null, cList); :}
+                    ;
+
+cFieldList  ::=     cField:c cFieldList:cl  {: RESULT = new AST_C_FIELD_LIST(c, cl) ;:}
+                  | cField:c                {: RESULT = new AST_C_FIELD_LIST(c, null) ;:}
+                    ;
+
+arrayDec    ::=     ARRAY ID:id1 EQ ID:id2 LBRACK RBRACK    {: RESULT = new AST_ARRAY_DEC(id1, id2) ; :}
+                    ;
+
+exp         ::=     var:v                                       {: RESULT = new AST_EXP(v); :}
+                  | LPAREN exp:e RPAREN                         {: RESULT = new AST_EXP(e); :}
+                  | exp:e1 binop:b exp:e2                       {: RESULT = new AST_EXP(e1, b, e2); :}
+                  | ID:id1 LPAREN RPAREN                        {: RESULT = new AST_EXP(null, id1, null); :}
+                  | ID:id1 LPAREN expList:el RPAREN             {: RESULT = new AST_EXP(null, id1, el); :}
+                  | var:v DOT ID:id1 LPAREN RPAREN              {: RESULT = new AST_EXP(v, id1, null); :}
+                  | var:v DOT ID:id1 LPAREN expList:el RPAREN   {: RESULT = new AST_EXP(v, id1, el); :}
+                  | int:i                                       {: RESULT = new AST_EXP(i); :}
+                  | MINUS minusInt:i                            {: RESULT = new AST_EXP(i); :}
+                  | NIL                                         {: RESULT = new AST_EXP(); :}
+                  | STRING:st                                   {: RESULT = new AST_EXP(st); :}
+                    ;
+
+expList     ::=     exp:e expList:el    {: RESULT = new AST_EXP_LIST(e, el) ;:}
+                  | exp:e               {: RESULT = new AST_EXP_LIST(e, null) ;:}
+                    ;
+
+
+
+
+
+
 
 var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
 					| var:v DOT ID:fieldName			{: RESULT = new AST_VAR_FIELD(v,fieldName); :} 
