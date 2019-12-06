@@ -9,7 +9,7 @@ public interface TokenNames {
   public static final int LPAREN = 6;
   public static final int RPAREN = 7;
   public static final int SEMICOLON = 8;
-  public static final int NUMBER = 9;
+  //public static final int NUMBER = 9;
   public static final int ID = 10;
   public static final int CLASS = 11;
   public static final int NIL = 12;
@@ -44,7 +44,7 @@ public interface TokenNames {
       case LPAREN: return "LPAREN";
       case RPAREN: return "RPAREN";
       case SEMICOLON: return "SEMICOLON";
-      case NUMBER: return "NUMBER";
+      //case NUMBER: return "NUMBER";
       case ID: return "ID";
       case CLASS: return "CLASS";
       case NIL: return "NIL";
