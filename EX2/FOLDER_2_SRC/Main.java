@@ -9,7 +9,7 @@ public class Main
 	static public void main(String argv[])
 	{
 		Lexer l;
-		Parser p;
+		parser p;
 		Symbol s;
 		AST_STMT_LIST AST;
 		FileReader file_reader;
@@ -37,7 +37,7 @@ public class Main
 			/*******************************/
 			/* [4] Initialize a new parser */
 			/*******************************/
-			p = new Parser(l);
+			p = new parser(l);
 
 			/***********************************/
 			/* [5] 3 ... 2 ... 1 ... Parse !!! */
