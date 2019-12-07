@@ -105,9 +105,6 @@ non terminal AST_C_FIELD cField;
 non terminal AST_STMT_LIST stmtList;
 non terminal AST_ID_LIST idList;
 non terminal AST_C_FIELD_LIST cFieldList;
-non terminal AST_BINOP binop;
-non terminal AST_INT int;
-non terminal AST_MINUS_INT minusInt;
 non terminal AST_EXP_LIST expList;
 non terminal AST_VAR_SIMPLE varSimple;
 non terminal AST_VAR_FIELD varField;
@@ -180,15 +177,21 @@ cFieldList  ::=     cField:c cFieldList:cl  {: RESULT = new AST_C_FIELD_LIST(c, 
 arrayDec    ::=     ARRAY ID:id1 EQ ID:id2 LBRACK RBRACK    {: RESULT = new AST_ARRAY_DEC(id1, id2) ; :}
                     ;
 
-exp         ::=     var:v                                       {: RESULT = new AST_EXP(v); :}
-                  | LPAREN exp:e RPAREN                         {: RESULT = new AST_EXP(e); :}
-                  | exp:e1 binop:b exp:e2                       {: RESULT = new AST_EXP(e1, b, e2); :}
+exp         ::=     var:v                                       {: RESULT = new AST_EXP_VAR(v); :}
+                  | LPAREN exp:e RPAREN                         {: RESULT = new AST_EXP_WRAPPER(e); :}
+                  | exp:e1 PLUS exp:e2                          {: RESULT = new AST_EXP_BINOP(e1, e2, 0); :}
+                  | exp:e1 MINUS exp:e2                         {: RESULT = new AST_EXP_BINOP(e1, e2, 1); :}
+                  | exp:e1 TIMES exp:e2                         {: RESULT = new AST_EXP_BINOP(e1, e2, 2); :}
+                  | exp:e1 DIVIDE exp:e2                        {: RESULT = new AST_EXP_BINOP(e1, e2, 3); :}
+                  | exp:e1 GT exp:e2                            {: RESULT = new AST_EXP_BINOP(e1, e2, 4); :}
+                  | exp:e1 LT exp:e2                            {: RESULT = new AST_EXP_BINOP(e1, e2, 5); :}
+                  | exp:e1 EQ exp:e2                            {: RESULT = new AST_EXP_BINOP(e1, e2, 6); :}
                   | ID:id1 LPAREN RPAREN                        {: RESULT = new AST_EXP(null, id1, null); :}
                   | ID:id1 LPAREN expList:el RPAREN             {: RESULT = new AST_EXP(null, id1, el); :}
                   | var:v DOT ID:id1 LPAREN RPAREN              {: RESULT = new AST_EXP(v, id1, null); :}
                   | var:v DOT ID:id1 LPAREN expList:el RPAREN   {: RESULT = new AST_EXP(v, id1, el); :}
-                  | int:i                                       {: RESULT = new AST_EXP(i); :}
-                  | MINUS minusInt:i                            {: RESULT = new AST_EXP(i); :}
+                  | INT:i                                       {: RESULT = new AST_EXP_INT(i); :}
+                  | MINUS INT:i                                 {: RESULT = new AST_EXP_INT(-i); :}
                   | NIL                                         {: RESULT = new AST_EXP(); :}
                   | STRING:st                                   {: RESULT = new AST_EXP(st); :}
                     ;
@@ -212,22 +215,13 @@ stmt        ::=     varDec:vc                                               {: R
                   | ID:id1 LPAREN RPAREN SEMICOLON                          {: RESULT = new AST_STMT_FUNC(null,id1,null); :}
                   | var:v1 DOT ID:id1 LPAREN RPAREN SEMICOLON               {: RESULT = new AST_STMT_FUNC(v1,id1,null); :}
                   | var:v1 DOT ID:id1 LPAREN expList:el RPAREN SEMICOLON    {: RESULT = new AST_STMT_FUNC(v1,id1,el); :}
-                  | ID:id1 LPAREN expList:el RPAREN SEMICOLON    {: RESULT = new AST_STMT_FUNC(null,id1,el); :}
+                  | ID:id1 LPAREN expList:el RPAREN SEMICOLON               {: RESULT = new AST_STMT_FUNC(null,id1,el); :}
                     ;
 
+newExp      ::=     NEW ID:id                       {: RESULT = new AST_NEW_EXP(id, null); :}
+                  | NEW ID:id LBRACK exp:e RBRACK   {: RESULT = new AST_NEW_EXP(id, e); :}
+                    ;
 
-
-
-
-
-					
-stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v,e); :}
-					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_IF(   cond,body); :}
-					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_WHILE(cond,body); :}
-					;
-
-exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
-					| var:v								{: RESULT = new AST_EXP_VAR(v);          :}
-					| exp:e1 PLUS  exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 0);:}
-					| exp:e1 MINUS exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 1);:}
-					;
+cField      ::=     varDec:v                {: RESULT = new AST_C_FIELD_VAR(v); :}
+                  | funcDec:f               {: RESULT = new AST_C_FIELD_FUNC(f); :}
+                    ;
