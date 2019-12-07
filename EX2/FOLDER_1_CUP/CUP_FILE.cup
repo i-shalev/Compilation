@@ -19,7 +19,7 @@ parser code
 		System.out.print("[");
 		System.out.print(lexer.getLine());
 		System.out.print(":");
-		System.out.print(lexer.getCharPos());
+		System.out.print(lexer.getTokenStartPosition());
 		System.out.print("] ");		
 		System.exit(0);
 	}
@@ -36,9 +36,9 @@ scan with
 	System.out.print("[");
 	System.out.print(lexer.getLine());
 	System.out.print(":");
-	System.out.print(lexer.getCharPos());
+	System.out.print(lexer.getTokenStartPosition());
 	System.out.print("] ");
-	System.out.print(TokenNames.terminalNames[s.sym]);
+	System.out.print(TokenNames.toString(s.sym));
 	if (s.value != null)
 	{
 		System.out.print("( ");
