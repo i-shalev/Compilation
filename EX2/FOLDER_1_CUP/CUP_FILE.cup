@@ -52,7 +52,6 @@ scan with
 /*************/
 /* TERMINALS */
 /*************/
-terminal EOF;
 terminal PLUS;
 terminal MINUS;
 terminal TIMES;
@@ -80,7 +79,6 @@ terminal EQ;
 terminal LT;
 terminal GT;
 terminal COMMENT;
-terminal error;
 
 /*************/
 /* TERMINALS */
@@ -106,14 +104,7 @@ non terminal AST_STMT_LIST stmtList;
 non terminal AST_ID_LIST idList;
 non terminal AST_C_FIELD_LIST cFieldList;
 non terminal AST_EXP_LIST expList;
-non terminal AST_VAR_SIMPLE varSimple;
-non terminal AST_VAR_FIELD varField;
-non terminal AST_VAR_SUBSCRIPT varSubscript;
-non terminal AST_STMT_VAR_DEC stmtVarDec;
-non terminal AST_STMT_ASSIGN stmtAssign;
-non terminal AST_STMT_ASSIGN_NEW stmtAssignNew;
-
-
+non terminal AST_VAR var;
 
 /***********************/
 /* OPERATOR PRECEDENCE */
@@ -190,8 +181,8 @@ exp         ::=     var:v                                       {: RESULT = new 
                   | ID:id1 LPAREN expList:el RPAREN             {: RESULT = new AST_EXP_FUNC(null, id1, el); :}
                   | var:v DOT ID:id1 LPAREN RPAREN              {: RESULT = new AST_EXP_FUNC(v, id1, null); :}
                   | var:v DOT ID:id1 LPAREN expList:el RPAREN   {: RESULT = new AST_EXP_FUNC(v, id1, el); :}
-                  | INT:i                                       {: RESULT = new AST_EXP_INT(i); :}
-                  | MINUS INT:i                                 {: RESULT = new AST_EXP_INT(-i); :}
+                  | INT:i							            {: RESULT = new AST_EXP_INT(i); :}
+                  | MINUS INT:i						            {: RESULT = new AST_EXP_INT(-i); :}
                   | NIL                                         {: RESULT = new AST_EXP_NIL(); :}
                   | STRING:st                                   {: RESULT = new AST_EXP_STRING(st); :}
                     ;

@@ -6,47 +6,71 @@
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int TIMES = 7;
-  public static final int RBRACK = 13;
-  public static final int SEMICOLON = 16;
-  public static final int PLUS = 5;
-  public static final int INT = 18;
-  public static final int RBRACE = 15;
-  public static final int RPAREN = 11;
-  public static final int WHILE = 8;
-  public static final int LBRACK = 12;
-  public static final int IF = 2;
-  public static final int LPAREN = 10;
-  public static final int LBRACE = 14;
-  public static final int ID = 19;
+  public static final int RBRACK = 20;
+  public static final int TIMES = 4;
+  public static final int LT = 26;
+  public static final int CLASS = 9;
+  public static final int SEMICOLON = 8;
+  public static final int PLUS = 2;
+  public static final int INT = 29;
+  public static final int RBRACE = 18;
+  public static final int RPAREN = 7;
+  public static final int WHILE = 12;
+  public static final int LBRACK = 19;
+  public static final int RETURN = 14;
+  public static final int IF = 16;
+  public static final int GT = 27;
+  public static final int LBRACE = 17;
+  public static final int LPAREN = 6;
+  public static final int NIL = 10;
+  public static final int ID = 30;
+  public static final int STRING = 31;
+  public static final int COMMA = 21;
   public static final int EOF = 0;
-  public static final int DIVIDE = 9;
-  public static final int MINUS = 6;
+  public static final int DIVIDE = 5;
+  public static final int COMMENT = 28;
+  public static final int ELLIPSIS = 23;
+  public static final int MINUS = 3;
+  public static final int DOT = 22;
   public static final int error = 1;
-  public static final int DOT = 4;
-  public static final int ASSIGN = 17;
-  public static final int EQ = 3;
+  public static final int EQ = 25;
+  public static final int ASSIGN = 24;
+  public static final int NEW = 15;
+  public static final int EXTENDS = 13;
+  public static final int ARRAY = 11;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
-  "IF",
-  "EQ",
-  "DOT",
   "PLUS",
   "MINUS",
   "TIMES",
-  "WHILE",
   "DIVIDE",
   "LPAREN",
   "RPAREN",
-  "LBRACK",
-  "RBRACK",
+  "SEMICOLON",
+  "CLASS",
+  "NIL",
+  "ARRAY",
+  "WHILE",
+  "EXTENDS",
+  "RETURN",
+  "NEW",
+  "IF",
   "LBRACE",
   "RBRACE",
-  "SEMICOLON",
+  "LBRACK",
+  "RBRACK",
+  "COMMA",
+  "DOT",
+  "ELLIPSIS",
   "ASSIGN",
+  "EQ",
+  "LT",
+  "GT",
+  "COMMENT",
   "INT",
-  "ID"
+  "ID",
+  "STRING"
   };
 }
 
