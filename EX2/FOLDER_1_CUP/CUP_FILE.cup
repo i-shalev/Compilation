@@ -99,7 +99,6 @@ non terminal AST_FUNC_DEC funcDec;
 non terminal AST_CLASS_DEC classDec;
 non terminal AST_ARRAY_DEC arrayDec;
 non terminal AST_EXP exp;
-non terminal AST_VAR var;
 non terminal AST_STMT stmt;
 non terminal AST_NEW_EXP newExp;
 non terminal AST_C_FIELD cField;
@@ -110,6 +109,13 @@ non terminal AST_BINOP binop;
 non terminal AST_INT int;
 non terminal AST_MINUS_INT minusInt;
 non terminal AST_EXP_LIST expList;
+non terminal AST_VAR_SIMPLE varSimple;
+non terminal AST_VAR_FIELD varField;
+non terminal AST_VAR_SUBSCRIPT varSubscript;
+non terminal AST_STMT_VAR_DEC stmtVarDec;
+non terminal AST_STMT_ASSIGN stmtAssign;
+non terminal AST_STMT_ASSIGN_NEW stmtAssignNew;
+
 
 
 /***********************/
@@ -191,16 +197,29 @@ expList     ::=     exp:e expList:el    {: RESULT = new AST_EXP_LIST(e, el) ;:}
                   | exp:e               {: RESULT = new AST_EXP_LIST(e, null) ;:}
                     ;
 
-
-
-
-
-
-
 var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
-					| var:v DOT ID:fieldName			{: RESULT = new AST_VAR_FIELD(v,fieldName); :} 
-					| var:v LBRACK exp:e RBRACK			{: RESULT = new AST_VAR_SUBSCRIPT(v,e);     :} 
+				  | var:v DOT ID:fieldName			    {: RESULT = new AST_VAR_FIELD(v,fieldName); :}
+				  | var:v LBRACK exp:e RBRACK			{: RESULT = new AST_VAR_SUBSCRIPT(v,e);     :}
 					;
+
+stmt        ::=     varDec:vc                                               {: RESULT = new AST_STMT_VAR_DEC(vc); :}
+                  | var:v ASSIGN exp:e SEMICOLON		                    {: RESULT = new AST_STMT_ASSIGN(v,e); :}
+                  | var:v ASSIGN newExp:e SEMICOLON		                    {: RESULT = new AST_STMT_ASSIGN_NEW(v,e); :}
+                  | RETURN SEMICOLON                                        {: RESULT = new AST_STMT_RETURN(null); :}
+                  | RETURN exp:e SEMICOLON                                  {: RESULT = new AST_STMT_RETURN(e); :}
+                  | IF LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_IF(cond,body); :}
+                  | WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE {: RESULT = new AST_STMT_WHILE(cond,body); :}
+                  | ID:id1 LPAREN RPAREN SEMICOLON                          {: RESULT = new AST_STMT_FUNC(null,id1,null); :}
+                  | var:v1 DOT ID:id1 LPAREN RPAREN SEMICOLON               {: RESULT = new AST_STMT_FUNC(v1,id1,null); :}
+                  | var:v1 DOT ID:id1 LPAREN expList:el RPAREN SEMICOLON    {: RESULT = new AST_STMT_FUNC(v1,id1,el); :}
+                  | ID:id1 LPAREN expList:el RPAREN SEMICOLON    {: RESULT = new AST_STMT_FUNC(null,id1,el); :}
+                    ;
+
+
+
+
+
+
 					
 stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v,e); :}
 					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_IF(   cond,body); :}
