@@ -143,31 +143,31 @@ program     ::=     dec:d  program:p        {: RESULT = new AST_PROGRAM(d,p);   
                   | dec:d                   {: RESULT = new AST_PROGRAM(d,null);      :}
                     ;
 
-dec         ::=     varDec:v                {: RESULT = new AST_DEC(v); :}
-                  | funcDec:f               {: RESULT = new AST_DEC(f); :}
-                  | classDec:c              {: RESULT = new AST_DEC(c); :}
-                  | arrayDec:a              {: RESULT = new AST_DEC(a); :}
+dec         ::=     varDec:v                {: RESULT = new AST_DEC_VAR(v); :}
+                  | funcDec:f               {: RESULT = new AST_DEC_FUNC(f); :}
+                  | classDec:c              {: RESULT = new AST_DEC_CLASS(c); :}
+                  | arrayDec:a              {: RESULT = new AST_DEC_ARRAY(a); :}
                     ;
 
-varDec      ::=     ID:id1 ID:id2 SEMICOLON                 {: RESULT = new AST_VAR_DEC(id1, id2, null); :}
-                  | ID:id1 ID:id2 ASSIGN exp:e SEMICOLON    {: RESULT = new AST_VAR_DEC(id1, id2, e); :}
-                  | ID:id1 ID:id2 ASSIGN newExp:e SEMICOLON {: RESULT = new AST_VAR_DEC(id1, id2, e); :}
+varDec      ::=     ID:id1 ID:id2 SEMICOLON                 {: RESULT = new AST_VAR_DEC_EXP(id1, id2, null); :}
+                  | ID:id1 ID:id2 ASSIGN exp:e SEMICOLON    {: RESULT = new AST_VAR_DEC_EXP(id1, id2, e); :}
+                  | ID:id1 ID:id2 ASSIGN newExp:e SEMICOLON {: RESULT = new AST_VAR_DEC_NEW_EXP(id1, id2, e); :}
                     ;
 
-funcDec      ::=    ID:id1 ID:id2 LPAREN RPAREN LBRACE stmtList:stlist RBRACE                {: RESULT = new AST_FUNC_DEC(id1, id2, stlist); :}
+funcDec      ::=    ID:id1 ID:id2 LPAREN RPAREN LBRACE stmtList:stlist RBRACE                {: RESULT = new AST_FUNC_DEC(id1, id2, null,   stlist); :}
                   | ID:id1 ID:id2 LPAREN idList:idlist RPAREN LBRACE stmtList:stlist RBRACE  {: RESULT = new AST_FUNC_DEC(id1, id2, idlist, stlist); :}
                     ;
 
 stmtList	::=		stmt:s	stmtList:l		{: RESULT = new AST_STMT_LIST(s,l);    :}
-				  | stmt:s				{: RESULT = new AST_STMT_LIST(s,null); :}
+				  | stmt:s				    {: RESULT = new AST_STMT_LIST(s,null); :}
 					;
 
 idList      ::= 	ID:id1 ID:id2 COMMA idList:idl		{: RESULT = new AST_ID_LIST(id1, id2, idl);    :}
-                  | ID:id1 ID:id2				        {: RESULT = new AST_ID_LIST(id1, id2); :}
+                  | ID:id1 ID:id2				        {: RESULT = new AST_ID_LIST(id1, id2, null); :}
                 	;
 
-classDec    ::=     CLASS ID:id1 EXTENDS ID: id2 LBRACE cFieldList:cList RBRACE   {: RESULT = new AST_CLASS_DEC(id1, id2, cList); :}
-                  | CLASS ID:id1 LBRACE cFieldList:cList RBRACE   {: RESULT = new AST_CLASS_DEC(id1, null, cList); :}
+classDec    ::=     CLASS ID:id1 EXTENDS ID: id2 LBRACE cFieldList:cList RBRACE {: RESULT = new AST_CLASS_DEC(id1, id2, cList); :}
+                  | CLASS ID:id1 LBRACE cFieldList:cList RBRACE                 {: RESULT = new AST_CLASS_DEC(id1, null, cList); :}
                     ;
 
 cFieldList  ::=     cField:c cFieldList:cl  {: RESULT = new AST_C_FIELD_LIST(c, cl) ;:}
@@ -186,14 +186,14 @@ exp         ::=     var:v                                       {: RESULT = new 
                   | exp:e1 GT exp:e2                            {: RESULT = new AST_EXP_BINOP(e1, e2, 4); :}
                   | exp:e1 LT exp:e2                            {: RESULT = new AST_EXP_BINOP(e1, e2, 5); :}
                   | exp:e1 EQ exp:e2                            {: RESULT = new AST_EXP_BINOP(e1, e2, 6); :}
-                  | ID:id1 LPAREN RPAREN                        {: RESULT = new AST_EXP(null, id1, null); :}
-                  | ID:id1 LPAREN expList:el RPAREN             {: RESULT = new AST_EXP(null, id1, el); :}
-                  | var:v DOT ID:id1 LPAREN RPAREN              {: RESULT = new AST_EXP(v, id1, null); :}
-                  | var:v DOT ID:id1 LPAREN expList:el RPAREN   {: RESULT = new AST_EXP(v, id1, el); :}
+                  | ID:id1 LPAREN RPAREN                        {: RESULT = new AST_EXP_FUNC(null, id1, null); :}
+                  | ID:id1 LPAREN expList:el RPAREN             {: RESULT = new AST_EXP_FUNC(null, id1, el); :}
+                  | var:v DOT ID:id1 LPAREN RPAREN              {: RESULT = new AST_EXP_FUNC(v, id1, null); :}
+                  | var:v DOT ID:id1 LPAREN expList:el RPAREN   {: RESULT = new AST_EXP_FUNC(v, id1, el); :}
                   | INT:i                                       {: RESULT = new AST_EXP_INT(i); :}
                   | MINUS INT:i                                 {: RESULT = new AST_EXP_INT(-i); :}
-                  | NIL                                         {: RESULT = new AST_EXP(); :}
-                  | STRING:st                                   {: RESULT = new AST_EXP(st); :}
+                  | NIL                                         {: RESULT = new AST_EXP_NIL(); :}
+                  | STRING:st                                   {: RESULT = new AST_EXP_STRING(st); :}
                     ;
 
 expList     ::=     exp:e expList:el    {: RESULT = new AST_EXP_LIST(e, el) ;:}
