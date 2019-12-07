@@ -90,9 +90,9 @@ terminal String STRING;
 /*****************/
 /* NON TERMINALS */
 /*****************/
-non terminal AST_PROGRAM program;
+non terminal AST_Program program;
 non terminal AST_DEC dec;
-non terminal AST_VAR_DEC varDec;
+non terminal AST_DEC_VAR varDec;
 non terminal AST_FUNC_DEC funcDec;
 non terminal AST_CLASS_DEC classDec;
 non terminal AST_ARRAY_DEC arrayDec;
@@ -122,7 +122,7 @@ precedence nonassoc LPAREN;
 precedence left DOT;
 
 /************************/
-/* START WITH: stmtList */
+/* START WITH: program */
 /************************/
 start with program;
 
@@ -130,8 +130,8 @@ start with program;
 /* DERIVATION RULES */
 /********************/
 
-program     ::=     dec:d  program:p        {: RESULT = new AST_PROGRAM(d,p);      :}
-                  | dec:d                   {: RESULT = new AST_PROGRAM(d,null);      :}
+program     ::=     dec:d  program:p        {: RESULT = new AST_Program(d, p);      :}
+                  | dec:d                   {: RESULT = new AST_Program(d, null);      :}
                     ;
 
 dec         ::=     varDec:v                {: RESULT = new AST_DEC_VAR(v); :}
