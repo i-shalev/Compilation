@@ -187,7 +187,7 @@ exp         ::=     var:v                                       {: RESULT = new 
                   | STRING:st                                   {: RESULT = new AST_EXP_STRING(st); :}
                     ;
 
-expList     ::=     exp:e expList:el    {: RESULT = new AST_EXP_LIST(e, el) ;:}
+expList     ::=     exp:e COMMA expList:el    {: RESULT = new AST_EXP_LIST(e, el) ;:}
                   | exp:e               {: RESULT = new AST_EXP_LIST(e, null) ;:}
                     ;
 
