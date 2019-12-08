@@ -1,16 +1,16 @@
 package AST;
 
-public class AST_DEC_VAR extends AST_DEC
+public class AST_DEC_CLASS extends AST_DEC
 {
     /****************/
     /* DATA MEMBERS */
     /****************/
-    public AST_DEC_VAR varDec;
+    public AST_DEC_CLASS classDec;
 
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_DEC_VAR(AST_DEC_VAR varDec)
+    public AST_DEC_CLASS(AST_DEC_CLASS classDec)
     {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
@@ -20,12 +20,12 @@ public class AST_DEC_VAR extends AST_DEC
         /***************************************/
         /* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
-        System.out.print("====================== dec -> varDec\n");
+        System.out.print("====================== dec -> classDec\n");
 
         /*******************************/
         /* COPY INPUT DATA NENBERS ... */
         /*******************************/
-        this.varDec = varDec;
+        this.classDec = classDec;
     }
 
     /******************************************************/
@@ -34,26 +34,26 @@ public class AST_DEC_VAR extends AST_DEC
     public void PrintMe()
     {
         /**************************************/
-        /* AST NODE TYPE = AST DEC VAR */
+        /* AST NODE TYPE = AST DEC CLASS */
         /**************************************/
-        System.out.print("AST DEC VAR\n");
+        System.out.print("AST DEC CLASS\n");
 
         /*************************************/
         /* RECURSIVE PRINT */
         /*************************************/
-        varDec.PrintMe();
+        classDec.PrintMe();
 
         /**********************************/
         /* PRINT to AST GRAPHVIZ DOT file */
         /**********************************/
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
-                "varDec\n");
+                "classDec\n");
 
         /****************************************/
         /* PRINT Edges to AST GRAPHVIZ DOT file */
         /****************************************/
-        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, varDec.SerialNumber);
+        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, classDec.SerialNumber);
     }
 
 }

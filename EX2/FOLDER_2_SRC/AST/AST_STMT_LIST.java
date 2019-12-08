@@ -1,16 +1,17 @@
 package AST;
 
-public class AST_DEC_VAR extends AST_DEC
+public class AST_STMT_LIST extends AST_Node
 {
     /****************/
     /* DATA MEMBERS */
     /****************/
-    public AST_DEC_VAR varDec;
+    public AST_STMT head;
+    public AST_STMT_LIST tail;
 
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_DEC_VAR(AST_DEC_VAR varDec)
+    public AST_STMT_LIST(AST_STMT head, AST_STMT_LIST tail)
     {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
@@ -20,40 +21,44 @@ public class AST_DEC_VAR extends AST_DEC
         /***************************************/
         /* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
-        System.out.print("====================== dec -> varDec\n");
+        if (tail != null) System.out.print("====================== stmtList -> stmt stmtList\n");
+        if (tail == null) System.out.print("====================== stmts -> stmt      \n");
 
         /*******************************/
         /* COPY INPUT DATA NENBERS ... */
         /*******************************/
-        this.varDec = varDec;
+        this.head = head;
+        this.tail = tail;
     }
 
     /******************************************************/
-    /* The printing message for a program AST node */
+    /* The printing message for a statement list AST node */
     /******************************************************/
     public void PrintMe()
     {
         /**************************************/
-        /* AST NODE TYPE = AST DEC VAR */
+        /* AST NODE TYPE = AST STATEMENT LIST */
         /**************************************/
-        System.out.print("AST DEC VAR\n");
+        System.out.print("AST STMT LIST\n");
 
         /*************************************/
-        /* RECURSIVE PRINT */
+        /* RECURSIVELY PRINT HEAD + TAIL ... */
         /*************************************/
-        varDec.PrintMe();
+        if (head != null) head.PrintMe();
+        if (tail != null) tail.PrintMe();
 
         /**********************************/
         /* PRINT to AST GRAPHVIZ DOT file */
         /**********************************/
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
-                "varDec\n");
+                "STMT\nLIST\n");
 
         /****************************************/
         /* PRINT Edges to AST GRAPHVIZ DOT file */
         /****************************************/
-        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, varDec.SerialNumber);
+        if (head != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, head.SerialNumber);
+        if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, tail.SerialNumber);
     }
 
 }

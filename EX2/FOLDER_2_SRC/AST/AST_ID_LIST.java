@@ -1,16 +1,18 @@
 package AST;
 
-public class AST_DEC_VAR extends AST_DEC
+public class AST_ID_LIST extends AST_Node
 {
     /****************/
     /* DATA MEMBERS */
     /****************/
-    public AST_DEC_VAR varDec;
+    public String type;
+    public String name;
+    public AST_ID_LIST idList;
 
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_DEC_VAR(AST_DEC_VAR varDec)
+    public AST_ID_LIST(String type, String name, AST_ID_LIST idList)
     {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
@@ -20,40 +22,43 @@ public class AST_DEC_VAR extends AST_DEC
         /***************************************/
         /* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
-        System.out.print("====================== dec -> varDec\n");
+        if (idList != null) System.out.print("====================== idList -> ID ID COMMA idList\n");
+        if (idList == null) System.out.print("====================== idList -> ID ID\n");
 
         /*******************************/
         /* COPY INPUT DATA NENBERS ... */
         /*******************************/
-        this.varDec = varDec;
+        this.type = type;
+        this.name = name;
+        this.idList = idList;
     }
 
     /******************************************************/
-    /* The printing message for a program AST node */
+    /* The printing message for a statement list AST node */
     /******************************************************/
     public void PrintMe()
     {
         /**************************************/
-        /* AST NODE TYPE = AST DEC VAR */
+        /* AST NODE TYPE = AST ID LIST */
         /**************************************/
-        System.out.print("AST DEC VAR\n");
+        System.out.print("AST ID LIST\n");
 
         /*************************************/
-        /* RECURSIVE PRINT */
+        /* RECURSIVELY PRINT IDLIST ... */
         /*************************************/
-        varDec.PrintMe();
+        if (idList != null) idList.PrintMe();
 
         /**********************************/
         /* PRINT to AST GRAPHVIZ DOT file */
         /**********************************/
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
-                "varDec\n");
+                "ID\nLIST\n");
 
         /****************************************/
         /* PRINT Edges to AST GRAPHVIZ DOT file */
         /****************************************/
-        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, varDec.SerialNumber);
+        if (idList != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, idList.SerialNumber);
     }
 
 }

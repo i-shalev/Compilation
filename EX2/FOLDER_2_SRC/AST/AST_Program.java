@@ -11,7 +11,7 @@ public class AST_Program extends AST_Node
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_Program(AST_DEC head,AST_Program tail)
+    public AST_Program(AST_DEC head, AST_Program tail)
     {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
