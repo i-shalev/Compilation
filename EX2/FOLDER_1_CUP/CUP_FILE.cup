@@ -38,7 +38,7 @@ scan with
 	System.out.print(":");
 	System.out.print(lexer.getTokenStartPosition());
 	System.out.print("] ");
-	System.out.print(TokenNames.toString(s.sym));
+	System.out.print(TokenNames.terminalNames[s.sym]);
 	if (s.value != null)
 	{
 		System.out.print("( ");

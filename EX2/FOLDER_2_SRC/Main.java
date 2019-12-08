@@ -9,9 +9,9 @@ public class Main
 	static public void main(String argv[])
 	{
 		Lexer l;
-		parser p;
+		Parser p;
 		Symbol s;
-		AST_STMT_LIST AST;
+		AST_Program AST;
 		FileReader file_reader;
 		PrintWriter file_writer;
 		String inputFilename = argv[0];
@@ -37,12 +37,12 @@ public class Main
 			/*******************************/
 			/* [4] Initialize a new parser */
 			/*******************************/
-			p = new parser(l);
+			p = new Parser(l);
 
 			/***********************************/
 			/* [5] 3 ... 2 ... 1 ... Parse !!! */
 			/***********************************/
-			AST = (AST_STMT_LIST) p.parse().value;
+			AST = (AST_Program) p.parse().value;
 			
 			/*************************/
 			/* [6] Print the AST ... */
