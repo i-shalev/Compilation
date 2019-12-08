@@ -92,10 +92,10 @@ terminal String STRING;
 /*****************/
 non terminal AST_Program program;
 non terminal AST_DEC dec;
-non terminal AST_DEC_VAR varDec;
-non terminal AST_DEC_FUNC funcDec;
-non terminal AST_DEC_CLASS classDec;
-non terminal AST_DEC_ARRAY arrayDec;
+non terminal AST_VAR_DEC varDec;
+non terminal AST_FUNC_DEC funcDec;
+non terminal AST_CLASS_DEC classDec;
+non terminal AST_ARRAY_DEC arrayDec;
 non terminal AST_EXP exp;
 non terminal AST_STMT stmt;
 non terminal AST_NEW_EXP newExp;

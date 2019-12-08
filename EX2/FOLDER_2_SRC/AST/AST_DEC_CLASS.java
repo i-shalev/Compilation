@@ -5,12 +5,12 @@ public class AST_DEC_CLASS extends AST_DEC
     /****************/
     /* DATA MEMBERS */
     /****************/
-    public AST_DEC_CLASS classDec;
+    public AST_CLASS_DEC classDec;
 
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_DEC_CLASS(AST_DEC_CLASS classDec)
+    public AST_DEC_CLASS(AST_CLASS_DEC classDec)
     {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */

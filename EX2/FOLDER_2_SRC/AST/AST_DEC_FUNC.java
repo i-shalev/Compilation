@@ -5,12 +5,12 @@ public class AST_DEC_FUNC extends AST_DEC
     /****************/
     /* DATA MEMBERS */
     /****************/
-    public AST_DEC_FUNC funcDec;
+    public AST_FUNC_DEC funcDec;
 
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_DEC_FUNC(AST_DEC_FUNC funcDec)
+    public AST_DEC_FUNC(AST_FUNC_DEC funcDec)
     {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */

@@ -5,12 +5,12 @@ public class AST_DEC_ARRAY extends AST_DEC
     /****************/
     /* DATA MEMBERS */
     /****************/
-    public AST_DEC_ARRAY arrayDec;
+    public AST_ARRAY_DEC arrayDec;
 
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_DEC_ARRAY(AST_DEC_ARRAY arrayDec)
+    public AST_DEC_ARRAY(AST_ARRAY_DEC arrayDec)
     {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */

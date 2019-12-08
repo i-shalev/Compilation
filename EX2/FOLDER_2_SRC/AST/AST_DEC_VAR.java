@@ -5,12 +5,12 @@ public class AST_DEC_VAR extends AST_DEC
     /****************/
     /* DATA MEMBERS */
     /****************/
-    public AST_DEC_VAR varDec;
+    public AST_VAR_DEC varDec;
 
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_DEC_VAR(AST_DEC_VAR varDec)
+    public AST_DEC_VAR(AST_VAR_DEC varDec)
     {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
