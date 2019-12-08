@@ -1,6 +1,6 @@
 package AST;
 
-public class AST_STMT_VAR_DEC extends AST_EXP
+public class AST_STMT_VAR_DEC extends AST_STMT
 {
     public AST_VAR_DEC varDec;
 
