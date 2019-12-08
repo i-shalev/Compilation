@@ -11,7 +11,7 @@ public class AST_NEW_EXP extends AST_Node
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_EXP_LIST(String type, AST_EXP exp)
+    public AST_NEW_EXP(String type, AST_EXP exp)
     {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */

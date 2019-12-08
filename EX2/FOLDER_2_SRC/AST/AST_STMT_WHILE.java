@@ -1,6 +1,6 @@
 package AST;
 
-public class AST_STMT_IF extends AST_STMT
+public class AST_STMT_WHILE extends AST_STMT
 {
     /**************/
     /*  while (condition) { statements } */

@@ -9,7 +9,7 @@ public class AST_VAR_DEC_NEW_EXP extends AST_Node
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_VAR_DEC_EXP(String type, String name, AST_NEW_EXP expr)
+    public AST_VAR_DEC_NEW_EXP(String type, String name, AST_NEW_EXP expr)
     {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */

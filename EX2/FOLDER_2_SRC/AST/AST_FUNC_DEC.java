@@ -2,7 +2,7 @@ package AST;
 
 public class AST_FUNC_DEC extends AST_Node
 {
-    public String retType
+    public String retType;
     public String name;
     public AST_ID_LIST variables;
     public AST_STMT_LIST statements;
