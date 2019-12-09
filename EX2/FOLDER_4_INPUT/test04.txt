@@ -1,0 +1,9 @@
+id id(){
+if(x.x){
+x:=3;
+x:= new bla;
+x:= new bla[7+"foo"];
+return -17;
+}
+bla.bla(7+3-0, fly);
+}

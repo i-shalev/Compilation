@@ -1,0 +1,1 @@
+class bla extends foo { int x; foo bla(){int x;}}
