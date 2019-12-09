@@ -123,7 +123,7 @@ ID				        = {Letters}({Letters}|{Digits0})*
 
 //regular expressions
 
-{Comment}           { return symbol(TokenNames.COMMENT);}
+{Comment}           { }
 {BadComment}        { return symbol(TokenNames.error);}
 {BadInteger}        { return symbol(TokenNames.error);}
 {Integer}			{
