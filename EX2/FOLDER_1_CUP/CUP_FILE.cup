@@ -141,10 +141,10 @@ program     ::=     dec:d  program:p        {: RESULT = new AST_Program(d, p);  
                   | dec:d                   {: RESULT = new AST_Program(d, null);      :}
                     ;
 
-dec         ::=     varDec:v                {: RESULT = new AST_DEC_VAR(v); :}
-                  | funcDec:f               {: RESULT = new AST_DEC_FUNC(f); :}
-                  | classDec:c              {: RESULT = new AST_DEC_CLASS(c); :}
-                  | arrayDec:a              {: RESULT = new AST_DEC_ARRAY(a); :}
+dec         ::=     varDec:v                {: RESULT = new AST_DEC(v); :}
+                  | funcDec:f               {: RESULT = new AST_DEC(f); :}
+                  | classDec:c              {: RESULT = new AST_DEC(c); :}
+                  | arrayDec:a              {: RESULT = new AST_DEC(a); :}
                     ;
 
 varDec      ::=     ID:id1 ID:id2 SEMICOLON                 {: RESULT = new AST_VAR_DEC(id1, id2); :}

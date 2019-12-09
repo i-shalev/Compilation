@@ -1,15 +1,12 @@
 package AST;
 
 public class AST_VAR_DEC extends AST_Node {
+
     public String type;
     public String name;
     public AST_EXP expr;
     public AST_NEW_EXP builder;
 
-    /******************/
-    /* CONSTRUCTOR(S) */
-
-    /******************/
     public AST_VAR_DEC(String type, String name)
     {
         SerialNumber = AST_Node_Serial_Number.getFresh();
