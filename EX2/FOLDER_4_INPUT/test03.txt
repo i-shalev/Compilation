@@ -1,0 +1,4 @@
+// bla foo
+/*******/int k;
+// comment
+dof okjn;
