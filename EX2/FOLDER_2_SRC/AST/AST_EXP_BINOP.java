@@ -6,39 +6,19 @@ public class AST_EXP_BINOP extends AST_EXP
     public AST_EXP left;
     public AST_EXP right;
 
-    /******************/
-    /* CONSTRUCTOR(S) */
-    /******************/
     public AST_EXP_BINOP(AST_EXP left, AST_EXP right, int OP)
     {
-        /******************************/
-        /* SET A UNIQUE SERIAL NUMBER */
-        /******************************/
-        SerialNumber = AST_Node_Serial_Number.getFresh();
+        PrintRule("exp", "exp BINOP exp");
 
-        /***************************************/
-        /* PRINT CORRESPONDING DERIVATION RULE */
-        /***************************************/
-        System.out.print("====================== exp -> exp BINOP exp\n");
-
-        /*******************************/
-        /* COPY INPUT DATA NENBERS ... */
-        /*******************************/
         this.left = left;
         this.right = right;
         this.OP = OP;
     }
 
-    /*************************************************/
-    /* The printing message for a binop exp AST node */
-    /*************************************************/
     public void PrintMe()
     {
         String sOP="";
 
-        /*********************************/
-        /* CONVERT OP to a printable sOP */
-        /*********************************/
         if (OP == 0) {sOP = "+";}
         if (OP == 1) {sOP = "-";}
         if (OP == 2) {sOP = "*";}
@@ -47,28 +27,13 @@ public class AST_EXP_BINOP extends AST_EXP
         if (OP == 5) {sOP = "<";}
         if (OP == 6) {sOP = "=";}
 
-
-        /*************************************/
-        /* AST NODE TYPE = AST EXP BINOP */
-        /*************************************/
-        System.out.print("AST EXP BINOP\n");
-
-        /**************************************/
-        /* RECURSIVELY PRINT left + right ... */
-        /**************************************/
         if (left != null) left.PrintMe();
         if (right != null) right.PrintMe();
 
-        /***************************************/
-        /* PRINT Node to AST GRAPHVIZ DOT file */
-        /***************************************/
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
-                String.format("BINOP\n(%s)",sOP));
+                String.format("BINOP\n(%s)", sOP));
 
-        /****************************************/
-        /* PRINT Edges to AST GRAPHVIZ DOT file */
-        /****************************************/
         if (left  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, left.SerialNumber);
         if (right != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, right.SerialNumber);
     }

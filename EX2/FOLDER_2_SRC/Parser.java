@@ -311,19 +311,21 @@ public class Parser extends java_cup.runtime.lr_parser {
 	Symbol s;
 	s = lexer.next_token();
 	//System.out.print(s.sym);
-	System.out.print("[");
-	System.out.print(lexer.getLine());
-	System.out.print(":");
-	System.out.print(lexer.getTokenStartPosition());
-	System.out.print("] ");
-	System.out.print(TokenNames.terminalNames[s.sym]);
-	if (s.value != null)
-	{
-		System.out.print("(");
-		System.out.print(s.value);
-		System.out.print(")");
+	if (printTokens){
+        System.out.print("[");
+        System.out.print(lexer.getLine());
+        System.out.print(":");
+        System.out.print(lexer.getTokenStartPosition());
+        System.out.print("] ");
+        System.out.print(TokenNames.terminalNames[s.sym]);
+        if (s.value != null)
+        {
+            System.out.print("(");
+            System.out.print(s.value);
+            System.out.print(")");
+        }
+        System.out.print("\n");
 	}
-	System.out.print("\n");
 	return s; 
 
     }
@@ -331,16 +333,18 @@ public class Parser extends java_cup.runtime.lr_parser {
 
 	public Lexer lexer;
 	public PrintWriter file_writer;
+	public boolean printTokens;
 
-	public Parser(Lexer lexer, PrintWriter file_writer)
+	public Parser(Lexer lexer, PrintWriter file_writer, boolean printTokens)
 	{
 		super(lexer);
 		this.lexer = lexer;
 		this.file_writer = file_writer;
+		this.printTokens = printTokens;
 	}
 	public void report_error(String message, Object info)
 	{
-		System.out.print("ERROR >> ");		
+		System.out.print("ERROR >> ");
 		System.out.print("[");
 		System.out.print(lexer.getLine());
 		System.out.print(":");
@@ -594,10 +598,10 @@ class CUP$Parser$actions {
 		int id2left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int id2right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
 		String id2 = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
-		int idlleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
-		int idlright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
-		AST_ID_LIST idl = (AST_ID_LIST)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new AST_ID_LIST(id1, id2, idl);    
+		int idLleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int idLright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		AST_ID_LIST idL = (AST_ID_LIST)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = new AST_ID_LIST(id1, id2, idL);    
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("idList",11, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

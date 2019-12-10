@@ -16,53 +16,31 @@ public class Main
 		PrintWriter file_writer;
 		String inputFilename = argv[0];
 		String outputFilename = argv[1];
-		
+
+		boolean printDerivationRule = true;
+		boolean printTokens = true;
+
 		try
 		{
-			/********************************/
-			/* [1] Initialize a file reader */
-			/********************************/
 			file_reader = new FileReader(inputFilename);
 
-			/********************************/
-			/* [2] Initialize a file writer */
-			/********************************/
 			file_writer = new PrintWriter(outputFilename);
-			
-			/******************************/
-			/* [3] Initialize a new lexer */
-			/******************************/
-			l = new Lexer(file_reader);
-			
-			/*******************************/
-			/* [4] Initialize a new parser */
-			/*******************************/
-			p = new Parser(l, file_writer);
 
-			/***********************************/
-			/* [5] 3 ... 2 ... 1 ... Parse !!! */
-			/***********************************/
+			l = new Lexer(file_reader);
+
+			p = new Parser(l, file_writer, printTokens);
+
+			AST_Node.printDerivationRule = printDerivationRule;
+
 			AST = (AST_Program) p.parse().value;
-			
-			/*************************/
-			/* [6] Print the AST ... */
-			/*************************/
+
 			AST.PrintMe();
 
-			/***********************************/
-			/* [7] Print OK to the output file */
-			/***********************************/
 			file_writer.println("OK");
 
-			/*************************/
-			/* [8] Close output file */
-			/*************************/
 			file_writer.close();
-			
-			/*************************************/
-			/* [8] Finalize AST GRAPHIZ DOT file */
-			/*************************************/
-			AST_GRAPHVIZ.getInstance().finalizeFile();
+
+			AST_GRAPHVIZ.getInstance().finalizeFile(); // Creates AST graphics
     	}
 			     
 		catch (Exception e)

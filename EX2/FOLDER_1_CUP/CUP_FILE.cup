@@ -9,16 +9,18 @@ parser code
 {:
 	public Lexer lexer;
 	public PrintWriter file_writer;
+	public boolean printTokens;
 
-	public Parser(Lexer lexer, PrintWriter file_writer)
+	public Parser(Lexer lexer, PrintWriter file_writer, boolean printTokens)
 	{
 		super(lexer);
 		this.lexer = lexer;
 		this.file_writer = file_writer;
+		this.printTokens = printTokens;
 	}
 	public void report_error(String message, Object info)
 	{
-		System.out.print("ERROR >> ");		
+		System.out.print("ERROR >> ");
 		System.out.print("[");
 		System.out.print(lexer.getLine());
 		System.out.print(":");
@@ -40,19 +42,21 @@ scan with
 	Symbol s;
 	s = lexer.next_token();
 	//System.out.print(s.sym);
-	System.out.print("[");
-	System.out.print(lexer.getLine());
-	System.out.print(":");
-	System.out.print(lexer.getTokenStartPosition());
-	System.out.print("] ");
-	System.out.print(TokenNames.terminalNames[s.sym]);
-	if (s.value != null)
-	{
-		System.out.print("(");
-		System.out.print(s.value);
-		System.out.print(")");
+	if (printTokens){
+        System.out.print("[");
+        System.out.print(lexer.getLine());
+        System.out.print(":");
+        System.out.print(lexer.getTokenStartPosition());
+        System.out.print("] ");
+        System.out.print(TokenNames.terminalNames[s.sym]);
+        if (s.value != null)
+        {
+            System.out.print("(");
+            System.out.print(s.value);
+            System.out.print(")");
+        }
+        System.out.print("\n");
 	}
-	System.out.print("\n");
 	return s; 
 :};
 
@@ -160,7 +164,7 @@ stmtList	::=		stmt:s	stmtList:l		{: RESULT = new AST_STMT_LIST(s, l);    :}
 				  | stmt:s				    {: RESULT = new AST_STMT_LIST(s, null); :}
 					;
 
-idList      ::= 	ID:id1 ID:id2 COMMA idList:idl		{: RESULT = new AST_ID_LIST(id1, id2, idl);    :}
+idList      ::= 	ID:id1 ID:id2 COMMA idList:idL		{: RESULT = new AST_ID_LIST(id1, id2, idL);    :}
                   | ID:id1 ID:id2				        {: RESULT = new AST_ID_LIST(id1, id2, null); :}
                 	;
 

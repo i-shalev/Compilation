@@ -2,6 +2,7 @@ package AST;
 
 public abstract class AST_Node
 {
+	public static boolean printDerivationRule = true;
 	/*******************************************/
 	/* The serial number is for debug purposes */
 	/* In particular, it can help in creating  */
@@ -22,6 +23,8 @@ public abstract class AST_Node
 	}
 
 	public static void PrintRule(String left, String right) {
-		System.out.format("======== %s -> %s\n", left, right);
+
+		if (printDerivationRule)
+			System.out.format("======== %s -> %s\n", left, right);
 	}
 }

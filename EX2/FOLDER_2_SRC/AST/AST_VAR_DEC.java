@@ -4,53 +4,42 @@ public class AST_VAR_DEC extends AST_Node {
 
     public String type;
     public String name;
-    public AST_EXP expr;
-    public AST_NEW_EXP builder;
+    public AST_EXP exp;
+    public AST_NEW_EXP newExp;
 
     public AST_VAR_DEC(String type, String name)
     {
-        SerialNumber = AST_Node_Serial_Number.getFresh();
-
-        System.out.print("====================== varDec -> ID ID\n");
-
+        PrintRule("varDec", "ID ID");
         this.type = type;
         this.name = name;
     }
 
-    public AST_VAR_DEC(String type, String name, AST_EXP expr)
+    public AST_VAR_DEC(String type, String name, AST_EXP exp)
     {
-        SerialNumber = AST_Node_Serial_Number.getFresh();
-
-        System.out.print("====================== varDec -> ID ID ASSIGN exp\n");
-
+        PrintRule("varDec", "ID ID := exp ;");
         this.type = type;
         this.name = name;
-        this.expr = expr;
+        this.exp = exp;
     }
 
-    public AST_VAR_DEC(String type, String name, AST_NEW_EXP expr)
+    public AST_VAR_DEC(String type, String name, AST_NEW_EXP newExp)
     {
-        SerialNumber = AST_Node_Serial_Number.getFresh();
-
-        System.out.print("====================== varDec -> ID ID ASSIGN newExp\n");
-
+        PrintRule("varDec", "ID ID := newExp ;");
         this.type = type;
         this.name = name;
-        this.builder = builder;
+        this.newExp = newExp;
     }
 
     public void PrintMe()
     {
-        System.out.print("AST NODE VAR DEC\n");
-
-        if (expr != null) expr.PrintMe();
-        if (builder != null) expr.PrintMe();
+        if (exp != null) exp.PrintMe();
+        if (newExp != null) exp.PrintMe();
 
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
-                String.format("VAR\nDEC\n(%s %s)\n", type, name));
+                String.format("Variable\nDEC\n(%s %s)", type, name));
 
-        if (expr != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, expr.SerialNumber);
-        if (builder != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, builder.SerialNumber);
+        if (exp != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, exp.SerialNumber);
+        if (newExp != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, newExp.SerialNumber);
     }
 }

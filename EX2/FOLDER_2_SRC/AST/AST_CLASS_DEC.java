@@ -3,31 +3,27 @@ package AST;
 public class AST_CLASS_DEC extends AST_Node
 {
     public String className;
-    public String inheritence;
-    public AST_C_FIELD_LIST fields;
+    public String parent;
+    public AST_C_FIELD_LIST cFieldList;
 
-    public AST_CLASS_DEC(String className, String inheritence,  AST_C_FIELD_LIST fields)
+    public AST_CLASS_DEC(String className, String parent, AST_C_FIELD_LIST cFieldList)
     {
-        SerialNumber = AST_Node_Serial_Number.getFresh();
-
-        if (inheritence != null) System.out.print("====================== classDec -> CLASS ID EXTENDS ID { cFieldList }\n");
-        else System.out.print("====================== classDec -> CLASS ID { cFieldList }\n");
+        if (parent != null) PrintRule("classDec", "CLASS ID EXTENDS ID { cFieldList }");
+        if (parent == null) PrintRule("classDec", "CLASS ID { cFieldList }");
 
         this.className = className;
-        this.inheritence = inheritence;
-        this.fields = fields;
+        this.parent = parent;
+        this.cFieldList = cFieldList;
     }
 
     public void PrintMe()
     {
-        System.out.print("AST CLASS DEC\n");
-
-        if (fields != null) fields.PrintMe();
+        if (cFieldList != null) cFieldList.PrintMe();
 
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
-                String.format("CLASS\nDEC\n(%s)\n", className));
+                String.format("Class\nDEC\n(%s)", className));
 
-        if (fields != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, fields.SerialNumber);
+        if (cFieldList != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, cFieldList.SerialNumber);
     }
 }

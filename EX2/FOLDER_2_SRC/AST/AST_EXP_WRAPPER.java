@@ -2,55 +2,24 @@ package AST;
 
 public class AST_EXP_WRAPPER extends AST_EXP
 {
-    public AST_EXP expr;
+    public AST_EXP exp;
 
-    /******************/
-    /* CONSTRUCTOR(S) */
-    /******************/
-    public AST_EXP_WRAPPER(AST_EXP expr)
+    public AST_EXP_WRAPPER(AST_EXP exp)
     {
-        /******************************/
-        /* SET A UNIQUE SERIAL NUMBER */
-        /******************************/
-        SerialNumber = AST_Node_Serial_Number.getFresh();
+        PrintRule("exp", "( exp )");
 
-        /***************************************/
-        /* PRINT CORRESPONDING DERIVATION RULE */
-        /***************************************/
-        System.out.print("====================== exp -> ( exp )\n");
-
-        /*******************************/
-        /* COPY INPUT DATA NENBERS ... */
-        /*******************************/
-        this.expr = expr;
+        this.exp = exp;
     }
 
-    /***********************************************/
-    /* The default message for an exp wrapper AST node */
-    /***********************************************/
     public void PrintMe()
     {
-        /************************************/
-        /* AST NODE TYPE = AST EXP WRAPPER */
-        /************************************/
-        System.out.print("AST EXP WRAPPER\n");
+        if (exp != null) exp.PrintMe();
 
-        /*****************************/
-        /* RECURSIVELY PRINT var ... */
-        /*****************************/
-        if (expr != null) expr.PrintMe();
-
-        /*********************************/
-        /* Print to AST GRAPHIZ DOT file */
-        /*********************************/
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
-                "EXP\nWRAPPER\n");
+                "(Exp)");
 
-        /****************************************/
-        /* PRINT Edges to AST GRAPHVIZ DOT file */
-        /****************************************/
-        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, expr.SerialNumber);
+        if (exp != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, exp.SerialNumber);
 
     }
 }
