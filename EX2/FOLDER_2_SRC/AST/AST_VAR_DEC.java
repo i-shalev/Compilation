@@ -33,7 +33,7 @@ public class AST_VAR_DEC extends AST_Node {
     public void PrintMe()
     {
         if (exp != null) exp.PrintMe();
-        if (newExp != null) exp.PrintMe();
+        if (newExp != null) newExp.PrintMe();
 
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
