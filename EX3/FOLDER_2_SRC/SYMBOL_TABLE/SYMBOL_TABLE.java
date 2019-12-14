@@ -6,6 +6,7 @@ package SYMBOL_TABLE;
 /*******************/
 /* GENERAL IMPORTS */
 /*******************/
+
 import java.io.PrintWriter;
 
 /*******************/
@@ -13,263 +14,302 @@ import java.io.PrintWriter;
 /*******************/
 import TYPES.*;
 
-/****************/
-/* SYMBOL TABLE */
-/****************/
-public class SYMBOL_TABLE
-{
-	private int hashArraySize = 13;
-	
-	/**********************************************/
-	/* The actual symbol table data structure ... */
-	/**********************************************/
-	private SYMBOL_TABLE_ENTRY[] table = new SYMBOL_TABLE_ENTRY[hashArraySize];
-	private SYMBOL_TABLE_ENTRY top;
-	private int top_index = 0;
-	
-	/**************************************************************/
-	/* A very primitive hash function for exposition purposes ... */
-	/**************************************************************/
-	private int hash(String s)
-	{
-		if (s.charAt(0) == 'l') {return 1;}
-		if (s.charAt(0) == 'm') {return 1;}
-		if (s.charAt(0) == 'r') {return 3;}
-		if (s.charAt(0) == 'i') {return 6;}
-		if (s.charAt(0) == 'd') {return 6;}
-		if (s.charAt(0) == 'k') {return 6;}
-		if (s.charAt(0) == 'f') {return 6;}
-		if (s.charAt(0) == 'S') {return 6;}
-		return 12;
-	}
+public class SYMBOL_TABLE {
+    private static int hashArraySize = 13;
+    private static SYMBOL_TABLE_ENTRY[] table = new SYMBOL_TABLE_ENTRY[hashArraySize];
+    private static SYMBOL_TABLE_ENTRY top;
+    private static int top_index = 0;
 
-	/****************************************************************************/
-	/* Enter a variable, function, class type or array type to the symbol table */
-	/****************************************************************************/
-	public void enter(String name,TYPE t)
-	{
-		/*************************************************/
-		/* [1] Compute the hash value for this new entry */
-		/*************************************************/
-		int hashValue = hash(name);
+    private static int hash(String s) {
+        if (s.charAt(0) == 'l') {
+            return 1;
+        }
+        if (s.charAt(0) == 'm') {
+            return 1;
+        }
+        if (s.charAt(0) == 'r') {
+            return 3;
+        }
+        if (s.charAt(0) == 'i') {
+            return 6;
+        }
+        if (s.charAt(0) == 'd') {
+            return 6;
+        }
+        if (s.charAt(0) == 'k') {
+            return 6;
+        }
+        if (s.charAt(0) == 'f') {
+            return 6;
+        }
+        if (s.charAt(0) == 'S') {
+            return 6;
+        }
+        return 12;
+    }
 
-		/******************************************************************************/
-		/* [2] Extract what will eventually be the next entry in the hashed position  */
-		/*     NOTE: this entry can very well be null, but the behaviour is identical */
-		/******************************************************************************/
-		SYMBOL_TABLE_ENTRY next = table[hashValue];
-	
-		/**************************************************************************/
-		/* [3] Prepare a new symbol table entry with name, type, next and prevtop */
-		/**************************************************************************/
-		SYMBOL_TABLE_ENTRY e = new SYMBOL_TABLE_ENTRY(name,t,hashValue,next,top,top_index++);
+    public static void enter(String name, TYPE t) {
+        // the symbol table is the hash table from lecture 5 slide 20.
+        int hashIdx = hash(name); // this is the index in the hash table
+        SYMBOL_TABLE_ENTRY next = table[hashIdx]; // we will insert the new element in the beginning of the list
+        SYMBOL_TABLE_ENTRY e = new SYMBOL_TABLE_ENTRY(name, t, hashIdx, next, top, top_index++);
+        top = e; //update top
+        table[hashIdx] = e;
+        PrintMe();
 
-		/**********************************************/
-		/* [4] Update the top of the symbol table ... */
-		/**********************************************/
-		top = e;
-		
-		/****************************************/
-		/* [5] Enter the new entry to the table */
-		/****************************************/
-		table[hashValue] = e;
-		
-		/**************************/
-		/* [6] Print Symbol Table */
-		/**************************/
-		PrintMe();
-	}
+    }
 
-	/***********************************************/
-	/* Find the inner-most scope element with name */
-	/***********************************************/
-	public TYPE find(String name)
-	{
-		SYMBOL_TABLE_ENTRY e;
-				
-		for (e = table[hash(name)]; e != null; e = e.next)
-		{
-			if (name.equals(e.name))
-			{
-				return e.type;
-			}
-		}
-		
-		return null;
-	}
+    public TYPE find(String name) {
+        SYMBOL_TABLE_ENTRY e;
 
-	/***************************************************************************/
-	/* begine scope = Enter the <SCOPE-BOUNDARY> element to the data structure */
-	/***************************************************************************/
-	public void beginScope()
-	{
-		/************************************************************************/
-		/* Though <SCOPE-BOUNDARY> entries are present inside the symbol table, */
-		/* they are not really types. In order to be ablt to debug print them,  */
-		/* a special TYPE_FOR_SCOPE_BOUNDARIES was developed for them. This     */
-		/* class only contain their type name which is the bottom sign: _|_     */
-		/************************************************************************/
-		enter(
-			"SCOPE-BOUNDARY",
-			new TYPE_FOR_SCOPE_BOUNDARIES("NONE"));
+        for (e = table[hash(name)]; e != null; e = e.next) {
+            if (name.equals(e.name)) {
+                return e.type;
+            }
+        }
 
-		/*********************************************/
-		/* Print the symbol table after every change */
-		/*********************************************/
-		PrintMe();
-	}
+        return null;
+    }
 
-	/********************************************************************************/
-	/* end scope = Keep popping elements out of the data structure,                 */
-	/* from most recent element entered, until a <NEW-SCOPE> element is encountered */
-	/********************************************************************************/
-	public void endScope()
-	{
-		/**************************************************************************/
-		/* Pop elements from the symbol table stack until a SCOPE-BOUNDARY is hit */		
-		/**************************************************************************/
-		while (top.name != "SCOPE-BOUNDARY")
-		{
-			table[top.index] = top.next;
-			top_index = top_index-1;
-			top = top.prevtop;
-		}
-		/**************************************/
-		/* Pop the SCOPE-BOUNDARY sign itself */		
-		/**************************************/
-		table[top.index] = top.next;
-		top_index = top_index-1;
-		top = top.prevtop;
 
-		/*********************************************/
-		/* Print the symbol table after every change */		
-		/*********************************************/
-		PrintMe();
-	}
-	
-	public static int n=0;
-	
-	public void PrintMe()
-	{
-		int i=0;
-		int j=0;
-		String dirname="./FOLDER_5_OUTPUT/";
-		String filename=String.format("SYMBOL_TABLE_%d_IN_GRAPHVIZ_DOT_FORMAT.txt",n++);
+    //TODO: and relevant find functions
 
-		try
-		{
-			/*******************************************/
-			/* [1] Open Graphviz text file for writing */
-			/*******************************************/
-			PrintWriter fileWriter = new PrintWriter(dirname+filename);
 
-			/*********************************/
-			/* [2] Write Graphviz dot prolog */
-			/*********************************/
-			fileWriter.print("digraph structs {\n");
-			fileWriter.print("rankdir = LR\n");
-			fileWriter.print("node [shape=record];\n");
+    public static TYPE_FUNCTION findFunc() {
+        SYMBOL_TABLE_ENTRY e = top;
+        while (e != null && !(e.type instanceof TYPE_FUNCTION)) {
+            e = e.prevtop;
+        }
+        return e != null ? (TYPE_FUNCTION) e.type : null;
+    }
 
-			/*******************************/
-			/* [3] Write Hash Table Itself */
-			/*******************************/
-			fileWriter.print("hashTable [label=\"");
-			for (i=0;i<hashArraySize-1;i++) { fileWriter.format("<f%d>\n%d\n|",i,i); }
-			fileWriter.format("<f%d>\n%d\n\"];\n",hashArraySize-1,hashArraySize-1);
-		
-			/****************************************************************************/
-			/* [4] Loop over hash table array and print all linked lists per array cell */
-			/****************************************************************************/
-			for (i=0;i<hashArraySize;i++)
-			{
-				if (table[i] != null)
-				{
-					/*****************************************************/
-					/* [4a] Print hash table array[i] -> entry(i,0) edge */
-					/*****************************************************/
-					fileWriter.format("hashTable:f%d -> node_%d_0:f0;\n",i,i);
-				}
-				j=0;
-				for (SYMBOL_TABLE_ENTRY it=table[i];it!=null;it=it.next)
-				{
-					/*******************************/
-					/* [4b] Print entry(i,it) node */
-					/*******************************/
-					fileWriter.format("node_%d_%d ",i,j);
-					fileWriter.format("[label=\"<f0>%s|<f1>%s|<f2>prevtop=%d|<f3>next\"];\n",
-						it.name,
-						it.type.name,
-						it.prevtop_index);
+    public static TYPE_CLASS findClass() {
+        SYMBOL_TABLE_ENTRY e = top;
+        while (e != null && !(e.type instanceof TYPE_CLASS)) {
+            e = e.prevtop;
+        }
+        return e != null ? (TYPE_CLASS) e.type : null;
+    }
 
-					if (it.next != null)
-					{
-						/***************************************************/
-						/* [4c] Print entry(i,it) -> entry(i,it.next) edge */
-						/***************************************************/
-						fileWriter.format(
-							"node_%d_%d -> node_%d_%d [style=invis,weight=10];\n",
-							i,j,i,j+1);
-						fileWriter.format(
-							"node_%d_%d:f3 -> node_%d_%d:f0;\n",
-							i,j,i,j+1);
-					}
-					j++;
-				}
-			}
-			fileWriter.print("}\n");
-			fileWriter.close();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}		
-	}
-	
-	/**************************************/
-	/* USUAL SINGLETON IMPLEMENTATION ... */
-	/**************************************/
-	private static SYMBOL_TABLE instance = null;
+    /*get type name and check if it is defined. if it is, return TYPE and you can ask the
+     TYPE is it is class or array or something else.*/
+    public static TYPE findTypeName(String typeName) {
+        SYMBOL_TABLE_ENTRY e = top;
+        while (e != null && !(e.type.name.equals(typeName))) {
+            e = e.prevtop;
+        }
+        if (e != null && e.type instanceof TYPE_FUNCTION)
+            return null;
+        return e != null ? e.type : null;
+    }
 
-	/*****************************/
-	/* PREVENT INSTANTIATION ... */
-	/*****************************/
-	protected SYMBOL_TABLE() {}
+    /*check if name appears in the current scope. if no, return null. if yes, return the type of the element*/
+    public static TYPE findInScope(String name) {
+        SYMBOL_TABLE_ENTRY entry = top;
+        int i = top_index - 1;
+        while (entry != null && !(entry.type instanceof TYPE_FOR_SCOPE_BOUNDARIES)) {
+            i--;
+            entry = entry.prevtop;
+        }
+        for (entry = table[hash(name)]; entry != null && entry.index > i; entry = entry.next) {
+            if (name.equals(entry.name)) {
+                return entry.type;
+            }
+        }
+        return null;
+    }
 
-	/******************************/
-	/* GET SINGLETON INSTANCE ... */
-	/******************************/
-	public static SYMBOL_TABLE getInstance()
-	{
-		if (instance == null)
-		{
-			/*******************************/
-			/* [0] The instance itself ... */
-			/*******************************/
-			instance = new SYMBOL_TABLE();
+    /*check if we are currently in the global scope*/
+    public static boolean isGlobalScope()
+    {
+        SYMBOL_TABLE_ENTRY e = top;
+        while (e != null && !(e.type instanceof TYPE_FOR_SCOPE_BOUNDARIES))
+        {
+            e = e.prevtop;
+        }
+        return e == null; // no Type in table
+    }
+    /* check if we are in the scope which it's open bound is given as a parameter*/
+    public static boolean isInScope(TYPE_FOR_SCOPE_BOUNDARIES scopeType)
+    {
+        SYMBOL_TABLE_ENTRY e = top;
+        while (e != null && e.type != scopeType)
+        {
+            e = e.prevtop;
+        }
+        return e != null; // if e.type == Type.CLASS we're in class scope
+    }
 
-			/*****************************************/
-			/* [1] Enter primitive types int, string */
-			/*****************************************/
-			instance.enter("int",   TYPE_INT.getInstance());
-			instance.enter("string",TYPE_STRING.getInstance());
+    public static void Init() {
 
-			/*************************************/
-			/* [2] How should we handle void ??? */
-			/*************************************/
+        /*we want to allow to create vars from class type iff the class is defined.
+         int and strings are defined by default.*/
+        enter("int", TYPE_INT.getInstance());
+        enter("string", TYPE_STRING.getInstance());
 
-			/***************************************/
-			/* [3] Enter library function PrintInt */
-			/***************************************/
-			instance.enter(
-				"PrintInt",
-				new TYPE_FUNCTION(
-					TYPE_VOID.getInstance(),
-					"PrintInt",
-					new TYPE_LIST(
-						TYPE_INT.getInstance(),
-						null)));
-			
-		}
-		return instance;
-	}
+        // enter lib functions
+        TYPE_FUNCTION printIntFunc = new TYPE_FUNCTION(TYPE_VOID.getInstance(), "PrintInt",
+                new TYPE_LIST(TYPE_INT.getInstance(), null));
+
+        TYPE_FUNCTION printStringFunc = new TYPE_FUNCTION(TYPE_VOID.getInstance(), "PrintString",
+                new TYPE_LIST(TYPE_STRING.getInstance(), null));
+
+        TYPE_FUNCTION printTraceFunc = new TYPE_FUNCTION(TYPE_VOID.getInstance(), "PrintTrace",
+                null);
+
+        enter("PrintInt", printIntFunc);
+        enter("PrintString", printStringFunc);
+        enter("PrintTrace", printTraceFunc);
+    }
+
+
+    //TODO: end of our editing scope, delete the comment when done
+
+    public void beginScope() {
+        /************************************************************************/
+        /* Though <SCOPE-BOUNDARY> entries are present inside the symbol table, */
+        /* they are not really types. In order to be ablt to debug print them,  */
+        /* a special TYPE_FOR_SCOPE_BOUNDARIES was developed for them. This     */
+        /* class only contain their type name which is the bottom sign: _|_     */
+        /************************************************************************/
+        enter(
+                "SCOPE-BOUNDARY",
+                new TYPE_FOR_SCOPE_BOUNDARIES("NONE"));
+
+        PrintMe();
+    }
+
+    public void endScope() {
+        /**************************************************************************/
+        /* Pop elements from the symbol table stack until a SCOPE-BOUNDARY is hit */
+        /**************************************************************************/
+        while (top.name != "SCOPE-BOUNDARY") {
+            table[top.index] = top.next;
+            top_index = top_index - 1;
+            top = top.prevtop;
+        }
+        /**************************************/
+        /* Pop the SCOPE-BOUNDARY sign itself */
+        /**************************************/
+        table[top.index] = top.next;
+        top_index = top_index - 1;
+        top = top.prevtop;
+
+        /*********************************************/
+        /* Print the symbol table after every change */
+        /*********************************************/
+        PrintMe();
+    }
+
+    //Don't touch - Print me
+    public static int n = 0;
+
+    public static void PrintMe() {
+        int i = 0;
+        int j = 0;
+        String dirname = "./FOLDER_5_OUTPUT/";
+        String filename = String.format("SYMBOL_TABLE_%d_IN_GRAPHVIZ_DOT_FORMAT.txt", n++);
+
+        try {
+            /*******************************************/
+            /* [1] Open Graphviz text file for writing */
+            /*******************************************/
+            PrintWriter fileWriter = new PrintWriter(dirname + filename);
+
+            /*********************************/
+            /* [2] Write Graphviz dot prolog */
+            /*********************************/
+            fileWriter.print("digraph structs {\n");
+            fileWriter.print("rankdir = LR\n");
+            fileWriter.print("node [shape=record];\n");
+
+            /*******************************/
+            /* [3] Write Hash Table Itself */
+            /*******************************/
+            fileWriter.print("hashTable [label=\"");
+            for (i = 0; i < hashArraySize - 1; i++) {
+                fileWriter.format("<f%d>\n%d\n|", i, i);
+            }
+            fileWriter.format("<f%d>\n%d\n\"];\n", hashArraySize - 1, hashArraySize - 1);
+
+            /****************************************************************************/
+            /* [4] Loop over hash table array and print all linked lists per array cell */
+            /****************************************************************************/
+            for (i = 0; i < hashArraySize; i++) {
+                if (table[i] != null) {
+                    /*****************************************************/
+                    /* [4a] Print hash table array[i] -> entry(i,0) edge */
+                    /*****************************************************/
+                    fileWriter.format("hashTable:f%d -> node_%d_0:f0;\n", i, i);
+                }
+                j = 0;
+                for (SYMBOL_TABLE_ENTRY it = table[i]; it != null; it = it.next) {
+                    /*******************************/
+                    /* [4b] Print entry(i,it) node */
+                    /*******************************/
+                    fileWriter.format("node_%d_%d ", i, j);
+                    fileWriter.format("[label=\"<f0>%s|<f1>%s|<f2>prevtop=%d|<f3>next\"];\n",
+                            it.name,
+                            it.type.name,
+                            it.prevtop_index);
+
+                    if (it.next != null) {
+                        /***************************************************/
+                        /* [4c] Print entry(i,it) -> entry(i,it.next) edge */
+                        /***************************************************/
+                        fileWriter.format(
+                                "node_%d_%d -> node_%d_%d [style=invis,weight=10];\n",
+                                i, j, i, j + 1);
+                        fileWriter.format(
+                                "node_%d_%d:f3 -> node_%d_%d:f0;\n",
+                                i, j, i, j + 1);
+                    }
+                    j++;
+                }
+            }
+            fileWriter.print("}\n");
+            fileWriter.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Don't touch - symbol table singleton
+    private static SYMBOL_TABLE instance = null;
+
+    protected SYMBOL_TABLE() {
+    }
+
+    public static SYMBOL_TABLE getInstance() {
+        if (instance == null) {
+            /*******************************/
+            /* [0] The instance itself ... */
+            /*******************************/
+            instance = new SYMBOL_TABLE();
+
+            /*****************************************/
+            /* [1] Enter primitive types int, string */
+            /*****************************************/
+            instance.enter("int", TYPE_INT.getInstance());
+            instance.enter("string", TYPE_STRING.getInstance());
+
+            /*************************************/
+            /* [2] How should we handle void ??? */
+            /*************************************/
+
+            /***************************************/
+            /* [3] Enter library function PrintInt */
+            /***************************************/
+            instance.enter(
+                    "PrintInt",
+                    new TYPE_FUNCTION(
+                            TYPE_VOID.getInstance(),
+                            "PrintInt",
+                            new TYPE_LIST(
+                                    TYPE_INT.getInstance(),
+                                    null)));
+
+        }
+        return instance;
+    }
 }
