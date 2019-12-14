@@ -2,30 +2,26 @@
 /* FILE NAME: LEX_FILE.lex */
 /***************************/
 
-/***************************/
-/* AUTHOR: OREN ISH SHALOM */
-/***************************/
-
 /*************/
 /* USER CODE */
 /*************/
-   
 import java_cup.runtime.*;
+import java.lang.Math;
 
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
 /******************************/
-      
+
 %%
-   
+
 /************************************/
 /* OPTIONS AND DECLARATIONS SECTION */
 /************************************/
-   
-/*****************************************************/ 
+
+/*****************************************************/
 /* Lexer is the name of the class JFlex will create. */
 /* The code will be written to the file Lexer.java.  */
-/*****************************************************/ 
+/*****************************************************/
 %class Lexer
 
 /********************************************************************/
@@ -34,9 +30,9 @@ import java_cup.runtime.*;
 /********************************************************************/
 %line
 %column
-    
+
 /*******************************************************************************/
-/* Note that this has to be the EXACT smae name of the class the CUP generates */
+/* Note that this has to be the EXACT same name of the class the CUP generates */
 /*******************************************************************************/
 %cupsym TokenNames
 
@@ -44,16 +40,16 @@ import java_cup.runtime.*;
 /* CUP compatibility mode interfaces with a CUP generated parser. */
 /******************************************************************/
 %cup
-   
+
 /****************/
 /* DECLARATIONS */
 /****************/
-/*****************************************************************************/   
+/*****************************************************************************/
 /* Code between %{ and %}, both of which must be at the beginning of a line, */
-/* will be copied letter to letter into the Lexer class code.                */
+/* will be copied verbatim (letter to letter) into the Lexer class code.     */
 /* Here you declare member variables and functions that are used inside the  */
-/* scanner actions.                                                          */  
-/*****************************************************************************/   
+/* scanner actions.                                                          */
+/*****************************************************************************/
 %{
 	/*********************************************************************************/
 	/* Create a new java_cup.runtime.Symbol with information about the current token */
@@ -64,19 +60,39 @@ import java_cup.runtime.*;
 	/*******************************************/
 	/* Enable line number extraction from main */
 	/*******************************************/
-	public int getLine()    { return yyline + 1; }
-	public int getCharPos() { return yycolumn;   } 
+	public int getLine() { return yyline + 1; }
+
+	/**********************************************/
+	/* Enable token position extraction from main */
+	/**********************************************/
+	public int getTokenStartPosition() { return yycolumn + 1; }
 %}
 
 /***********************/
 /* MACRO DECALARATIONS */
 /***********************/
-LineTerminator	= \r|\n|\r\n
-WhiteSpace		= {LineTerminator} | [ \t\f]
-INTEGER			= 0 | [1-9][0-9]*
-ID				= [a-zA-Z]+
-STRING			= \"[a-z|A-Z]*\"
-   
+
+LineTerminator	        = \r|\n|\r\n
+WhiteSpace		        = {LineTerminator}|[ \t\f]
+Letters                 = [a-z] | [A-Z]
+Digits                  = [1-9]
+Digits0                 = [0-9]
+Number                  = 0|{Digits}{Digits0}*
+Integer			        = {Digits}{Digits0}*|{Number}
+String                  = \"{Letters}*\"
+BadInteger              = 0{Digits0}{Digits0}*  | {Digits0}{Digits0}{Digits0}{Digits0}{Digits0}{Digits0}{Digits0}*
+Char                    = {Letters} | {Digits0} | [ \t\f] | "(" | ")" | "[" | "]" | "{" | "}" | "?" | "!" | "+" | "-" | "*" | "/" |"." | ";"
+CharNoSlash             = {Letters} | {Digits0} | [ \t\f] | "(" | ")" | "[" | "]" | "{" | "}" | "?" | "!" | "+" | "-" | "*" |"." | ";"
+CharNoStar              = {Letters} | {Digits0} | [ \t\f] | "(" | ")" | "[" | "]" | "{" | "}" | "?" | "!" | "+" | "-" | "/" |"." | ";"
+CharNoStarNoSlash       = {Letters} | {Digits0} | [ \t\f] | "(" | ")" | "[" | "]" | "{" | "}" | "?" | "!" | "+" | "-" | "." | ";" | {LineTerminator}
+StartCommentMultiLine   = "/*"
+EndCommentMultiLine     = "*"*"*/"
+CommentOneLine          = "//"{Char}*{LineTerminator}?
+CommentContent          = {LineTerminator}|{CharNoStar}|(("*")+{CharNoStarNoSlash})
+Comment                 = {CommentOneLine} | {StartCommentMultiLine}({CommentContent})*{EndCommentMultiLine}
+BadComment              = {StartCommentMultiLine}({CommentContent})*
+ID				        = {Letters}({Letters}|{Digits0})*
+
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
 /******************************/
@@ -86,7 +102,7 @@ STRING			= \"[a-z|A-Z]*\"
 /************************************************************/
 /* LEXER matches regular expressions to actions (Java code) */
 /************************************************************/
-   
+
 /**************************************************************/
 /* YYINITIAL is the state at which the lexer begins scanning. */
 /* So these regular expressions will only be matched if the   */
@@ -95,17 +111,50 @@ STRING			= \"[a-z|A-Z]*\"
 
 <YYINITIAL> {
 
-"if"				{ return symbol(TokenNames.IF);}
-"="					{ return symbol(TokenNames.EQ);}
-"<"					{ return symbol(TokenNames.LT);}
-"."					{ return symbol(TokenNames.DOT);}
+//keywords
+"class"             { return symbol(TokenNames.CLASS);}
+"nil"               { return symbol(TokenNames.NIL);}
+"array"             { return symbol(TokenNames.ARRAY);}
+"while"             { return symbol(TokenNames.WHILE);}
+"extends"           { return symbol(TokenNames.EXTENDS);}
+"return"            { return symbol(TokenNames.RETURN);}
+"new"               { return symbol(TokenNames.NEW);}
+"if"                { return symbol(TokenNames.IF);}
+
+//regular expressions
+
+{Comment}           { }
+{BadComment}        { return symbol(TokenNames.error);}
+{BadInteger}        { return symbol(TokenNames.error);}
+{Integer}			{
+
+ try{
+        Integer x = new Integer(yytext());
+ }
+ catch (Exception e)
+ 		{
+ 			return symbol(TokenNames.error);
+ 		}
+ finally{
+        if(new Integer(yytext())>Math.pow(2,15)-1 || new Integer(yytext())<-1*Math.pow(2,15))
+            return symbol(TokenNames.error);
+         else{
+            return symbol(TokenNames.INT, new Integer(yytext()));
+         }
+         }
+
+ }
+{ID}				{ return symbol(TokenNames.ID,     new String( yytext()));}
+{String}			{ return symbol(TokenNames.STRING,     new String( yytext()));}
+{WhiteSpace}		{ /* just skip what was found, do nothing */ }
+<<EOF>>				{ return symbol(TokenNames.EOF);}
+
+
+//symbols
 "+"					{ return symbol(TokenNames.PLUS);}
 "-"					{ return symbol(TokenNames.MINUS);}
-"class"				{ return symbol(TokenNames.CLASS);}
-"return"			{ return symbol(TokenNames.RETURN);}
-"*"					{ return symbol(TokenNames.TIMES);}
+"*"				    { return symbol(TokenNames.TIMES);}
 "/"					{ return symbol(TokenNames.DIVIDE);}
-":="				{ return symbol(TokenNames.ASSIGN);}
 "("					{ return symbol(TokenNames.LPAREN);}
 ")"					{ return symbol(TokenNames.RPAREN);}
 "["					{ return symbol(TokenNames.LBRACK);}
@@ -113,11 +162,12 @@ STRING			= \"[a-z|A-Z]*\"
 "{"					{ return symbol(TokenNames.LBRACE);}
 "}"					{ return symbol(TokenNames.RBRACE);}
 ","					{ return symbol(TokenNames.COMMA);}
+"."					{ return symbol(TokenNames.DOT);}
 ";"					{ return symbol(TokenNames.SEMICOLON);}
-{ID}				{ return symbol(TokenNames.ID, new String(yytext()));}
-{INTEGER}			{ return symbol(TokenNames.INT, new Integer(yytext()));}
-{STRING}			{ return symbol(TokenNames.STRING, new String(yytext()));}
-{WhiteSpace}		{ /* just skip what was found, do nothing */ }
-{LineTerminator}	{ /* just skip what was found, do nothing */ }
-<<EOF>>				{ return symbol(TokenNames.EOF);}
+"..."				{ return symbol(TokenNames.ELLIPSIS);}
+":="				{ return symbol(TokenNames.ASSIGN);}
+"="					{ return symbol(TokenNames.EQ);}
+"<"					{ return symbol(TokenNames.LT);}
+">"					{ return symbol(TokenNames.GT);}
+.                   { return symbol(TokenNames.error);}
 }
