@@ -17,7 +17,7 @@ import TYPES.*;
 public class SYMBOL_TABLE {
     private static int hashArraySize = 13;
     private static SYMBOL_TABLE_ENTRY[] table = new SYMBOL_TABLE_ENTRY[hashArraySize];
-    private static SYMBOL_TABLE_ENTRY top;
+    private static SYMBOL_TABLE_ENTRY top; // the last element we entered
     private static int top_index = 0;
 
     private static int hash(String s) {
@@ -92,7 +92,7 @@ public class SYMBOL_TABLE {
     }
 
     /*get type name and check if it is defined. if it is, return TYPE and you can ask the
-     TYPE is it is class or array or something else.*/
+     TYPE if it is class or array or something else.*/
     public static TYPE findTypeName(String typeName) {
         SYMBOL_TABLE_ENTRY e = top;
         while (e != null && !(e.type.name.equals(typeName))) {

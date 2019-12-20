@@ -1,5 +1,6 @@
 package TYPES;
 
+// finished. simple class - only has getInstance method.
 public class TYPE_VOID extends TYPE
 {
 	private static TYPE_VOID instance = null;

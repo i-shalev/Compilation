@@ -1,5 +1,6 @@
 package TYPES;
 
+// finished. simple class - only has getInstance method.
 public class TYPE_STRING extends TYPE
 {
 	private static TYPE_STRING instance = null;
