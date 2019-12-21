@@ -30,7 +30,7 @@ public class AST_EXP_VAR_SIMPLE extends AST_EXP_VAR
 	public void PrintMe()
 	{
 		/**********************************/
-		/* AST NODE TYPE = AST SIMPLE VAR */
+		/* AST NODE Type = AST SIMPLE VAR */
 		/**********************************/
 		System.out.format("AST NODE SIMPLE VAR( %s )\n",name);
 
@@ -41,8 +41,8 @@ public class AST_EXP_VAR_SIMPLE extends AST_EXP_VAR
 			SerialNumber,
 			String.format("SIMPLE\nVAR\n(%s)",name));
 	}
-	public TYPE SemantMe()
+	public Type SemantMe()
 	{
-		return SYMBOL_TABLE.getInstance().find(name);
+		return SymbolTable.getInstance().find(name);
 	}
 }

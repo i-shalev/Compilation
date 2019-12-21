@@ -1,66 +1,38 @@
-/***********/
-/* PACKAGE */
-/***********/
 package SYMBOL_TABLE;
-
-/*******************/
-/* GENERAL IMPORTS */
-/*******************/
-
 import java.io.PrintWriter;
-
-/*******************/
-/* PROJECT IMPORTS */
-/*******************/
 import TYPES.*;
 
-public class SYMBOL_TABLE {
+public class SymbolTable {
     private static int hashArraySize = 13;
-    private static SYMBOL_TABLE_ENTRY[] table = new SYMBOL_TABLE_ENTRY[hashArraySize];
-    private static SYMBOL_TABLE_ENTRY top; // the last element we entered
+    private static SymbolTableEntry[] table = new SymbolTableEntry[hashArraySize];
+    private static SymbolTableEntry top; // the last element we entered
     private static int top_index = 0;
 
     private static int hash(String s) {
-        if (s.charAt(0) == 'l') {
-            return 1;
-        }
-        if (s.charAt(0) == 'm') {
-            return 1;
-        }
-        if (s.charAt(0) == 'r') {
-            return 3;
-        }
-        if (s.charAt(0) == 'i') {
-            return 6;
-        }
-        if (s.charAt(0) == 'd') {
-            return 6;
-        }
-        if (s.charAt(0) == 'k') {
-            return 6;
-        }
-        if (s.charAt(0) == 'f') {
-            return 6;
-        }
-        if (s.charAt(0) == 'S') {
-            return 6;
-        }
-        return 12;
+        if (s.charAt(0) == 'l') return 1;
+        if (s.charAt(0) == 'm') return 1;
+        if (s.charAt(0) == 'r') return 3;
+        if (s.charAt(0) == 'i') return 6;
+        if (s.charAt(0) == 'd') return 6;
+        if (s.charAt(0) == 'k') return 6;
+        if (s.charAt(0) == 'f') return 6;
+        if (s.charAt(0) == 'S') return 6;
+        return 12; // default
     }
 
-    public static void enter(String name, TYPE t) {
+    public static void enter(String name, Type t) {
         // the symbol table is the hash table from lecture 5 slide 20.
         int hashIdx = hash(name); // this is the index in the hash table
-        SYMBOL_TABLE_ENTRY next = table[hashIdx]; // we will insert the new element in the beginning of the list
-        SYMBOL_TABLE_ENTRY e = new SYMBOL_TABLE_ENTRY(name, t, hashIdx, next, top, top_index++);
+        SymbolTableEntry next = table[hashIdx]; // we will insert the new element in the beginning of the list
+        SymbolTableEntry e = new SymbolTableEntry(name, t, hashIdx, next, top, top_index++);
         top = e; //update top
         table[hashIdx] = e;
         PrintMe();
 
     }
 
-    public TYPE find(String name) {
-        SYMBOL_TABLE_ENTRY e;
+    public Type find(String name) {
+        SymbolTableEntry e;
 
         for (e = table[hash(name)]; e != null; e = e.next) {
             if (name.equals(e.name)) {
@@ -75,39 +47,39 @@ public class SYMBOL_TABLE {
     //TODO: and relevant find functions
 
 
-    public static TYPE_FUNCTION findFunc() {
-        SYMBOL_TABLE_ENTRY e = top;
-        while (e != null && !(e.type instanceof TYPE_FUNCTION)) {
+    public static Type_Function findFunc() {
+        SymbolTableEntry e = top;
+        while (e != null && !(e.type instanceof Type_Function)) {
             e = e.prevtop;
         }
-        return e != null ? (TYPE_FUNCTION) e.type : null;
+        return e != null ? (Type_Function) e.type : null;
     }
 
-    public static TYPE_CLASS findClass() {
-        SYMBOL_TABLE_ENTRY e = top;
-        while (e != null && !(e.type instanceof TYPE_CLASS)) {
+    public static Type_Class findClass() {
+        SymbolTableEntry e = top;
+        while (e != null && !(e.type instanceof Type_Class)) {
             e = e.prevtop;
         }
-        return e != null ? (TYPE_CLASS) e.type : null;
+        return e != null ? (Type_Class) e.type : null;
     }
 
-    /*get type name and check if it is defined. if it is, return TYPE and you can ask the
-     TYPE if it is class or array or something else.*/
-    public static TYPE findTypeName(String typeName) {
-        SYMBOL_TABLE_ENTRY e = top;
+    /*get type name and check if it is defined. if it is, return Type and you can ask the
+     Type if it is class or array or something else.*/
+    public static Type findTypeName(String typeName) {
+        SymbolTableEntry e = top;
         while (e != null && !(e.type.name.equals(typeName))) {
             e = e.prevtop;
         }
-        if (e != null && e.type instanceof TYPE_FUNCTION)
+        if (e != null && e.type instanceof Type_Function)
             return null;
         return e != null ? e.type : null;
     }
 
     /*check if name appears in the current scope. if no, return null. if yes, return the type of the element*/
-    public static TYPE findInScope(String name) {
-        SYMBOL_TABLE_ENTRY entry = top;
+    public static Type findInScope(String name) {
+        SymbolTableEntry entry = top;
         int i = top_index - 1;
-        while (entry != null && !(entry.type instanceof TYPE_FOR_SCOPE_BOUNDARIES)) {
+        while (entry != null && !(entry.type instanceof Type_For_Scope_Boundaries)) {
             i--;
             entry = entry.prevtop;
         }
@@ -122,17 +94,17 @@ public class SYMBOL_TABLE {
     /*check if we are currently in the global scope*/
     public static boolean isGlobalScope()
     {
-        SYMBOL_TABLE_ENTRY e = top;
-        while (e != null && !(e.type instanceof TYPE_FOR_SCOPE_BOUNDARIES))
+        SymbolTableEntry e = top;
+        while (e != null && !(e.type instanceof Type_For_Scope_Boundaries))
         {
             e = e.prevtop;
         }
         return e == null; // no Type in table
     }
     /* check if we are in the scope which it's open bound is given as a parameter*/
-    public static boolean isInScope(TYPE_FOR_SCOPE_BOUNDARIES scopeType)
+    public static boolean isInScope(Type_For_Scope_Boundaries scopeType)
     {
-        SYMBOL_TABLE_ENTRY e = top;
+        SymbolTableEntry e = top;
         while (e != null && e.type != scopeType)
         {
             e = e.prevtop;
@@ -144,17 +116,17 @@ public class SYMBOL_TABLE {
 
         /*we want to allow to create vars from class type iff the class is defined.
          int and strings are defined by default.*/
-        enter("int", TYPE_INT.getInstance());
-        enter("string", TYPE_STRING.getInstance());
+        enter("int", Type_Int.getInstance());
+        enter("string", Type_String.getInstance());
 
         // enter lib functions
-        TYPE_FUNCTION printIntFunc = new TYPE_FUNCTION(TYPE_VOID.getInstance(), "PrintInt",
-                new TYPE_LIST(TYPE_INT.getInstance(), null));
+        Type_Function printIntFunc = new Type_Function(Type_Void.getInstance(), "PrintInt",
+                new Type_List(Type_Int.getInstance(), null));
 
-        TYPE_FUNCTION printStringFunc = new TYPE_FUNCTION(TYPE_VOID.getInstance(), "PrintString",
-                new TYPE_LIST(TYPE_STRING.getInstance(), null));
+        Type_Function printStringFunc = new Type_Function(Type_Void.getInstance(), "PrintString",
+                new Type_List(Type_String.getInstance(), null));
 
-        TYPE_FUNCTION printTraceFunc = new TYPE_FUNCTION(TYPE_VOID.getInstance(), "PrintTrace",
+        Type_Function printTraceFunc = new Type_Function(Type_Void.getInstance(), "PrintTrace",
                 null);
 
         enter("PrintInt", printIntFunc);
@@ -169,12 +141,12 @@ public class SYMBOL_TABLE {
         /************************************************************************/
         /* Though <SCOPE-BOUNDARY> entries are present inside the symbol table, */
         /* they are not really types. In order to be ablt to debug print them,  */
-        /* a special TYPE_FOR_SCOPE_BOUNDARIES was developed for them. This     */
+        /* a special Type_For_Scope_Boundaries was developed for them. This     */
         /* class only contain their type name which is the bottom sign: _|_     */
         /************************************************************************/
         enter(
                 "SCOPE-BOUNDARY",
-                new TYPE_FOR_SCOPE_BOUNDARIES("NONE"));
+                new Type_For_Scope_Boundaries("NONE"));
 
         PrintMe();
     }
@@ -243,7 +215,7 @@ public class SYMBOL_TABLE {
                     fileWriter.format("hashTable:f%d -> node_%d_0:f0;\n", i, i);
                 }
                 j = 0;
-                for (SYMBOL_TABLE_ENTRY it = table[i]; it != null; it = it.next) {
+                for (SymbolTableEntry it = table[i]; it != null; it = it.next) {
                     /*******************************/
                     /* [4b] Print entry(i,it) node */
                     /*******************************/
@@ -275,23 +247,23 @@ public class SYMBOL_TABLE {
     }
 
     //Don't touch - symbol table singleton
-    private static SYMBOL_TABLE instance = null;
+    private static SymbolTable instance = null;
 
-    protected SYMBOL_TABLE() {
+    protected SymbolTable() {
     }
 
-    public static SYMBOL_TABLE getInstance() {
+    public static SymbolTable getInstance() {
         if (instance == null) {
             /*******************************/
             /* [0] The instance itself ... */
             /*******************************/
-            instance = new SYMBOL_TABLE();
+            instance = new SymbolTable();
 
             /*****************************************/
             /* [1] Enter primitive types int, string */
             /*****************************************/
-            instance.enter("int", TYPE_INT.getInstance());
-            instance.enter("string", TYPE_STRING.getInstance());
+            instance.enter("int", Type_Int.getInstance());
+            instance.enter("string", Type_String.getInstance());
 
             /*************************************/
             /* [2] How should we handle void ??? */
@@ -302,11 +274,11 @@ public class SYMBOL_TABLE {
             /***************************************/
             instance.enter(
                     "PrintInt",
-                    new TYPE_FUNCTION(
-                            TYPE_VOID.getInstance(),
+                    new Type_Function(
+                            Type_Void.getInstance(),
                             "PrintInt",
-                            new TYPE_LIST(
-                                    TYPE_INT.getInstance(),
+                            new Type_List(
+                                    Type_Int.getInstance(),
                                     null)));
 
         }

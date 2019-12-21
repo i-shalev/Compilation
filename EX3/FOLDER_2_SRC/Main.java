@@ -2,7 +2,7 @@
 import java.io.*;
 import java.io.PrintWriter;
 
-import SYMBOL_TABLE.SYMBOL_TABLE;
+import SYMBOL_TABLE.SymbolTable;
 import java_cup.runtime.Symbol;
 import AST.*;
 
@@ -21,7 +21,7 @@ public class Main
 		
 		try
 		{
-			SYMBOL_TABLE.Init();
+			SymbolTable.Init();
 			file_reader = new FileReader(inputFilename);
 			file_writer = new PrintWriter(outputFilename);
 			l = new Lexer(file_reader);

@@ -39,7 +39,7 @@ public class AST_STMT_LIST extends AST_Node
 	public void PrintMe()
 	{
 		/**************************************/
-		/* AST NODE TYPE = AST STATEMENT LIST */
+		/* AST NODE Type = AST STATEMENT LIST */
 		/**************************************/
 		System.out.print("AST NODE STMT LIST\n");
 
@@ -63,7 +63,7 @@ public class AST_STMT_LIST extends AST_Node
 		if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,tail.SerialNumber);
 	}
 	
-	public TYPE SemantMe()
+	public Type SemantMe()
 	{
 		if (head != null) head.SemantMe();
 		if (tail != null) tail.SemantMe();

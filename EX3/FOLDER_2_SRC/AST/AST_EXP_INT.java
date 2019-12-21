@@ -26,7 +26,7 @@ public class AST_EXP_INT extends AST_EXP
 	public void PrintMe()
 	{
 		/*******************************/
-		/* AST NODE TYPE = AST INT EXP */
+		/* AST NODE Type = AST INT EXP */
 		/*******************************/
 		System.out.format("AST NODE INT( %d )\n",value);
 
@@ -37,8 +37,8 @@ public class AST_EXP_INT extends AST_EXP
 			SerialNumber,
 			String.format("INT(%d)",value));
 	}
-	public TYPE SemantMe()
+	public Type SemantMe()
 	{
-		return TYPE_INT.getInstance();
+		return Type_Int.getInstance();
 	}
 }

@@ -33,7 +33,7 @@ public class AST_DEC_VAR extends AST_DEC
 	public void PrintMe()
 	{
 		/********************************/
-		/* AST NODE TYPE = AST DEC LIST */
+		/* AST NODE Type = AST DEC LIST */
 		/********************************/
 		if (initialValue != null) System.out.format("VAR-DEC(%s):%s := initialValue\n",name,type);
 		if (initialValue == null) System.out.format("VAR-DEC(%s):%s                \n",name,type);
@@ -57,14 +57,14 @@ public class AST_DEC_VAR extends AST_DEC
 			
 	}
 
-	public TYPE SemantMe()
+	public Type SemantMe()
 	{
-		TYPE t;
+		Type t;
 	
 		/****************************/
 		/* [1] Check If Type exists */
 		/****************************/
-		t = SYMBOL_TABLE.getInstance().find(type);
+		t = SymbolTable.getInstance().find(type);
 		if (t == null)
 		{
 			System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type);
@@ -74,7 +74,7 @@ public class AST_DEC_VAR extends AST_DEC
 		/**************************************/
 		/* [2] Check That Name does NOT exist */
 		/**************************************/
-		if (SYMBOL_TABLE.getInstance().find(name) != null)
+		if (SymbolTable.getInstance().find(name) != null)
 		{
 			System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,name);				
 		}
@@ -82,7 +82,7 @@ public class AST_DEC_VAR extends AST_DEC
 		/***************************************************/
 		/* [3] Enter the Function Type to the Symbol Table */
 		/***************************************************/
-		SYMBOL_TABLE.getInstance().enter(name,t);
+		SymbolTable.getInstance().enter(name,t);
 
 		/*********************************************************/
 		/* [4] Return value is irrelevant for class declarations */

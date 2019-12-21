@@ -28,7 +28,7 @@ public class AST_EXP_CALL extends AST_EXP
 	public void PrintMe()
 	{
 		/*************************************************/
-		/* AST NODE TYPE = AST NODE FUNCTION DECLARATION */
+		/* AST NODE Type = AST NODE FUNCTION DECLARATION */
 		/*************************************************/
 		System.out.format("CALL(%s)\nWITH:\n",funcName);
 

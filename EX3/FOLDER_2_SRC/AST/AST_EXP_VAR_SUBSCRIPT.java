@@ -21,7 +21,7 @@ public class AST_EXP_VAR_SUBSCRIPT extends AST_EXP_VAR
 	public void PrintMe()
 	{
 		/*************************************/
-		/* AST NODE TYPE = AST SUBSCRIPT VAR */
+		/* AST NODE Type = AST SUBSCRIPT VAR */
 		/*************************************/
 		System.out.print("AST NODE SUBSCRIPT VAR\n");
 

@@ -28,7 +28,7 @@ public class AST_STMT_IF extends AST_STMT
 	public void PrintMe()
 	{
 		/*************************************/
-		/* AST NODE TYPE = AST SUBSCRIPT VAR */
+		/* AST NODE Type = AST SUBSCRIPT VAR */
 		/*************************************/
 		System.out.print("AST NODE STMT IF\n");
 
@@ -52,12 +52,12 @@ public class AST_STMT_IF extends AST_STMT
 		if (body != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,body.SerialNumber);
 	}
 
-	public TYPE SemantMe()
+	public Type SemantMe()
 	{
 		/****************************/
 		/* [0] Semant the Condition */
 		/****************************/
-		if (cond.SemantMe() != TYPE_INT.getInstance())
+		if (cond.SemantMe() != Type_Int.getInstance())
 		{
 			System.out.format(">> ERROR [%d:%d] condition inside IF is not integral\n",2,2);
 		}
@@ -65,7 +65,7 @@ public class AST_STMT_IF extends AST_STMT
 		/*************************/
 		/* [1] Begin Class Scope */
 		/*************************/
-		SYMBOL_TABLE.getInstance().beginScope();
+		SymbolTable.getInstance().beginScope();
 
 		/***************************/
 		/* [2] Semant Data Members */
@@ -75,7 +75,7 @@ public class AST_STMT_IF extends AST_STMT
 		/*****************/
 		/* [3] End Scope */
 		/*****************/
-		SYMBOL_TABLE.getInstance().endScope();
+		SymbolTable.getInstance().endScope();
 
 		/*********************************************************/
 		/* [4] Return value is irrelevant for class declarations */

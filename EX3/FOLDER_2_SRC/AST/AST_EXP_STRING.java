@@ -26,7 +26,7 @@ public class AST_EXP_STRING extends AST_EXP
 	public void PrintMe()
 	{
 		/*******************************/
-		/* AST NODE TYPE = AST STRING EXP */
+		/* AST NODE Type = AST STRING EXP */
 		/*******************************/
 		System.out.format("AST NODE STRING( %s )\n",value);
 
@@ -37,8 +37,8 @@ public class AST_EXP_STRING extends AST_EXP
 			SerialNumber,
 			String.format("STRING\n%s",value.replace('"','\'')));
 	}
-	public TYPE SemantMe()
+	public Type SemantMe()
 	{
-		return TYPE_STRING.getInstance();
+		return Type_String.getInstance();
 	}
 }

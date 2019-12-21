@@ -22,7 +22,7 @@ public class AST_STMT_DEC_VAR extends AST_STMT
 		this.var = var;
 	}
 	
-	public TYPE SemantMe()
+	public Type SemantMe()
 	{
 		return var.SemantMe();
 	}

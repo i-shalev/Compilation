@@ -53,27 +53,27 @@ public class AST_DEC_CLASS extends AST_DEC
 		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,data_members.SerialNumber);		
 	}
 	
-	public TYPE SemantMe()
+	public Type SemantMe()
 	{	
 		/*************************/
 		/* [1] Begin Class Scope */
 		/*************************/
-		SYMBOL_TABLE.getInstance().beginScope();
+		SymbolTable.getInstance().beginScope();
 
 		/***************************/
 		/* [2] Semant Data Members */
 		/***************************/
-		TYPE_CLASS t = new TYPE_CLASS(null,name,data_members.SemantMe());
+		Type_Class t = new Type_Class(null,name,data_members.SemantMe());
 
 		/*****************/
 		/* [3] End Scope */
 		/*****************/
-		SYMBOL_TABLE.getInstance().endScope();
+		SymbolTable.getInstance().endScope();
 
 		/************************************************/
 		/* [4] Enter the Class Type to the Symbol Table */
 		/************************************************/
-		SYMBOL_TABLE.getInstance().enter(name,t);
+		SymbolTable.getInstance().enter(name,t);
 
 		/*********************************************************/
 		/* [5] Return value is irrelevant for class declarations */

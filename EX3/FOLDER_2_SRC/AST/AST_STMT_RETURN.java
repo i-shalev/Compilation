@@ -26,7 +26,7 @@ public class AST_STMT_RETURN extends AST_STMT
 	public void PrintMe()
 	{
 		/*************************************/
-		/* AST NODE TYPE = AST SUBSCRIPT VAR */
+		/* AST NODE Type = AST SUBSCRIPT VAR */
 		/*************************************/
 		System.out.print("AST NODE STMT RETURN\n");
 

@@ -61,10 +61,10 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
 		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
 	}
-	public TYPE SemantMe()
+	public Type SemantMe()
 	{
-		TYPE t1 = null;
-		TYPE t2 = null;
+		Type t1 = null;
+		Type t2 = null;
 
 		// ### example
 		// var: "x"

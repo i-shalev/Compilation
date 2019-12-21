@@ -39,7 +39,7 @@ public class AST_DEC_FUNC extends AST_DEC
 	public void PrintMe()
 	{
 		/*************************************************/
-		/* AST NODE TYPE = AST NODE FUNCTION DECLARATION */
+		/* AST NODE Type = AST NODE FUNCTION DECLARATION */
 		/*************************************************/
 		System.out.format("FUNC(%s):%s\n",name,returnTypeName);
 
@@ -63,16 +63,16 @@ public class AST_DEC_FUNC extends AST_DEC
 		if (body   != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,body.SerialNumber);		
 	}
 
-	public TYPE SemantMe()
+	public Type SemantMe()
 	{
-		TYPE t;
-		TYPE returnType = null;
-		TYPE_LIST type_list = null;
+		Type t;
+		Type returnType = null;
+		Type_List typeList = null;
 
 		/*******************/
 		/* [0] return type */
 		/*******************/
-		returnType = SYMBOL_TABLE.getInstance().find(returnTypeName);
+		returnType = SymbolTable.getInstance().find(returnTypeName);
 		if (returnType == null)
 		{
 			System.out.format(">> ERROR [%d:%d] non existing return type %s\n",6,6,returnType);				
@@ -81,22 +81,22 @@ public class AST_DEC_FUNC extends AST_DEC
 		/****************************/
 		/* [1] Begin Function Scope */
 		/****************************/
-		SYMBOL_TABLE.getInstance().beginScope();
+		SymbolTable.getInstance().beginScope();
 
 		/***************************/
 		/* [2] Semant Input Params */
 		/***************************/
 		for (AST_TYPE_NAME_LIST it = params; it  != null; it = it.tail)
 		{
-			t = SYMBOL_TABLE.getInstance().find(it.head.type);
+			t = SymbolTable.getInstance().find(it.head.type);
 			if (t == null)
 			{
 				System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,it.head.type);				
 			}
 			else
 			{
-				type_list = new TYPE_LIST(t,type_list);
-				SYMBOL_TABLE.getInstance().enter(it.head.name,t);
+				typeList = new Type_List(t, typeList);
+				SymbolTable.getInstance().enter(it.head.name,t);
 			}
 		}
 
@@ -108,12 +108,12 @@ public class AST_DEC_FUNC extends AST_DEC
 		/*****************/
 		/* [4] End Scope */
 		/*****************/
-		SYMBOL_TABLE.getInstance().endScope();
+		SymbolTable.getInstance().endScope();
 
 		/***************************************************/
 		/* [5] Enter the Function Type to the Symbol Table */
 		/***************************************************/
-		SYMBOL_TABLE.getInstance().enter(name,new TYPE_FUNCTION(returnType,name,type_list));
+		SymbolTable.getInstance().enter(name,new Type_Function(returnType,name, typeList));
 
 		/*********************************************************/
 		/* [6] Return value is irrelevant for class declarations */

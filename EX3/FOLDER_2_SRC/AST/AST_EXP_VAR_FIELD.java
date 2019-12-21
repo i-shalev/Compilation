@@ -1,7 +1,6 @@
 package AST;
 
 import TYPES.*;
-import SYMBOL_TABLE.*;
 
 public class AST_EXP_VAR_FIELD extends AST_EXP_VAR
 {
@@ -29,7 +28,7 @@ public class AST_EXP_VAR_FIELD extends AST_EXP_VAR
 	public void PrintMe()
 	{
 		/*********************************/
-		/* AST NODE TYPE = AST FIELD VAR */
+		/* AST NODE Type = AST FIELD VAR */
 		/*********************************/
 		System.out.format("FIELD\nNAME\n(___.%s)\n",fieldName);
 
@@ -50,10 +49,10 @@ public class AST_EXP_VAR_FIELD extends AST_EXP_VAR
 		/****************************************/
 		if (var  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);		
 	}
-	public TYPE SemantMe()
+	public Type SemantMe()
 	{
-		TYPE t = null;
-		TYPE_CLASS tc = null;
+		Type t = null;
+		Type_Class tc = null;
 		
 		/******************************/
 		/* [1] Recursively semant var */
@@ -70,13 +69,13 @@ public class AST_EXP_VAR_FIELD extends AST_EXP_VAR
 		}
 		else
 		{
-			tc = (TYPE_CLASS) t;
+			tc = (Type_Class) t;
 		}
 		
 		/************************************/
 		/* [3] Look for fiedlName inside tc */
 		/************************************/
-		for (TYPE_LIST it=tc.data_members;it != null;it=it.tail)
+		for (Type_List it = tc.data_members; it != null; it=it.next)
 		{
 			if (it.head.name == fieldName)
 			{

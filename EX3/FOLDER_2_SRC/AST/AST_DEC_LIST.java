@@ -24,7 +24,7 @@ public class AST_DEC_LIST extends AST_Node
 		this.tail = tail;
 	}
 
-	public TYPE SemantMe()
+	public Type SemantMe()
 	{		
 		/*************************************/
 		/* RECURSIVELY PRINT HEAD + TAIL ... */
@@ -41,7 +41,7 @@ public class AST_DEC_LIST extends AST_Node
 	public void PrintMe()
 	{
 		/********************************/
-		/* AST NODE TYPE = AST DEC LIST */
+		/* AST NODE Type = AST DEC LIST */
 		/********************************/
 		System.out.print("AST NODE DEC LIST\n");
 

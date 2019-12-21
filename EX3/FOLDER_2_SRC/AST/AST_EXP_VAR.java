@@ -4,7 +4,7 @@ import TYPES.*;
 
 public abstract class AST_EXP_VAR extends AST_EXP
 {
-	public TYPE SemantMe()
+	public Type SemantMe()
 	{
 		return null;
 	}
