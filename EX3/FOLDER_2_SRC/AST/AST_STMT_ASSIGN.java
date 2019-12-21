@@ -65,7 +65,10 @@ public class AST_STMT_ASSIGN extends AST_STMT
 	{
 		TYPE t1 = null;
 		TYPE t2 = null;
-		
+
+		// ### example
+		// var: "x"
+		// expression: y + 7
 		if (var != null) t1 = var.SemantMe();
 		if (exp != null) t2 = exp.SemantMe();
 		
