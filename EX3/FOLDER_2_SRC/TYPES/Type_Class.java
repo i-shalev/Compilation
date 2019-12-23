@@ -34,13 +34,13 @@ public class Type_Class extends Type {
         return null;
     }
 
-    public Type_Function getFuncField(String funcFieldName)
+    public Type_Func getFuncField(String funcFieldName)
     {
         for (Type_List it = data_members; it != null; it = it.next)
         {
-            if (it.head instanceof Type_Function)
+            if (it.head instanceof Type_Func)
             {
-                Type_Function func = (Type_Function)it.head;
+                Type_Func func = (Type_Func)it.head;
                 if (funcFieldName.equals(func.name)) { return func; }
             }
         }

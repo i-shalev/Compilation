@@ -31,7 +31,7 @@ public class SymbolTable {
 
     }
 
-    public Type find(String name) {
+    public static Type find(String name) {
         SymbolTableEntry e;
 
         for (e = table[hash(name)]; e != null; e = e.next) {
@@ -47,12 +47,12 @@ public class SymbolTable {
     //TODO: and relevant find functions
 
 
-    public static Type_Function findFunc() {
+    public static Type_Func findFunc() {
         SymbolTableEntry e = top;
-        while (e != null && !(e.type instanceof Type_Function)) {
+        while (e != null && !(e.type instanceof Type_Func)) {
             e = e.prevtop;
         }
-        return e != null ? (Type_Function) e.type : null;
+        return e != null ? (Type_Func) e.type : null;
     }
 
     public static Type_Class findClass() {
@@ -70,7 +70,7 @@ public class SymbolTable {
         while (e != null && !(e.type.name.equals(typeName))) {
             e = e.prevtop;
         }
-        if (e != null && e.type instanceof Type_Function)
+        if (e != null && e.type instanceof Type_Func)
             return null;
         return e != null ? e.type : null;
     }
@@ -120,13 +120,13 @@ public class SymbolTable {
         enter("string", Type_String.getInstance());
 
         // enter lib functions
-        Type_Function printIntFunc = new Type_Function(Type_Void.getInstance(), "PrintInt",
+        Type_Func printIntFunc = new Type_Func(Type_Void.getInstance(), "PrintInt",
                 new Type_List(Type_Int.getInstance(), null));
 
-        Type_Function printStringFunc = new Type_Function(Type_Void.getInstance(), "PrintString",
+        Type_Func printStringFunc = new Type_Func(Type_Void.getInstance(), "PrintString",
                 new Type_List(Type_String.getInstance(), null));
 
-        Type_Function printTraceFunc = new Type_Function(Type_Void.getInstance(), "PrintTrace",
+        Type_Func printTraceFunc = new Type_Func(Type_Void.getInstance(), "PrintTrace",
                 null);
 
         enter("PrintInt", printIntFunc);
@@ -274,7 +274,7 @@ public class SymbolTable {
             /***************************************/
             instance.enter(
                     "PrintInt",
-                    new Type_Function(
+                    new Type_Func(
                             Type_Void.getInstance(),
                             "PrintInt",
                             new Type_List(

@@ -1,10 +1,10 @@
 package TYPES;
 
-public class Type_Function extends Type {
+public class Type_Func extends Type {
     public Type returnType;
     public Type_List params;
 
-    public Type_Function(Type returnType, String name, Type_List params) {
+    public Type_Func(Type returnType, String name, Type_List params) {
         this.name = name;
         this.returnType = returnType;
         this.params = params;
@@ -28,7 +28,7 @@ public class Type_Function extends Type {
         Type_List otherTail = other_params;
         while (selfTail != null && otherTail != null) {
 
-            if (!CompetableTypes(selfTail.head, otherTail.head)) {
+            if (!CompatibleTypes(selfTail.head, otherTail.head)) {
                 return false;
             }
 
@@ -42,7 +42,7 @@ public class Type_Function extends Type {
 
     }
 
-    private boolean CompetableTypes(Type selfType, Type otherType) {
+    private boolean CompatibleTypes(Type selfType, Type otherType) {
 
         if (otherType instanceof Type_Nil) {
             return selfType instanceof Type_Class || selfType instanceof Type_Array;
@@ -64,7 +64,7 @@ public class Type_Function extends Type {
         //array
         if (selfType instanceof Type_Array) {
             return otherType instanceof Type_Array &&
-                    CompetableTypes(((Type_Array) selfType).elementType, ((Type_Array) otherType).elementType);
+                    CompatibleTypes(((Type_Array) selfType).elementType, ((Type_Array) otherType).elementType);
         }
 
         //classes

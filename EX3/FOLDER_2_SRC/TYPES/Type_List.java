@@ -1,6 +1,6 @@
 package TYPES;
 
-public class Type_List
+public class Type_List extends Type
 {
 	public Type head;
 	public Type_List next;

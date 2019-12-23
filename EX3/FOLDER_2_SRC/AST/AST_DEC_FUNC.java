@@ -113,7 +113,7 @@ public class AST_DEC_FUNC extends AST_DEC
 		/***************************************************/
 		/* [5] Enter the Function Type to the Symbol Table */
 		/***************************************************/
-		SymbolTable.getInstance().enter(name,new Type_Function(returnType,name, typeList));
+		SymbolTable.getInstance().enter(name,new Type_Func(returnType,name, typeList));
 
 		/*********************************************************/
 		/* [6] Return value is irrelevant for class declarations */

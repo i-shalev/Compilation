@@ -1,8 +1,12 @@
 package AST;
 
+import TYPES.*;
+
+import java.rmi.server.ExportException;
+
 public abstract class AST_Node
 {
-	public static boolean printDerivationRule = true;
+	public static boolean printDerivationRule = true; // if false, no derivation rules are printed
 	public int SerialNumber;
 
 	public AST_Node(){
@@ -14,8 +18,12 @@ public abstract class AST_Node
 		System.out.print("AST NODE UNKNOWN\n");
 	}
 
+	public Type SemantMe() throws Exception { return null; }
+
 	public static void PrintRule(String left, String right) {
 		if (printDerivationRule)
 			System.out.format("======== %s -> %s\n", left, right);
 	}
+
+
 }

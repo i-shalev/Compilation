@@ -2,13 +2,12 @@ package AST;
 
 import TYPES.*;
 
-public class AST_EXP_BINOP extends AST_EXP
-	{
+public class AST_Exp_Binop extends AST_EXP {
 		int OP;
 		public AST_EXP left;
 		public AST_EXP right;
 
-		public AST_EXP_BINOP(AST_EXP left, AST_EXP right, int OP) {
+		public AST_Exp_Binop(AST_EXP left, AST_EXP right, int OP) {
 			PrintRule("exp", "exp BINOP exp");
 
 			this.left = left;
@@ -38,7 +37,7 @@ public class AST_EXP_BINOP extends AST_EXP
 			if (right != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, right.SerialNumber);
 		}
 
-	public Type SemantMe() {
+	public Type SemantMe() throws Exception{
 		Type t1 = null;
 		Type t2 = null;
 		
