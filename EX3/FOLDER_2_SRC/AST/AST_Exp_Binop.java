@@ -44,9 +44,32 @@ public class AST_Exp_Binop extends AST_EXP {
 		if (left  != null) t1 = left.SemantMe();
 		if (right != null) t2 = right.SemantMe();
 		
-		if (t1 != Type_Int.getInstance() || t2 != Type_Int.getInstance())
-			throw new Exception("binary operation between non-integers");
+		if (t1 == Type_Int.getInstance() && t2 == Type_Int.getInstance())
+            return Type_Int.getInstance();
 
-		return Type_Int.getInstance();
+		if (OP == 0 && t1 == Type_String.getInstance() && t2 == Type_String.getInstance()) // 0 is +
+		    return Type_String.getInstance();
+
+		if (OP == 6) { // 6 is =
+		    if (t1 == t2)
+		        return Type_Int.getInstance();
+
+		    if (t1 == Type_Nil.getInstance() || t2 == Type_Nil.getInstance()) {
+                // If one is null, the other can be any class or array
+		        if (t1 instanceof Type_Class || t1 instanceof Type_Array)
+		            return Type_Int.getInstance();
+                if (t2 instanceof Type_Class || t2 instanceof Type_Array)
+                    return Type_Int.getInstance();
+            }
+
+            if (t1 instanceof Type_Class && t2 instanceof Type_Class) {
+		        if (((Type_Class)t1).isInheritsFrom((Type_Class)t2))
+		            return Type_Int.getInstance();
+                if (((Type_Class)t2).isInheritsFrom((Type_Class)t1))
+                    return Type_Int.getInstance();
+            }
+        }
+
+        throw new Exception("Illegal binary operation");
 	}
 }

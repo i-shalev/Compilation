@@ -151,9 +151,9 @@ dec         ::=     varDec:v                {: RESULT = new AST_Dec(v); :}
                   | arrayDec:a              {: RESULT = new AST_Dec(a); :}
                     ;
 
-varDec      ::=     ID:id1 ID:id2 SEMICOLON                 {: RESULT = new AST_VAR_DEC(id1, id2); :}
-                  | ID:id1 ID:id2 ASSIGN exp:e SEMICOLON    {: RESULT = new AST_VAR_DEC(id1, id2, e); :}
-                  | ID:id1 ID:id2 ASSIGN newExp:e SEMICOLON {: RESULT = new AST_VAR_DEC(id1, id2, e); :}
+varDec      ::=     ID:id1 ID:id2 SEMICOLON                 {: RESULT = new AST_Var_Dec(id1, id2); :}
+                  | ID:id1 ID:id2 ASSIGN exp:e SEMICOLON    {: RESULT = new AST_Var_Dec(id1, id2, e); :}
+                  | ID:id1 ID:id2 ASSIGN newExp:e SEMICOLON {: RESULT = new AST_Var_Dec(id1, id2, e); :}
                     ;
 
 funcDec      ::=    ID:id1 ID:id2 LPAREN RPAREN LBRACE stmtList:stlist RBRACE                {: RESULT = new AST_FUNC_DEC(id1, id2, null,   stlist); :}
