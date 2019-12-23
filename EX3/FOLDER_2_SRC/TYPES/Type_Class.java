@@ -1,7 +1,7 @@
 package TYPES;
 
 public class Type_Class extends Type {
-    public Type_Class father;          //should be null if is type
+    public Type_Class father;          // should be null if is type
     public Type_List data_members;     // contains both variables and methods
 
     public Type_Class(Type_Class father, String name, Type_List data_members) {
@@ -18,7 +18,6 @@ public class Type_Class extends Type {
 
         return this.father != null && this.father.isInheritsFrom(cls);
     }
-
 
     public Type getVarField(String varFieldName)
     {

@@ -145,10 +145,10 @@ program     ::=     dec:d  program:p        {: RESULT = new AST_Program(d, p);  
                   | dec:d                   {: RESULT = new AST_Program(d, null);      :}
                     ;
 
-dec         ::=     varDec:v                {: RESULT = new AST_DEC(v); :}
-                  | funcDec:f               {: RESULT = new AST_DEC(f); :}
-                  | classDec:c              {: RESULT = new AST_DEC(c); :}
-                  | arrayDec:a              {: RESULT = new AST_DEC(a); :}
+dec         ::=     varDec:v                {: RESULT = new AST_Dec(v); :}
+                  | funcDec:f               {: RESULT = new AST_Dec(f); :}
+                  | classDec:c              {: RESULT = new AST_Dec(c); :}
+                  | arrayDec:a              {: RESULT = new AST_Dec(a); :}
                     ;
 
 varDec      ::=     ID:id1 ID:id2 SEMICOLON                 {: RESULT = new AST_VAR_DEC(id1, id2); :}
@@ -181,17 +181,17 @@ arrayDec    ::=     ARRAY ID:id1 EQ ID:id2 LBRACK RBRACK    {: RESULT = new AST_
 
 exp         ::=     var:v                                       {: RESULT = new AST_EXP_VAR(v); :}
                   | LPAREN exp:e RPAREN                         {: RESULT = new AST_EXP_WRAPPER(e); :}
-                  | exp:e1 PLUS exp:e2                          {: RESULT = new AST_EXP_BINOP(e1, e2, 0); :}
-                  | exp:e1 MINUS exp:e2                         {: RESULT = new AST_EXP_BINOP(e1, e2, 1); :}
-                  | exp:e1 TIMES exp:e2                         {: RESULT = new AST_EXP_BINOP(e1, e2, 2); :}
-                  | exp:e1 DIVIDE exp:e2                        {: RESULT = new AST_EXP_BINOP(e1, e2, 3); :}
-                  | exp:e1 GT exp:e2                            {: RESULT = new AST_EXP_BINOP(e1, e2, 4); :}
-                  | exp:e1 LT exp:e2                            {: RESULT = new AST_EXP_BINOP(e1, e2, 5); :}
-                  | exp:e1 EQ exp:e2                            {: RESULT = new AST_EXP_BINOP(e1, e2, 6); :}
-                  | ID:id1 LPAREN RPAREN                        {: RESULT = new AST_EXP_FUNC(null, id1, null); :}
-                  | ID:id1 LPAREN expList:el RPAREN             {: RESULT = new AST_EXP_FUNC(null, id1, el); :}
-                  | var:v DOT ID:id1 LPAREN RPAREN              {: RESULT = new AST_EXP_FUNC(v, id1, null); :}
-                  | var:v DOT ID:id1 LPAREN expList:el RPAREN   {: RESULT = new AST_EXP_FUNC(v, id1, el); :}
+                  | exp:e1 PLUS exp:e2                          {: RESULT = new AST_Exp_Binop(e1, e2, 0); :}
+                  | exp:e1 MINUS exp:e2                         {: RESULT = new AST_Exp_Binop((e1, e2, 1); :}
+                  | exp:e1 TIMES exp:e2                         {: RESULT = new AST_Exp_Binop((e1, e2, 2); :}
+                  | exp:e1 DIVIDE exp:e2                        {: RESULT = new AST_Exp_Binop((e1, e2, 3); :}
+                  | exp:e1 GT exp:e2                            {: RESULT = new AST_Exp_Binop((e1, e2, 4); :}
+                  | exp:e1 LT exp:e2                            {: RESULT = new AST_Exp_Binop((e1, e2, 5); :}
+                  | exp:e1 EQ exp:e2                            {: RESULT = new AST_Exp_Binop((e1, e2, 6); :}
+                  | ID:id1 LPAREN RPAREN                        {: RESULT = new AST_Exp_Func_Call(null, id1, null); :}
+                  | ID:id1 LPAREN expList:el RPAREN             {: RESULT = new AST_Exp_Func_Call(null, id1, el); :}
+                  | var:v DOT ID:id1 LPAREN RPAREN              {: RESULT = new AST_Exp_Func_Call(v, id1, null); :}
+                  | var:v DOT ID:id1 LPAREN expList:el RPAREN   {: RESULT = new AST_Exp_Func_Call(v, id1, el); :}
                   | INT:i							            {: RESULT = new AST_EXP_INT(i); :}
                   | MINUS INT:i						            {: RESULT = new AST_EXP_INT(-i); :}
                   | NIL                                         {: RESULT = new AST_EXP_NIL(); :}

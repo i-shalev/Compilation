@@ -44,11 +44,9 @@ public class AST_Exp_Binop extends AST_EXP {
 		if (left  != null) t1 = left.SemantMe();
 		if (right != null) t2 = right.SemantMe();
 		
-		if ((t1 == Type_Int.getInstance()) && (t2 == Type_Int.getInstance()))
-		{
-			return Type_Int.getInstance();
-		}
-		System.exit(0);
-		return null;
+		if (t1 != Type_Int.getInstance() || t2 != Type_Int.getInstance())
+			throw new Exception("binary operation between non-integers");
+
+		return Type_Int.getInstance();
 	}
 }

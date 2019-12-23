@@ -25,12 +25,13 @@ public class SymbolTable {
         int hashIdx = hash(name); // this is the index in the hash table
         Entry next = table[hashIdx]; // we will insert the new element in the beginning of the list
         Entry e = new Entry(name, t, hashIdx, next, top, top_index++);
-        top = e; //update top
+        top = e; // update top
         table[hashIdx] = e;
         PrintMe();
 
     }
 
+    // Returns the type of name if defined, or null if undefined
     public static Type find(String name) {
         Entry e;
 
@@ -44,9 +45,9 @@ public class SymbolTable {
     }
 
 
-    //TODO: and relevant find functions
+    // TODO: and relevant find functions
 
-    // Returns the current function, or null is not in a function
+    // Returns the current function, or null if not in a function
     public static Type_Func findFunc() {
         Entry e = top;
         while (e != null && !(e.type instanceof Type_Func)) {
@@ -55,7 +56,7 @@ public class SymbolTable {
         return e != null ? (Type_Func) e.type : null;
     }
 
-    // Returns the current class, or null is not in a function
+    // Returns the current class, or null if not in a class
     public static Type_Class findClass() {
         Entry e = top;
         while (e != null && !(e.type instanceof Type_Class)) {
@@ -91,7 +92,7 @@ public class SymbolTable {
         return null;
     }
 
-    /*check if we are currently in the global scope*/
+    // Checks if we are currently in the global scope
     public static boolean isGlobalScope()
     {
         Entry e = top;
@@ -101,7 +102,8 @@ public class SymbolTable {
         }
         return e == null; // no Type in table
     }
-    /* check if we are in the scope which it's open bound is given as a parameter*/
+
+    // Checks if we are in the scope which its open bound is given as a parameter
     public static boolean isInScope(Type_Scope scopeType)
     {
         Entry e = top;
@@ -114,12 +116,12 @@ public class SymbolTable {
 
     public static void Init() {
 
-        /*we want to allow to create vars from class type iff the class is defined.
-         int and strings are defined by default.*/
+        /* We want to allow to create vars from class type iff the class is defined.
+           int and strings are defined by default */
         enter("int", Type_Int.getInstance());
         enter("string", Type_String.getInstance());
 
-        // enter lib functions
+        // Enter lib functions
         Type_Func printIntFunc = new Type_Func(Type_Void.getInstance(), "PrintInt",
                 new Type_List(Type_Int.getInstance(), null));
 
