@@ -70,7 +70,7 @@ public class Type_Func extends Type {
         //classes
         if (selfType instanceof Type_Class) {
             return otherType instanceof Type_Class &&
-                    ((Type_Class) otherType).isInheritsFrom((Type_Class) selfType);
+                    ((Type_Class) otherType).isInheritsFrom(selfType.name);
         }
 
 

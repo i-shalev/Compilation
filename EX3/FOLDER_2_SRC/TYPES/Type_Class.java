@@ -10,13 +10,13 @@ public class Type_Class extends Type {
         this.data_members = data_members;
     }
 
-    public boolean isInheritsFrom(Type_Class cls) {
+    public boolean isInheritsFrom(String name) {
 
-        if (this.name.equals(cls.name)) {
+        if (this.name.equals(name)) {
             return true;
         }
 
-        return this.father != null && this.father.isInheritsFrom(cls);
+        return this.father != null && this.father.isInheritsFrom(name);
     }
 
     public Type getVarField(String varFieldName)

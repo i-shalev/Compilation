@@ -3,7 +3,7 @@ package AST;
 import TYPES.*;
 import SYMBOL_TABLE.*;
 
-public class AST_DEC_VAR extends AST_DEC
+public class AST_DEC_VAR extends AST_Dec
 {
 	/****************/
 	/* DATA MEMBERS */

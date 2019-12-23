@@ -63,9 +63,9 @@ public class AST_Exp_Binop extends AST_EXP {
             }
 
             if (t1 instanceof Type_Class && t2 instanceof Type_Class) {
-		        if (((Type_Class)t1).isInheritsFrom((Type_Class)t2))
+		        if (((Type_Class)t1).isInheritsFrom(t2.name))
 		            return Type_Int.getInstance();
-                if (((Type_Class)t2).isInheritsFrom((Type_Class)t1))
+                if (((Type_Class)t2).isInheritsFrom(t1.name))
                     return Type_Int.getInstance();
             }
         }

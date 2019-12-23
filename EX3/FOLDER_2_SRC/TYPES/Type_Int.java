@@ -1,7 +1,7 @@
 package TYPES;
 
 // finished. simple class - only has getInstance method.
-public class Type_Int extends Type
+public class Type_Int extends Type_Primitive
 {
 	private static Type_Int instance = null;
 	protected Type_Int() {}
