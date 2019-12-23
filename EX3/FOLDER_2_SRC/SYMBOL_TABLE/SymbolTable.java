@@ -4,8 +4,8 @@ import TYPES.*;
 
 public class SymbolTable {
     private static int hashArraySize = 13;
-    private static SymbolTableEntry[] table = new SymbolTableEntry[hashArraySize];
-    private static SymbolTableEntry top; // the last element we entered
+    private static Entry[] table = new Entry[hashArraySize];
+    private static Entry top; // the last element we entered
     private static int top_index = 0;
 
     private static int hash(String s) {
@@ -23,8 +23,8 @@ public class SymbolTable {
     public static void enter(String name, Type t) {
         // the symbol table is the hash table from lecture 5 slide 20.
         int hashIdx = hash(name); // this is the index in the hash table
-        SymbolTableEntry next = table[hashIdx]; // we will insert the new element in the beginning of the list
-        SymbolTableEntry e = new SymbolTableEntry(name, t, hashIdx, next, top, top_index++);
+        Entry next = table[hashIdx]; // we will insert the new element in the beginning of the list
+        Entry e = new Entry(name, t, hashIdx, next, top, top_index++);
         top = e; //update top
         table[hashIdx] = e;
         PrintMe();
@@ -32,7 +32,7 @@ public class SymbolTable {
     }
 
     public static Type find(String name) {
-        SymbolTableEntry e;
+        Entry e;
 
         for (e = table[hash(name)]; e != null; e = e.next) {
             if (name.equals(e.name)) {
@@ -46,27 +46,27 @@ public class SymbolTable {
 
     //TODO: and relevant find functions
 
-
+    // Returns the current function, or null is not in a function
     public static Type_Func findFunc() {
-        SymbolTableEntry e = top;
+        Entry e = top;
         while (e != null && !(e.type instanceof Type_Func)) {
             e = e.prevtop;
         }
         return e != null ? (Type_Func) e.type : null;
     }
 
+    // Returns the current class, or null is not in a function
     public static Type_Class findClass() {
-        SymbolTableEntry e = top;
+        Entry e = top;
         while (e != null && !(e.type instanceof Type_Class)) {
             e = e.prevtop;
         }
         return e != null ? (Type_Class) e.type : null;
     }
 
-    /*get type name and check if it is defined. if it is, return Type and you can ask the
-     Type if it is class or array or something else.*/
+    // Returns a Type object that is named typeName, if defined. Otherwise, returns null
     public static Type findTypeName(String typeName) {
-        SymbolTableEntry e = top;
+        Entry e = top;
         while (e != null && !(e.type.name.equals(typeName))) {
             e = e.prevtop;
         }
@@ -75,11 +75,11 @@ public class SymbolTable {
         return e != null ? e.type : null;
     }
 
-    /*check if name appears in the current scope. if no, return null. if yes, return the type of the element*/
+    // Checks if name appears in the current scope, returns its Type is yes. Otherwise, returns null
     public static Type findInScope(String name) {
-        SymbolTableEntry entry = top;
+        Entry entry = top;
         int i = top_index - 1;
-        while (entry != null && !(entry.type instanceof Type_For_Scope_Boundaries)) {
+        while (entry != null && !(entry.type instanceof Type_Scope)) {
             i--;
             entry = entry.prevtop;
         }
@@ -94,17 +94,17 @@ public class SymbolTable {
     /*check if we are currently in the global scope*/
     public static boolean isGlobalScope()
     {
-        SymbolTableEntry e = top;
-        while (e != null && !(e.type instanceof Type_For_Scope_Boundaries))
+        Entry e = top;
+        while (e != null && !(e.type instanceof Type_Scope))
         {
             e = e.prevtop;
         }
         return e == null; // no Type in table
     }
     /* check if we are in the scope which it's open bound is given as a parameter*/
-    public static boolean isInScope(Type_For_Scope_Boundaries scopeType)
+    public static boolean isInScope(Type_Scope scopeType)
     {
-        SymbolTableEntry e = top;
+        Entry e = top;
         while (e != null && e.type != scopeType)
         {
             e = e.prevtop;
@@ -141,12 +141,12 @@ public class SymbolTable {
         /************************************************************************/
         /* Though <SCOPE-BOUNDARY> entries are present inside the symbol table, */
         /* they are not really types. In order to be ablt to debug print them,  */
-        /* a special Type_For_Scope_Boundaries was developed for them. This     */
+        /* a special Type_Scope was developed for them. This     */
         /* class only contain their type name which is the bottom sign: _|_     */
         /************************************************************************/
         enter(
                 "SCOPE-BOUNDARY",
-                new Type_For_Scope_Boundaries("NONE"));
+                new Type_Scope("NONE"));
 
         PrintMe();
     }
@@ -215,7 +215,7 @@ public class SymbolTable {
                     fileWriter.format("hashTable:f%d -> node_%d_0:f0;\n", i, i);
                 }
                 j = 0;
-                for (SymbolTableEntry it = table[i]; it != null; it = it.next) {
+                for (Entry it = table[i]; it != null; it = it.next) {
                     /*******************************/
                     /* [4b] Print entry(i,it) node */
                     /*******************************/

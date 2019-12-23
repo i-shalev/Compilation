@@ -4,21 +4,21 @@ import TYPES.*;
 
 //file complete - don't touch
 
-public class SymbolTableEntry {
+public class Entry {
     int index;                          // number of elements that inserted before the current element.
     public String name;
     public Type type;
-    public SymbolTableEntry prevtop;  // this is the last element that we inserted before current element
-    public SymbolTableEntry next;     // this is the next element in the list of specific hash value.
+    public Entry prevtop;  // this is the last element that we inserted before current element
+    public Entry next;     // this is the next element in the list of specific hash value.
     public int prevtop_index;           // The prevtop index is just for debug purposes
 
     //simple constructor - don't touch
-    public SymbolTableEntry(
+    public Entry(
             String name,
             Type type,
             int index,
-            SymbolTableEntry next,
-            SymbolTableEntry prevtop,
+            Entry next,
+            Entry prevtop,
             int prevtop_index) {
 
         this.index = index;
