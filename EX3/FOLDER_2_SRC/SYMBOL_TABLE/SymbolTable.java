@@ -139,7 +139,7 @@ public class SymbolTable {
 
     //TODO: end of our editing scope, delete the comment when done
 
-    public void beginScope() {
+    public static void beginScope() {
         /************************************************************************/
         /* Though <SCOPE-BOUNDARY> entries are present inside the symbol table, */
         /* they are not really types. In order to be ablt to debug print them,  */
@@ -153,7 +153,7 @@ public class SymbolTable {
         PrintMe();
     }
 
-    public void endScope() {
+    public static void endScope() {
         /**************************************************************************/
         /* Pop elements from the symbol table stack until a SCOPE-BOUNDARY is hit */
         /**************************************************************************/

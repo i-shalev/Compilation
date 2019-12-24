@@ -3,21 +3,21 @@ package AST;
 import SYMBOL_TABLE.SymbolTable;
 import TYPES.*;
 
-public class AST_Var_Dec extends AST_Node {
+public class AST_VAR_DEC extends AST_Node {
 
     public String type;
     public String name;
-    public AST_EXP exp;
+    public AST_Exp exp;
     public AST_New_Exp newExp;
 
-    public AST_Var_Dec(String type, String name)
+    public AST_VAR_DEC(String type, String name)
     {
         PrintRule("varDec", "ID ID");
         this.type = type;
         this.name = name;
     }
 
-    public AST_Var_Dec(String type, String name, AST_EXP exp)
+    public AST_VAR_DEC(String type, String name, AST_Exp exp)
     {
         PrintRule("varDec", "ID ID := exp ;");
         this.type = type;
@@ -25,7 +25,7 @@ public class AST_Var_Dec extends AST_Node {
         this.exp = exp;
     }
 
-    public AST_Var_Dec(String type, String name, AST_New_Exp newExp)
+    public AST_VAR_DEC(String type, String name, AST_New_Exp newExp)
     {
         PrintRule("varDec", "ID ID := newExp ;");
         this.type = type;
@@ -38,12 +38,12 @@ public class AST_Var_Dec extends AST_Node {
         if (exp != null) exp.PrintMe();
         if (newExp != null) newExp.PrintMe();
 
-        AST_GRAPHVIZ.getInstance().logNode(
+        AST_Graphviz.getInstance().logNode(
                 SerialNumber,
                 String.format("Variable\nDEC\n(%s %s)", type, name));
 
-        if (exp != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, exp.SerialNumber);
-        if (newExp != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, newExp.SerialNumber);
+        if (exp != null) AST_Graphviz.getInstance().logEdge(SerialNumber, exp.SerialNumber);
+        if (newExp != null) AST_Graphviz.getInstance().logEdge(SerialNumber, newExp.SerialNumber);
     }
 
     public Type SemantMe() throws Exception {
@@ -58,7 +58,7 @@ public class AST_Var_Dec extends AST_Node {
 
         SymbolTable.enter(name, varType);
 
-        // TODO: finish this
+        // TODO: finish this - change to camelCase only when you finish
         if (exp != null) {
             Type expType = exp.SemantMe();
 

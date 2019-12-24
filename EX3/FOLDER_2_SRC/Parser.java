@@ -6,7 +6,6 @@
 import java_cup.runtime.*;
 import AST.*;
 import java.io.PrintWriter;
-import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
   */
@@ -465,7 +464,7 @@ class CUP$Parser$actions {
               AST_DEC RESULT =null;
 		int aleft = ((Symbol)CUP$Parser$stack.peek()).left;
 		int aright = ((Symbol)CUP$Parser$stack.peek()).right;
-		AST_ARRAY_DEC a = (AST_ARRAY_DEC)((Symbol) CUP$Parser$stack.peek()).value;
+		AST_Array_Dec a = (AST_Array_Dec)((Symbol) CUP$Parser$stack.peek()).value;
 		 RESULT = new AST_DEC(a); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("dec",1, ((Symbol)CUP$Parser$stack.peek()), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -498,7 +497,7 @@ class CUP$Parser$actions {
 		String id2 = (String)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
 		int eleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int eright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
-		AST_EXP e = (AST_EXP)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		AST_Exp e = (AST_Exp)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		 RESULT = new AST_VAR_DEC(id1, id2, e); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("varDec",2, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -534,7 +533,7 @@ class CUP$Parser$actions {
 		String id2 = (String)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-5)).value;
 		int stlistleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int stlistright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
-		AST_STMT_LIST stlist = (AST_STMT_LIST)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		AST_Stmt_List stlist = (AST_Stmt_List)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		 RESULT = new AST_FUNC_DEC(id1, id2, null,   stlist); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("funcDec",3, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -555,7 +554,7 @@ class CUP$Parser$actions {
 		AST_ID_LIST idlist = (AST_ID_LIST)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
 		int stlistleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int stlistright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
-		AST_STMT_LIST stlist = (AST_STMT_LIST)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		AST_Stmt_List stlist = (AST_Stmt_List)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		 RESULT = new AST_FUNC_DEC(id1, id2, idlist, stlist); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("funcDec",3, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -564,14 +563,14 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 12: // stmtList ::= stmt stmtList 
             {
-              AST_STMT_LIST RESULT =null;
+              AST_Stmt_List RESULT =null;
 		int sleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int sright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
-		AST_STMT s = (AST_STMT)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		AST_Stmt s = (AST_Stmt)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		int lleft = ((Symbol)CUP$Parser$stack.peek()).left;
 		int lright = ((Symbol)CUP$Parser$stack.peek()).right;
-		AST_STMT_LIST l = (AST_STMT_LIST)((Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new AST_STMT_LIST(s, l);    
+		AST_Stmt_List l = (AST_Stmt_List)((Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = new AST_Stmt_List(s, l);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmtList",10, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -579,11 +578,11 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 13: // stmtList ::= stmt 
             {
-              AST_STMT_LIST RESULT =null;
+              AST_Stmt_List RESULT =null;
 		int sleft = ((Symbol)CUP$Parser$stack.peek()).left;
 		int sright = ((Symbol)CUP$Parser$stack.peek()).right;
-		AST_STMT s = (AST_STMT)((Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new AST_STMT_LIST(s, null); 
+		AST_Stmt s = (AST_Stmt)((Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = new AST_Stmt_List(s, null);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmtList",10, ((Symbol)CUP$Parser$stack.peek()), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -684,14 +683,14 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 20: // arrayDec ::= ARRAY ID EQ ID LBRACK RBRACK 
             {
-              AST_ARRAY_DEC RESULT =null;
+              AST_Array_Dec RESULT =null;
 		int id1left = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).left;
 		int id1right = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).right;
 		String id1 = (String)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
 		int id2left = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int id2right = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
 		String id2 = (String)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
-		 RESULT = new AST_ARRAY_DEC(id1, id2) ; 
+		 RESULT = new AST_Array_Dec(id1, id2) ;
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("arrayDec",5, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -699,11 +698,11 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 21: // exp ::= var 
             {
-              AST_EXP RESULT =null;
+              AST_Exp RESULT =null;
 		int vleft = ((Symbol)CUP$Parser$stack.peek()).left;
 		int vright = ((Symbol)CUP$Parser$stack.peek()).right;
-		AST_VAR v = (AST_VAR)((Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new AST_EXP_VAR(v); 
+		AST_Var v = (AST_Var)((Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = new AST_Exp_Var(v);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("exp",6, ((Symbol)CUP$Parser$stack.peek()), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -711,10 +710,10 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 22: // exp ::= LPAREN exp RPAREN 
             {
-              AST_EXP RESULT =null;
+              AST_Exp RESULT =null;
 		int eleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int eright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
-		AST_EXP e = (AST_EXP)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		AST_Exp e = (AST_Exp)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		 RESULT = new AST_EXP_WRAPPER(e); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("exp",6, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -723,13 +722,13 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 23: // exp ::= exp PLUS exp 
             {
-              AST_EXP RESULT =null;
+              AST_Exp RESULT =null;
 		int e1left = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int e1right = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		AST_EXP e1 = (AST_EXP)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		AST_Exp e1 = (AST_Exp)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		int e2left = ((Symbol)CUP$Parser$stack.peek()).left;
 		int e2right = ((Symbol)CUP$Parser$stack.peek()).right;
-		AST_EXP e2 = (AST_EXP)((Symbol) CUP$Parser$stack.peek()).value;
+		AST_Exp e2 = (AST_Exp)((Symbol) CUP$Parser$stack.peek()).value;
 		 RESULT = new AST_EXP_BINOP(e1, e2, 0); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("exp",6, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -738,13 +737,13 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 24: // exp ::= exp MINUS exp 
             {
-              AST_EXP RESULT =null;
+              AST_Exp RESULT =null;
 		int e1left = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int e1right = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		AST_EXP e1 = (AST_EXP)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		AST_Exp e1 = (AST_Exp)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		int e2left = ((Symbol)CUP$Parser$stack.peek()).left;
 		int e2right = ((Symbol)CUP$Parser$stack.peek()).right;
-		AST_EXP e2 = (AST_EXP)((Symbol) CUP$Parser$stack.peek()).value;
+		AST_Exp e2 = (AST_Exp)((Symbol) CUP$Parser$stack.peek()).value;
 		 RESULT = new AST_EXP_BINOP(e1, e2, 1); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("exp",6, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -753,13 +752,13 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 25: // exp ::= exp TIMES exp 
             {
-              AST_EXP RESULT =null;
+              AST_Exp RESULT =null;
 		int e1left = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int e1right = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		AST_EXP e1 = (AST_EXP)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		AST_Exp e1 = (AST_Exp)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		int e2left = ((Symbol)CUP$Parser$stack.peek()).left;
 		int e2right = ((Symbol)CUP$Parser$stack.peek()).right;
-		AST_EXP e2 = (AST_EXP)((Symbol) CUP$Parser$stack.peek()).value;
+		AST_Exp e2 = (AST_Exp)((Symbol) CUP$Parser$stack.peek()).value;
 		 RESULT = new AST_EXP_BINOP(e1, e2, 2); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("exp",6, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -768,13 +767,13 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 26: // exp ::= exp DIVIDE exp 
             {
-              AST_EXP RESULT =null;
+              AST_Exp RESULT =null;
 		int e1left = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int e1right = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		AST_EXP e1 = (AST_EXP)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		AST_Exp e1 = (AST_Exp)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		int e2left = ((Symbol)CUP$Parser$stack.peek()).left;
 		int e2right = ((Symbol)CUP$Parser$stack.peek()).right;
-		AST_EXP e2 = (AST_EXP)((Symbol) CUP$Parser$stack.peek()).value;
+		AST_Exp e2 = (AST_Exp)((Symbol) CUP$Parser$stack.peek()).value;
 		 RESULT = new AST_EXP_BINOP(e1, e2, 3); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("exp",6, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -783,13 +782,13 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 27: // exp ::= exp GT exp 
             {
-              AST_EXP RESULT =null;
+              AST_Exp RESULT =null;
 		int e1left = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int e1right = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		AST_EXP e1 = (AST_EXP)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		AST_Exp e1 = (AST_Exp)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		int e2left = ((Symbol)CUP$Parser$stack.peek()).left;
 		int e2right = ((Symbol)CUP$Parser$stack.peek()).right;
-		AST_EXP e2 = (AST_EXP)((Symbol) CUP$Parser$stack.peek()).value;
+		AST_Exp e2 = (AST_Exp)((Symbol) CUP$Parser$stack.peek()).value;
 		 RESULT = new AST_EXP_BINOP(e1, e2, 4); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("exp",6, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -798,13 +797,13 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 28: // exp ::= exp LT exp 
             {
-              AST_EXP RESULT =null;
+              AST_Exp RESULT =null;
 		int e1left = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int e1right = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		AST_EXP e1 = (AST_EXP)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		AST_Exp e1 = (AST_Exp)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		int e2left = ((Symbol)CUP$Parser$stack.peek()).left;
 		int e2right = ((Symbol)CUP$Parser$stack.peek()).right;
-		AST_EXP e2 = (AST_EXP)((Symbol) CUP$Parser$stack.peek()).value;
+		AST_Exp e2 = (AST_Exp)((Symbol) CUP$Parser$stack.peek()).value;
 		 RESULT = new AST_EXP_BINOP(e1, e2, 5); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("exp",6, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -813,13 +812,13 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 29: // exp ::= exp EQ exp 
             {
-              AST_EXP RESULT =null;
+              AST_Exp RESULT =null;
 		int e1left = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int e1right = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		AST_EXP e1 = (AST_EXP)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		AST_Exp e1 = (AST_Exp)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		int e2left = ((Symbol)CUP$Parser$stack.peek()).left;
 		int e2right = ((Symbol)CUP$Parser$stack.peek()).right;
-		AST_EXP e2 = (AST_EXP)((Symbol) CUP$Parser$stack.peek()).value;
+		AST_Exp e2 = (AST_Exp)((Symbol) CUP$Parser$stack.peek()).value;
 		 RESULT = new AST_EXP_BINOP(e1, e2, 6); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("exp",6, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -828,7 +827,7 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 30: // exp ::= ID LPAREN RPAREN 
             {
-              AST_EXP RESULT =null;
+              AST_Exp RESULT =null;
 		int id1left = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int id1right = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
 		String id1 = (String)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
@@ -840,7 +839,7 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 31: // exp ::= ID LPAREN expList RPAREN 
             {
-              AST_EXP RESULT =null;
+              AST_Exp RESULT =null;
 		int id1left = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
 		int id1right = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
 		String id1 = (String)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
@@ -855,10 +854,10 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 32: // exp ::= var DOT ID LPAREN RPAREN 
             {
-              AST_EXP RESULT =null;
+              AST_Exp RESULT =null;
 		int vleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).left;
 		int vright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).right;
-		AST_VAR v = (AST_VAR)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
+		AST_Var v = (AST_Var)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
 		int id1left = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int id1right = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
 		String id1 = (String)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
@@ -870,10 +869,10 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 33: // exp ::= var DOT ID LPAREN expList RPAREN 
             {
-              AST_EXP RESULT =null;
+              AST_Exp RESULT =null;
 		int vleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).left;
 		int vright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).right;
-		AST_VAR v = (AST_VAR)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-5)).value;
+		AST_Var v = (AST_Var)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-5)).value;
 		int id1left = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
 		int id1right = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
 		String id1 = (String)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
@@ -888,7 +887,7 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 34: // exp ::= INT 
             {
-              AST_EXP RESULT =null;
+              AST_Exp RESULT =null;
 		int ileft = ((Symbol)CUP$Parser$stack.peek()).left;
 		int iright = ((Symbol)CUP$Parser$stack.peek()).right;
 		Integer i = (Integer)((Symbol) CUP$Parser$stack.peek()).value;
@@ -900,7 +899,7 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 35: // exp ::= MINUS INT 
             {
-              AST_EXP RESULT =null;
+              AST_Exp RESULT =null;
 		int ileft = ((Symbol)CUP$Parser$stack.peek()).left;
 		int iright = ((Symbol)CUP$Parser$stack.peek()).right;
 		Integer i = (Integer)((Symbol) CUP$Parser$stack.peek()).value;
@@ -912,7 +911,7 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 36: // exp ::= NIL 
             {
-              AST_EXP RESULT =null;
+              AST_Exp RESULT =null;
 		 RESULT = new AST_EXP_NIL(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("exp",6, ((Symbol)CUP$Parser$stack.peek()), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -921,7 +920,7 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 37: // exp ::= STRING 
             {
-              AST_EXP RESULT =null;
+              AST_Exp RESULT =null;
 		int stleft = ((Symbol)CUP$Parser$stack.peek()).left;
 		int stright = ((Symbol)CUP$Parser$stack.peek()).right;
 		String st = (String)((Symbol) CUP$Parser$stack.peek()).value;
@@ -936,7 +935,7 @@ class CUP$Parser$actions {
               AST_EXP_LIST RESULT =null;
 		int eleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int eright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		AST_EXP e = (AST_EXP)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		AST_Exp e = (AST_Exp)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		int elleft = ((Symbol)CUP$Parser$stack.peek()).left;
 		int elright = ((Symbol)CUP$Parser$stack.peek()).right;
 		AST_EXP_LIST el = (AST_EXP_LIST)((Symbol) CUP$Parser$stack.peek()).value;
@@ -951,7 +950,7 @@ class CUP$Parser$actions {
               AST_EXP_LIST RESULT =null;
 		int eleft = ((Symbol)CUP$Parser$stack.peek()).left;
 		int eright = ((Symbol)CUP$Parser$stack.peek()).right;
-		AST_EXP e = (AST_EXP)((Symbol) CUP$Parser$stack.peek()).value;
+		AST_Exp e = (AST_Exp)((Symbol) CUP$Parser$stack.peek()).value;
 		 RESULT = new AST_EXP_LIST(e, null) ;
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("expList",13, ((Symbol)CUP$Parser$stack.peek()), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -960,7 +959,7 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 40: // var ::= ID 
             {
-              AST_VAR RESULT =null;
+              AST_Var RESULT =null;
 		int nameleft = ((Symbol)CUP$Parser$stack.peek()).left;
 		int nameright = ((Symbol)CUP$Parser$stack.peek()).right;
 		String name = (String)((Symbol) CUP$Parser$stack.peek()).value;
@@ -972,10 +971,10 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 41: // var ::= var DOT ID 
             {
-              AST_VAR RESULT =null;
+              AST_Var RESULT =null;
 		int vleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int vright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		AST_VAR v = (AST_VAR)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		AST_Var v = (AST_Var)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		int fieldNameleft = ((Symbol)CUP$Parser$stack.peek()).left;
 		int fieldNameright = ((Symbol)CUP$Parser$stack.peek()).right;
 		String fieldName = (String)((Symbol) CUP$Parser$stack.peek()).value;
@@ -987,13 +986,13 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 42: // var ::= var LBRACK exp RBRACK 
             {
-              AST_VAR RESULT =null;
+              AST_Var RESULT =null;
 		int vleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
 		int vright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
-		AST_VAR v = (AST_VAR)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
+		AST_Var v = (AST_Var)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
 		int eleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int eright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
-		AST_EXP e = (AST_EXP)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		AST_Exp e = (AST_Exp)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		 RESULT = new AST_VAR_SUBSCRIPT(v,e);     
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("var",14, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1002,7 +1001,7 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 43: // stmt ::= varDec 
             {
-              AST_STMT RESULT =null;
+              AST_Stmt RESULT =null;
 		int vcleft = ((Symbol)CUP$Parser$stack.peek()).left;
 		int vcright = ((Symbol)CUP$Parser$stack.peek()).right;
 		AST_VAR_DEC vc = (AST_VAR_DEC)((Symbol) CUP$Parser$stack.peek()).value;
@@ -1014,13 +1013,13 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 44: // stmt ::= var ASSIGN exp SEMICOLON 
             {
-              AST_STMT RESULT =null;
+              AST_Stmt RESULT =null;
 		int vleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
 		int vright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
-		AST_VAR v = (AST_VAR)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
+		AST_Var v = (AST_Var)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
 		int eleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int eright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
-		AST_EXP e = (AST_EXP)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		AST_Exp e = (AST_Exp)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		 RESULT = new AST_STMT_ASSIGN(v,e); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmt",7, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1029,10 +1028,10 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 45: // stmt ::= var ASSIGN newExp SEMICOLON 
             {
-              AST_STMT RESULT =null;
+              AST_Stmt RESULT =null;
 		int vleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
 		int vright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
-		AST_VAR v = (AST_VAR)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
+		AST_Var v = (AST_Var)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
 		int eleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int eright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		AST_NEW_EXP e = (AST_NEW_EXP)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
@@ -1044,8 +1043,8 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 46: // stmt ::= RETURN SEMICOLON 
             {
-              AST_STMT RESULT =null;
-		 RESULT = new AST_STMT_RETURN(null); 
+              AST_Stmt RESULT =null;
+		 RESULT = new AST_Stmt_Return(null);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmt",7, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1053,11 +1052,11 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 47: // stmt ::= RETURN exp SEMICOLON 
             {
-              AST_STMT RESULT =null;
+              AST_Stmt RESULT =null;
 		int eleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int eright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
-		AST_EXP e = (AST_EXP)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 RESULT = new AST_STMT_RETURN(e); 
+		AST_Exp e = (AST_Exp)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		 RESULT = new AST_Stmt_Return(e);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmt",7, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1065,14 +1064,14 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 48: // stmt ::= IF LPAREN exp RPAREN LBRACE stmtList RBRACE 
             {
-              AST_STMT RESULT =null;
+              AST_Stmt RESULT =null;
 		int condleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).left;
 		int condright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).right;
-		AST_EXP cond = (AST_EXP)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
+		AST_Exp cond = (AST_Exp)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
 		int bodyleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int bodyright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
-		AST_STMT_LIST body = (AST_STMT_LIST)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 RESULT = new AST_STMT_IF(cond,body); 
+		AST_Stmt_List body = (AST_Stmt_List)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		 RESULT = new AST_Stmt_If(cond,body);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmt",7, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1080,14 +1079,14 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 49: // stmt ::= WHILE LPAREN exp RPAREN LBRACE stmtList RBRACE 
             {
-              AST_STMT RESULT =null;
+              AST_Stmt RESULT =null;
 		int condleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).left;
 		int condright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).right;
-		AST_EXP cond = (AST_EXP)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
+		AST_Exp cond = (AST_Exp)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
 		int bodyleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int bodyright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
-		AST_STMT_LIST body = (AST_STMT_LIST)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 RESULT = new AST_STMT_WHILE(cond,body); 
+		AST_Stmt_List body = (AST_Stmt_List)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		 RESULT = new AST_Stmt_While(cond,body);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmt",7, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1095,7 +1094,7 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 50: // stmt ::= ID LPAREN RPAREN SEMICOLON 
             {
-              AST_STMT RESULT =null;
+              AST_Stmt RESULT =null;
 		int id1left = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
 		int id1right = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
 		String id1 = (String)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
@@ -1107,10 +1106,10 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 51: // stmt ::= var DOT ID LPAREN RPAREN SEMICOLON 
             {
-              AST_STMT RESULT =null;
+              AST_Stmt RESULT =null;
 		int v1left = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).left;
 		int v1right = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).right;
-		AST_VAR v1 = (AST_VAR)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-5)).value;
+		AST_Var v1 = (AST_Var)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-5)).value;
 		int id1left = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
 		int id1right = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
 		String id1 = (String)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
@@ -1122,10 +1121,10 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 52: // stmt ::= var DOT ID LPAREN expList RPAREN SEMICOLON 
             {
-              AST_STMT RESULT =null;
+              AST_Stmt RESULT =null;
 		int v1left = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)).left;
 		int v1right = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)).right;
-		AST_VAR v1 = (AST_VAR)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-6)).value;
+		AST_Var v1 = (AST_Var)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-6)).value;
 		int id1left = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).left;
 		int id1right = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).right;
 		String id1 = (String)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
@@ -1140,7 +1139,7 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 53: // stmt ::= ID LPAREN expList RPAREN SEMICOLON 
             {
-              AST_STMT RESULT =null;
+              AST_Stmt RESULT =null;
 		int id1left = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).left;
 		int id1right = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).right;
 		String id1 = (String)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
@@ -1173,7 +1172,7 @@ class CUP$Parser$actions {
 		String id = (String)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
 		int eleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int eright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
-		AST_EXP e = (AST_EXP)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		AST_Exp e = (AST_Exp)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		 RESULT = new AST_NEW_EXP(id, e); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("newExp",8, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }

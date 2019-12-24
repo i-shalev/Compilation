@@ -1,6 +1,6 @@
 package AST;
 
-public class AST_STMT_CALL extends AST_STMT
+public class AST_STMT_CALL extends AST_Stmt
 {
 	/****************/
 	/* DATA MEMBERS */
@@ -27,13 +27,13 @@ public class AST_STMT_CALL extends AST_STMT
 		/***************************************/
 		/* PRINT Node to AST GRAPHVIZ DOT file */
 		/***************************************/
-		AST_GRAPHVIZ.getInstance().logNode(
+		AST_Graphviz.getInstance().logNode(
 			SerialNumber,
 			String.format("STMT\nCALL"));
 		
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
-		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,callExp.SerialNumber);		
+		AST_Graphviz.getInstance().logEdge(SerialNumber,callExp.SerialNumber);
 	}
 }

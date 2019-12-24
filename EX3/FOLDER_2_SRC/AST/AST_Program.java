@@ -24,12 +24,12 @@ public class AST_Program extends AST_Node
         head.PrintMe();
         if (tail != null) tail.PrintMe();
 
-        AST_GRAPHVIZ.getInstance().logNode(
+        AST_Graphviz.getInstance().logNode(
                 SerialNumber,
                 "Program");
 
-        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, head.SerialNumber);
-        if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, tail.SerialNumber);
+        AST_Graphviz.getInstance().logEdge(SerialNumber, head.SerialNumber);
+        if (tail != null) AST_Graphviz.getInstance().logEdge(SerialNumber, tail.SerialNumber);
     }
 
     public Type SemantMe() throws Exception {

@@ -2,7 +2,7 @@ package AST;
 
 import TYPES.*;
 
-public class AST_Exp_Int extends AST_EXP
+public class AST_Exp_Int extends AST_Exp
 {
 	public int value;
 
@@ -15,7 +15,7 @@ public class AST_Exp_Int extends AST_EXP
 
 	public void PrintMe()
 	{
-		AST_GRAPHVIZ.getInstance().logNode(
+		AST_Graphviz.getInstance().logNode(
 				SerialNumber,
 				String.format("INT(%d)", value));
 	}

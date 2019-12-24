@@ -31,7 +31,7 @@ public class Main
 
 			AST.SemantMe();
 			file_writer.close();
-			AST_GRAPHVIZ.getInstance().finalizeFile();
+			AST_Graphviz.getInstance().finalizeFile();
     	}
 			     
 		catch (Exception e)

@@ -2,18 +2,18 @@ package AST;
 
 import TYPES.*;
 
-public class AST_STMT_ASSIGN extends AST_STMT
+public class AST_STMT_ASSIGN extends AST_Stmt
 {
 	/***************/
 	/*  var := exp */
 	/***************/
-	public AST_EXP_VAR var;
-	public AST_EXP exp;
+	public AST_Exp_Var var;
+	public AST_Exp exp;
 
 	/*******************/
 	/*  CONSTRUCTOR(S) */
 	/*******************/
-	public AST_STMT_ASSIGN(AST_EXP_VAR var,AST_EXP exp)
+	public AST_STMT_ASSIGN(AST_Exp_Var var, AST_Exp exp)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -51,15 +51,15 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		/***************************************/
 		/* PRINT Node to AST GRAPHVIZ DOT file */
 		/***************************************/
-		AST_GRAPHVIZ.getInstance().logNode(
+		AST_Graphviz.getInstance().logNode(
 			SerialNumber,
 			"ASSIGN\nleft := right\n");
 		
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
-		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
-		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
+		AST_Graphviz.getInstance().logEdge(SerialNumber,var.SerialNumber);
+		AST_Graphviz.getInstance().logEdge(SerialNumber,exp.SerialNumber);
 	}
 	public Type SemantMe()
 	{

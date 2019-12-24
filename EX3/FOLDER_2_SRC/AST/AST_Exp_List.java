@@ -7,13 +7,13 @@ public class AST_Exp_List extends AST_Node
 	/****************/
 	/* DATA MEMBERS */
 	/****************/
-	public AST_EXP head;
+	public AST_Exp head;
 	public AST_Exp_List tail;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_Exp_List(AST_EXP head, AST_Exp_List tail)
+	public AST_Exp_List(AST_Exp head, AST_Exp_List tail)
 	{
 		if (tail != null) PrintRule("expList", "exp expList");
 		if (tail == null) PrintRule("expList", "exp");
@@ -27,12 +27,12 @@ public class AST_Exp_List extends AST_Node
 		if (head != null) head.PrintMe();
 		if (tail != null) tail.PrintMe();
 
-		AST_GRAPHVIZ.getInstance().logNode(
+		AST_Graphviz.getInstance().logNode(
 				SerialNumber,
 				"Exp\nLIST\n");
 
-		if (head != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, head.SerialNumber);
-		if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, tail.SerialNumber);
+		if (head != null) AST_Graphviz.getInstance().logEdge(SerialNumber, head.SerialNumber);
+		if (tail != null) AST_Graphviz.getInstance().logEdge(SerialNumber, tail.SerialNumber);
 	}
 
 	public Type_List SemantMe() throws Exception {

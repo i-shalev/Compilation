@@ -4,12 +4,12 @@ import TYPES.*;
 
 public abstract class AST_Dec extends AST_Node
 {
-	public AST_Var_Dec varDec;
-	public AST_ARRAY_DEC arrayDec;
+	public AST_VAR_DEC varDec;
+	public AST_Array_Dec arrayDec;
 	public AST_CLASS_DEC classDec;
 	public AST_FUNC_DEC funcDec;
 
-	public AST_Dec(AST_Var_Dec varDec)
+	public AST_Dec(AST_VAR_DEC varDec)
 	{
 		PrintRule("dec", "varDec");
 		this.varDec = varDec;
@@ -27,7 +27,7 @@ public abstract class AST_Dec extends AST_Node
 		this.classDec = classDec;
 	}
 
-	public AST_Dec(AST_ARRAY_DEC arrayDec)
+	public AST_Dec(AST_Array_Dec arrayDec)
 	{
 		PrintRule("dec", "arrayDec");
 		this.arrayDec = arrayDec;
@@ -40,14 +40,14 @@ public abstract class AST_Dec extends AST_Node
 		if (classDec != null) classDec.PrintMe();
 		if (arrayDec != null) arrayDec.PrintMe();
 
-		AST_GRAPHVIZ.getInstance().logNode(
+		AST_Graphviz.getInstance().logNode(
 				SerialNumber,
 				"Declaration");
 
-		if (varDec != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, varDec.SerialNumber);
-		if (funcDec != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, funcDec.SerialNumber);
-		if (classDec != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, classDec.SerialNumber);
-		if (arrayDec != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, arrayDec.SerialNumber);
+		if (varDec != null) AST_Graphviz.getInstance().logEdge(SerialNumber, varDec.SerialNumber);
+		if (funcDec != null) AST_Graphviz.getInstance().logEdge(SerialNumber, funcDec.SerialNumber);
+		if (classDec != null) AST_Graphviz.getInstance().logEdge(SerialNumber, classDec.SerialNumber);
+		if (arrayDec != null) AST_Graphviz.getInstance().logEdge(SerialNumber, arrayDec.SerialNumber);
 	}
 
 	public Type SemantMe() throws Exception

@@ -11,7 +11,7 @@ public class AST_DEC_FUNC extends AST_Dec
 	public String returnTypeName;
 	public String name;
 	public AST_TYPE_NAME_LIST params;
-	public AST_STMT_LIST body;
+	public AST_Stmt_List body;
 	
 	/******************/
 	/* CONSTRUCTOR(S) */
@@ -20,7 +20,7 @@ public class AST_DEC_FUNC extends AST_Dec
 		String returnTypeName,
 		String name,
 		AST_TYPE_NAME_LIST params,
-		AST_STMT_LIST body)
+		AST_Stmt_List body)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -52,15 +52,15 @@ public class AST_DEC_FUNC extends AST_Dec
 		/***************************************/
 		/* PRINT Node to AST GRAPHVIZ DOT file */
 		/***************************************/
-		AST_GRAPHVIZ.getInstance().logNode(
+		AST_Graphviz.getInstance().logNode(
 			SerialNumber,
 			String.format("FUNC(%s)\n:%s\n",name,returnTypeName));
 		
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
-		if (params != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,params.SerialNumber);		
-		if (body   != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,body.SerialNumber);		
+		if (params != null) AST_Graphviz.getInstance().logEdge(SerialNumber,params.SerialNumber);
+		if (body   != null) AST_Graphviz.getInstance().logEdge(SerialNumber,body.SerialNumber);
 	}
 
 	public Type SemantMe()

@@ -43,14 +43,14 @@ public class AST_DEC_CLASS extends AST_Dec
 		/***************************************/
 		/* PRINT Node to AST GRAPHVIZ DOT file */
 		/***************************************/
-		AST_GRAPHVIZ.getInstance().logNode(
+		AST_Graphviz.getInstance().logNode(
 			SerialNumber,
 			String.format("CLASS\n%s",name));
 		
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
-		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,data_members.SerialNumber);		
+		AST_Graphviz.getInstance().logEdge(SerialNumber,data_members.SerialNumber);
 	}
 	
 	public Type SemantMe()

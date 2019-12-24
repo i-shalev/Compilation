@@ -10,12 +10,12 @@ public class AST_DEC_VAR extends AST_Dec
 	/****************/
 	public String type;
 	public String name;
-	public AST_EXP initialValue;
+	public AST_Exp initialValue;
 	
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_DEC_VAR(String type,String name,AST_EXP initialValue)
+	public AST_DEC_VAR(String type, String name, AST_Exp initialValue)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -46,14 +46,14 @@ public class AST_DEC_VAR extends AST_Dec
 		/**********************************/
 		/* PRINT to AST GRAPHVIZ DOT file */
 		/**********************************/
-		AST_GRAPHVIZ.getInstance().logNode(
+		AST_Graphviz.getInstance().logNode(
 			SerialNumber,
 			String.format("VAR\nDEC(%s)\n:%s",name,type));
 
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
-		if (initialValue != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,initialValue.SerialNumber);		
+		if (initialValue != null) AST_Graphviz.getInstance().logEdge(SerialNumber,initialValue.SerialNumber);
 			
 	}
 

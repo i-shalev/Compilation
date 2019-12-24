@@ -2,7 +2,7 @@ package AST;
 
 import TYPES.*;
 
-public abstract class AST_STMT extends AST_Node
+public abstract class AST_Stmt extends AST_Node
 {
 	/*********************************************************/
 	/* The default message for an unknown AST statement node */
@@ -11,8 +11,5 @@ public abstract class AST_STMT extends AST_Node
 	{
 		System.out.print("UNKNOWN AST STATEMENT NODE");
 	}
-	public Type SemantMe()
-	{
-		return null;
-	}
+
 }

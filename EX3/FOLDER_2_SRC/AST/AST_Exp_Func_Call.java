@@ -3,13 +3,13 @@ package AST;
 import SYMBOL_TABLE.SymbolTable;
 import TYPES.*;
 
-public class AST_Exp_Func_Call extends AST_EXP
+public class AST_Exp_Func_Call extends AST_Exp
 {
-    public AST_VAR instanceName;
+    public AST_Var instanceName;
     public String funcName;
     public AST_Exp_List args;
 
-    public AST_Exp_Func_Call(AST_VAR var, String ID, AST_Exp_List expList)
+    public AST_Exp_Func_Call(AST_Var var, String ID, AST_Exp_List expList)
     {
         if (var == null && expList == null) PrintRule("exp", "ID ( )");
         if (var == null && expList != null) PrintRule("exp", "ID ( expList )");
@@ -26,12 +26,12 @@ public class AST_Exp_Func_Call extends AST_EXP
         if (instanceName != null) instanceName.PrintMe();
         if (args != null) args.PrintMe();
 
-        AST_GRAPHVIZ.getInstance().logNode(
+        AST_Graphviz.getInstance().logNode(
                 SerialNumber,
                 "Exp\nFunc");
 
-        if (instanceName  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, instanceName.SerialNumber);
-        if (args != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, args.SerialNumber);
+        if (instanceName  != null) AST_Graphviz.getInstance().logEdge(SerialNumber, instanceName.SerialNumber);
+        if (args != null) AST_Graphviz.getInstance().logEdge(SerialNumber, args.SerialNumber);
     }
 
 

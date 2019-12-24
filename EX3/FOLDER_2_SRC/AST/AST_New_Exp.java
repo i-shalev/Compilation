@@ -3,9 +3,9 @@ package AST;
 public class AST_New_Exp extends AST_Node
 {
     public String type;
-    public AST_EXP exp;
+    public AST_Exp exp;
 
-    public AST_New_Exp(String type, AST_EXP exp)
+    public AST_New_Exp(String type, AST_Exp exp)
     {
 
         if (exp != null) PrintRule("newExp", String.format("NEW ID(%s) [ exp ]", type));
@@ -19,11 +19,11 @@ public class AST_New_Exp extends AST_Node
     {
         if (exp != null) exp.PrintMe();
 
-        AST_GRAPHVIZ.getInstance().logNode(
+        AST_Graphviz.getInstance().logNode(
                 SerialNumber,
                 "NEW\nExp\n");
 
-        if (exp != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, exp.SerialNumber);
+        if (exp != null) AST_Graphviz.getInstance().logEdge(SerialNumber, exp.SerialNumber);
     }
 
 }

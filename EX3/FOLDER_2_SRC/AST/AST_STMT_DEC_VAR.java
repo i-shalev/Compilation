@@ -2,7 +2,7 @@ package AST;
 
 import TYPES.*;
 
-public class AST_STMT_DEC_VAR extends AST_STMT
+public class AST_STMT_DEC_VAR extends AST_Stmt
 {
 	/****************/
 	/* DATA MEMBERS */
@@ -34,13 +34,13 @@ public class AST_STMT_DEC_VAR extends AST_STMT
 		/***************************************/
 		/* PRINT Node to AST GRAPHVIZ DOT file */
 		/***************************************/
-		AST_GRAPHVIZ.getInstance().logNode(
+		AST_Graphviz.getInstance().logNode(
 			SerialNumber,
 			String.format("STMT\nDEC\nVAR"));
 		
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
-		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);		
+		AST_Graphviz.getInstance().logEdge(SerialNumber,var.SerialNumber);
 	}
 }

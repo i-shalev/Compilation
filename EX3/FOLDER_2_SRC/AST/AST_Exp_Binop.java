@@ -2,12 +2,12 @@ package AST;
 
 import TYPES.*;
 
-public class AST_Exp_Binop extends AST_EXP {
+public class AST_Exp_Binop extends AST_Exp {
 		int OP;
-		public AST_EXP left;
-		public AST_EXP right;
+		public AST_Exp left;
+		public AST_Exp right;
 
-		public AST_Exp_Binop(AST_EXP left, AST_EXP right, int OP) {
+		public AST_Exp_Binop(AST_Exp left, AST_Exp right, int OP) {
 			PrintRule("exp", "exp BINOP exp");
 
 			this.left = left;
@@ -29,12 +29,12 @@ public class AST_Exp_Binop extends AST_EXP {
 			if (left != null) left.PrintMe();
 			if (right != null) right.PrintMe();
 
-			AST_GRAPHVIZ.getInstance().logNode(
+			AST_Graphviz.getInstance().logNode(
 					SerialNumber,
 					String.format("BINOP\n(%s)", sOP));
 
-			if (left  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, left.SerialNumber);
-			if (right != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, right.SerialNumber);
+			if (left  != null) AST_Graphviz.getInstance().logEdge(SerialNumber, left.SerialNumber);
+			if (right != null) AST_Graphviz.getInstance().logEdge(SerialNumber, right.SerialNumber);
 		}
 
 	public Type SemantMe() throws Exception{
@@ -47,10 +47,10 @@ public class AST_Exp_Binop extends AST_EXP {
 		if (t1 == Type_Int.getInstance() && t2 == Type_Int.getInstance())
             return Type_Int.getInstance();
 
-		if (OP == 0 && t1 == Type_String.getInstance() && t2 == Type_String.getInstance()) // 0 is +
+		if (OP == 0 && t1 == Type_String.getInstance() && t2 == Type_String.getInstance()) // 0 is '+'
 		    return Type_String.getInstance();
 
-		if (OP == 6) { // 6 is =
+		if (OP == 6) { // 6 is '='
 		    if (t1 == t2)
 		        return Type_Int.getInstance();
 
