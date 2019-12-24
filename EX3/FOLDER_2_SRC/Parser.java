@@ -963,7 +963,7 @@ class CUP$Parser$actions {
 		int nameleft = ((Symbol)CUP$Parser$stack.peek()).left;
 		int nameright = ((Symbol)CUP$Parser$stack.peek()).right;
 		String name = (String)((Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new AST_VAR_SIMPLE(name);       
+		 RESULT = new AST_Var_Simple(name);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("var",14, ((Symbol)CUP$Parser$stack.peek()), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -978,7 +978,7 @@ class CUP$Parser$actions {
 		int fieldNameleft = ((Symbol)CUP$Parser$stack.peek()).left;
 		int fieldNameright = ((Symbol)CUP$Parser$stack.peek()).right;
 		String fieldName = (String)((Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new AST_VAR_FIELD(v,fieldName); 
+		 RESULT = new AST_Var_Field(v,fieldName);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("var",14, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -993,7 +993,7 @@ class CUP$Parser$actions {
 		int eleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int eright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		AST_Exp e = (AST_Exp)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 RESULT = new AST_VAR_SUBSCRIPT(v,e);     
+		 RESULT = new AST_Var_Subscript(v,e);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("var",14, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

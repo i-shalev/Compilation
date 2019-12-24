@@ -17,7 +17,7 @@ public class AST_STMT_ASSIGN extends AST_Stmt
 		if (var != null) var.PrintMe();
 		if (exp != null) exp.PrintMe();
 
-		AST_GRAPHVIZ.getInstance().logNode(
+		AST_Graphviz.getInstance().logNode(
 				SerialNumber,
 				"Assign\nvar := exp");
 
