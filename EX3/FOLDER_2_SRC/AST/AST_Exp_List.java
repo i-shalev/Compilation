@@ -4,15 +4,9 @@ import TYPES.Type_List;
 
 public class AST_Exp_List extends AST_Node
 {
-	/****************/
-	/* DATA MEMBERS */
-	/****************/
 	public AST_Exp head;
 	public AST_Exp_List tail;
 
-	/******************/
-	/* CONSTRUCTOR(S) */
-	/******************/
 	public AST_Exp_List(AST_Exp head, AST_Exp_List tail)
 	{
 		if (tail != null) PrintRule("expList", "exp expList");

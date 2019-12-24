@@ -24,6 +24,4 @@ public abstract class AST_Node
 		if (printDerivationRule)
 			System.out.format("======== %s -> %s\n", left, right);
 	}
-
-
 }

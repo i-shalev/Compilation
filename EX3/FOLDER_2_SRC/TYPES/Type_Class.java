@@ -23,9 +23,9 @@ public class Type_Class extends Type {
     {
         for (Type_List it = data_members; it != null; it = it.next)
         {
-            if (it.head instanceof Type_Class_Var_Dec)
+            if (it.head instanceof Type_Var_Dec)
             {
-                Type_Class_Var_Dec varFieldType = (Type_Class_Var_Dec)it.head;
+                Type_Var_Dec varFieldType = (Type_Var_Dec)it.head;
                 if (varFieldName.equals(varFieldType.name)) { return varFieldType.type; }
             }
         }

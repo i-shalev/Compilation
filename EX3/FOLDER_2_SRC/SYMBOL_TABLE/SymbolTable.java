@@ -32,6 +32,11 @@ public class SymbolTable {
     }
 
     // Returns the type of name if defined, or null if undefined
+    public static boolean exists(String name) {
+        return (find(name) != null);
+    }
+
+    // Returns the type of name if defined, or null if undefined
     public static Type find(String name) {
         Entry e;
 

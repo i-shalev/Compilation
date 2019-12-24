@@ -10,17 +10,17 @@ public class Type_Func extends Type {
         this.params = params;
     }
 
-    public Type GetReturnType() {
-        return this.returnType;
-    }
+//    public Type GetReturnType() {
+//        return this.returnType;
+//    }
 
-    public String GetName() {
-        return this.name;
-    }
+//    public String GetName() {
+//        return this.name;
+//    }
 
-    public Type_List GetParams() {
-        return this.params;
-    }
+//    public Type_List GetParams() {
+//        return this.params;
+//    }
 
     public boolean IsValidTypeList(Type_List other_params) {
 
@@ -77,5 +77,25 @@ public class Type_Func extends Type {
         return true;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Type_Func))
+            return false;
+        Type_Func other = (Type_Func)obj;
 
+        if (returnType.name != other.name)
+            return false;
+
+        Type_List params = this.params, otherParams = other.params;
+
+        // TODO: finish this
+        while (params != null && otherParams != null){
+            // compare params
+
+            params = params.next;
+            otherParams = params.next;
+        }
+
+        return params == null && otherParams == null;
+    }
 }
