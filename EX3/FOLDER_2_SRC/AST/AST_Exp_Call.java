@@ -3,13 +3,13 @@ package AST;
 import SYMBOL_TABLE.SymbolTable;
 import TYPES.*;
 
-public class AST_Exp_Func_Call extends AST_Exp
+public class AST_Exp_Call extends AST_Exp
 {
     public AST_Var instanceName;
     public String funcName;
     public AST_Exp_List args;
 
-    public AST_Exp_Func_Call(AST_Var var, String ID, AST_Exp_List expList)
+    public AST_Exp_Call(AST_Var var, String ID, AST_Exp_List expList)
     {
         if (var == null && expList == null) PrintRule("exp", "ID ( )");
         if (var == null && expList != null) PrintRule("exp", "ID ( expList )");

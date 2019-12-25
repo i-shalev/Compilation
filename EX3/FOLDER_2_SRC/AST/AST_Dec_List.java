@@ -2,13 +2,13 @@ package AST;
 
 import TYPES.Type;
 
-public class AST_Program extends AST_Node
+public class AST_Dec_List extends AST_Node
 {
 
     public AST_Dec head;
-    public AST_Program tail;
+    public AST_Dec_List tail;
 
-    public AST_Program(AST_Dec head, AST_Program tail)
+    public AST_Dec_List(AST_Dec head, AST_Dec_List tail)
     {
         SerialNumber = AST_Node_Serial_Number.getFresh();
 
