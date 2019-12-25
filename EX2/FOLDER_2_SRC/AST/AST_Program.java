@@ -1,12 +1,12 @@
 package AST;
 
-public class AST_Dec_List extends AST_Node
+public class AST_Program extends AST_Node
 {
 
     public AST_DEC head;
-    public AST_Dec_List tail;
+    public AST_Program tail;
 
-    public AST_Dec_List(AST_DEC head, AST_Dec_List tail)
+    public AST_Program(AST_DEC head, AST_Program tail)
     {
         SerialNumber = AST_Node_Serial_Number.getFresh();
 

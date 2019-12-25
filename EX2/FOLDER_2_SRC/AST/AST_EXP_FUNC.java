@@ -1,12 +1,12 @@
 package AST;
 
-public class AST_Exp_Call extends AST_EXP
+public class AST_EXP_FUNC extends AST_EXP
 {
     public AST_VAR var;
     public String ID;
     public AST_EXP_LIST expList;
 
-    public AST_Exp_Call(AST_VAR var, String ID, AST_EXP_LIST expList)
+    public AST_EXP_FUNC(AST_VAR var, String ID, AST_EXP_LIST expList)
     {
         if (var == null && expList == null) PrintRule("exp", "ID ( )");
         if (var == null && expList != null) PrintRule("exp", "ID ( expList )");

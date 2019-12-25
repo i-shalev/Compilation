@@ -387,7 +387,7 @@ class CUP$Parser$actions {
               Object RESULT =null;
 		int start_valleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int start_valright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
-		AST_Dec_List start_val = (AST_Dec_List)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		AST_Program start_val = (AST_Program)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		RESULT = start_val;
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("$START",0, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -398,14 +398,14 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 1: // program ::= dec program 
             {
-              AST_Dec_List RESULT =null;
+              AST_Program RESULT =null;
 		int dleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int dright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		AST_DEC d = (AST_DEC)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		int pleft = ((Symbol)CUP$Parser$stack.peek()).left;
 		int pright = ((Symbol)CUP$Parser$stack.peek()).right;
-		AST_Dec_List p = (AST_Dec_List)((Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new AST_Dec_List(d, p);
+		AST_Program p = (AST_Program)((Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = new AST_Program(d, p);      
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("program",0, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -413,11 +413,11 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 2: // program ::= dec 
             {
-              AST_Dec_List RESULT =null;
+              AST_Program RESULT =null;
 		int dleft = ((Symbol)CUP$Parser$stack.peek()).left;
 		int dright = ((Symbol)CUP$Parser$stack.peek()).right;
 		AST_DEC d = (AST_DEC)((Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new AST_Dec_List(d, null);
+		 RESULT = new AST_Program(d, null);      
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("program",0, ((Symbol)CUP$Parser$stack.peek()), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

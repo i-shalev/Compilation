@@ -1,12 +1,12 @@
 package AST;
 
-public class AST_PARAMS_LIST extends AST_Node
+public class AST_ID_LIST extends AST_Node
 {
     public String type;
     public String name;
-    public AST_PARAMS_LIST idList;
+    public AST_ID_LIST idList;
 
-    public AST_PARAMS_LIST(String type, String name, AST_PARAMS_LIST idList)
+    public AST_ID_LIST(String type, String name, AST_ID_LIST idList)
     {
         if (idList != null) PrintRule("idList", "ID ID , idList");
         if (idList == null) PrintRule("idList", "ID ID");
@@ -20,11 +20,11 @@ public class AST_PARAMS_LIST extends AST_Node
     {
         if (idList != null) idList.PrintMe();
 
-        AST_Graphviz.getInstance().logNode(
+        AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
                 "ID\nLIST");
 
-        if (idList != null) AST_Graphviz.getInstance().logEdge(SerialNumber, idList.SerialNumber);
+        if (idList != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, idList.SerialNumber);
     }
 
 }
