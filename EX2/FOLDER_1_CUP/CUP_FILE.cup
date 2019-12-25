@@ -151,9 +151,9 @@ dec         ::=     varDec:v                {: RESULT = v; :}
                   | arrayDec:a              {: RESULT = a; :}
                     ;
 
-varDec      ::=     ID:id1 ID:id2 SEMICOLON                 {: RESULT = new AST_VAR_DEC(id1, id2); :}
-                  | ID:id1 ID:id2 ASSIGN exp:e SEMICOLON    {: RESULT = new AST_VAR_DEC(id1, id2, e); :}
-                  | ID:id1 ID:id2 ASSIGN newExp:e SEMICOLON {: RESULT = new AST_VAR_DEC(id1, id2, e); :}
+varDec      ::=     ID:id1 ID:id2 SEMICOLON                 {: RESULT = new AST_Var_Dec(id1, id2); :}
+                  | ID:id1 ID:id2 ASSIGN exp:e SEMICOLON    {: RESULT = new AST_Var_Dec(id1, id2, e); :}
+                  | ID:id1 ID:id2 ASSIGN newExp:e SEMICOLON {: RESULT = new AST_Var_Dec(id1, id2, e); :}
                     ;
 
 funcDec      ::=    ID:id1 ID:id2 LPAREN RPAREN LBRACE stmtList:stlist RBRACE                {: RESULT = new AST_FUNC_DEC(id1, id2, null,   stlist); :}
@@ -181,13 +181,13 @@ arrayDec    ::=     ARRAY ID:id1 EQ ID:id2 LBRACK RBRACK    {: RESULT = new AST_
 
 exp         ::=     var:v                                       {: RESULT = v; :}
                   | LPAREN exp:e RPAREN                         {: RESULT = e; :}
-                  | exp:e1 PLUS exp:e2                          {: RESULT = new AST_EXP_BINOP(e1, e2, 0); :}
-                  | exp:e1 MINUS exp:e2                         {: RESULT = new AST_EXP_BINOP((e1, e2, 1); :}
-                  | exp:e1 TIMES exp:e2                         {: RESULT = new AST_EXP_BINOP((e1, e2, 2); :}
-                  | exp:e1 DIVIDE exp:e2                        {: RESULT = new AST_EXP_BINOP((e1, e2, 3); :}
-                  | exp:e1 GT exp:e2                            {: RESULT = new AST_EXP_BINOP((e1, e2, 4); :}
-                  | exp:e1 LT exp:e2                            {: RESULT = new AST_EXP_BINOP((e1, e2, 5); :}
-                  | exp:e1 EQ exp:e2                            {: RESULT = new AST_EXP_BINOP((e1, e2, 6); :}
+                  | exp:e1 PLUS exp:e2                          {: RESULT = new AST_Exp_Binop(e1, e2, 0); :}
+                  | exp:e1 MINUS exp:e2                         {: RESULT = new AST_Exp_Binop((e1, e2, 1); :}
+                  | exp:e1 TIMES exp:e2                         {: RESULT = new AST_Exp_Binop((e1, e2, 2); :}
+                  | exp:e1 DIVIDE exp:e2                        {: RESULT = new AST_Exp_Binop((e1, e2, 3); :}
+                  | exp:e1 GT exp:e2                            {: RESULT = new AST_Exp_Binop((e1, e2, 4); :}
+                  | exp:e1 LT exp:e2                            {: RESULT = new AST_Exp_Binop((e1, e2, 5); :}
+                  | exp:e1 EQ exp:e2                            {: RESULT = new AST_Exp_Binop((e1, e2, 6); :}
                   | ID:id1 LPAREN RPAREN                        {: RESULT = new AST_Exp_Call(null, id1, null); :}
                   | ID:id1 LPAREN expList:el RPAREN             {: RESULT = new AST_Exp_Call(null, id1, el); :}
                   | var:v DOT ID:id1 LPAREN RPAREN              {: RESULT = new AST_Exp_Call(v, id1, null); :}
