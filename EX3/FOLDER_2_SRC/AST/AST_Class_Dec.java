@@ -32,19 +32,19 @@ public class AST_Class_Dec extends AST_Node
 
     public Type SemantMe() throws Exception {
         if (!SymbolTable.isGlobalScope())
-            throw new Exception("Function declared in a non-global scope");
+            throw new SemanticException("Function declared in a non-global scope");
 
         Type_Class fatherType = null;
 
         if (father != null){
             Type t = SymbolTable.find(father);
             if (!(t instanceof Type_Class))
-                throw new Exception("Father is not of type class");
+                throw new SemanticException("Father is not of type class");
             fatherType = (Type_Class) t;
         }
 
         if (SymbolTable.exists((className))) {
-            throw new Exception("Class name already exists");
+            throw new SemanticException("Class name already exists");
         }
 
 

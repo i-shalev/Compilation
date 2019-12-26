@@ -27,14 +27,14 @@ public class AST_Array_Dec extends AST_Node
 
     public Type SemantMe() throws Exception{
         if(!SymbolTable.isGlobalScope())
-            throw new Exception("Array declaration not in the global scope");
+            throw new SemanticException("Array declaration not in the global scope");
 
         if(SymbolTable.find(arrayName) != null)
-            throw new Exception("Array declaration - invalid name");
+            throw new SemanticException("Array declaration - invalid name");
 
         Type arrayType = SymbolTable.find(typeName);
         if (!(arrayType instanceof Type_Object))
-            throw new Exception("Array declaration - invalid type");
+            throw new SemanticException("Array declaration - invalid type");
 
         SymbolTable.enter(arrayName, new Type_Array(arrayType, arrayName));
 

@@ -42,21 +42,21 @@ public class AST_Exp_Func_Call extends AST_Exp
         if (instanceName != null) {
             Type t = instanceName.SemantMe();
             if (!(t instanceof Type_Class))
-                throw new Exception("instance is not of type class");
+                throw new SemanticException("instance is not of type class");
             Type_Class instanceType = (Type_Class) t;
             funcType = instanceType.getFuncField(funcName);
         } else {
             Type t = SymbolTable.find(funcName);
             if (!(t instanceof Type_Func))
-                throw new Exception("function not declared");
+                throw new SemanticException("function not declared");
             funcType = (Type_Func) t;
         }
         if (funcType == null)
-            throw new Exception("function not declared");
+            throw new SemanticException("function not declared");
 
         Type_List argsTypes = args != null ? args.SemantMe() : null;
         if (!funcType.IsValidTypeList(argsTypes))
-            throw new Exception("function arguments mismatch");
+            throw new SemanticException("function arguments mismatch");
 
         return funcType.returnType;
     }

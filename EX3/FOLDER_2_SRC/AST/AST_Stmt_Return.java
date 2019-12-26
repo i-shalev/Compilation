@@ -31,12 +31,12 @@ public class AST_Stmt_Return extends AST_Stmt
 		Type_Func typeFunc = SymbolTable.findFunc();
 
 		if(typeFunc == null)
-			throw new Exception("Return statement - not in a function");
+			throw new SemanticException("Return statement - not in a function");
 
 		if (typeFunc.returnType == Type_Void.getInstance())
 		{
 			if (exp != null)
-				throw new Exception("Return statement - mismatch return type");
+				throw new SemanticException("Return statement - mismatch return type");
 			return typeFunc;
 		}
 
@@ -45,6 +45,6 @@ public class AST_Stmt_Return extends AST_Stmt
 				typeFunc.returnType instanceof Type_Class) && expType == Type_Nil.getInstance()) )
 			return typeFunc;
 
-		throw new Exception("Return statement - mismatch return type");
+		throw new SemanticException("Return statement - mismatch return type");
 	}
 }

@@ -23,23 +23,14 @@ public class Main
 		try
 		{
 			file_reader = new FileReader(inputFilename);
-
 			file_writer = new PrintWriter(outputFilename);
-
 			l = new Lexer(file_reader);
-
 			p = new Parser(l, file_writer, printTokens);
-
 			AST_Node.printDerivationRule = printDerivationRule;
-
 			AST = (AST_Program) p.parse().value;
-
 			AST.PrintMe();
-
 			file_writer.println("OK");
-
 			file_writer.close();
-
 			AST_GRAPHVIZ.getInstance().finalizeFile(); // Creates AST graphics
     	}
 			     

@@ -29,6 +29,11 @@ public abstract class AST_Node
 			super(message);
 		}
 
+		// TODO: implement
+		public int getLine() {
+			return 0;
+		}
+
 	}
 
 		public static void PrintRule(String left, String right) {

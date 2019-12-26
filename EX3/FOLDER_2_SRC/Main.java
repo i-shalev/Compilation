@@ -1,4 +1,3 @@
-   
 import java.io.*;
 import java.io.PrintWriter;
 
@@ -13,9 +12,9 @@ public class Main
 		Lexer l;
 		Parser p;
 		Symbol s;
-		AST_DEC_LIST AST;
+		AST_Program AST;
 		FileReader file_reader;
-		PrintWriter file_writer;
+		PrintWriter file_writer = null;
 		String inputFilename = argv[0];
 		String outputFilename = argv[1];
 		
@@ -26,14 +25,19 @@ public class Main
 			file_writer = new PrintWriter(outputFilename);
 			l = new Lexer(file_reader);
 			p = new Parser(l);
-			AST = (AST_DEC_LIST) p.parse().value;
+			AST = (AST_Program) p.parse().value;
 			AST.PrintMe();
-
 			AST.SemantMe();
+			file_writer.println("OK");
 			file_writer.close();
 			AST_Graphviz.getInstance().finalizeFile();
     	}
-			     
+
+    	catch (AST_Node.SemanticException e){
+			// TODO: need to extract error line number from e (getLine() is a dummy)
+			file_writer.println(String.format("ERROR(%d)", e.getLine()));
+			e.printStackTrace();
+		}
 		catch (Exception e)
 		{
 			e.printStackTrace();

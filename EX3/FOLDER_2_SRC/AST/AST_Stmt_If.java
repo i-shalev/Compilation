@@ -33,7 +33,7 @@ public class AST_Stmt_If extends AST_Stmt
 
 	public Type SemantMe() throws Exception{
 		if(cond.SemantMe() != Type_Int.getInstance())
-			throw new Exception("While statement - mismatch condition type");
+			throw new SemanticException("While statement - mismatch condition type");
 		SymbolTable.beginScope(Type_Scope.IF);
 		body.SemantMe();
 		SymbolTable.endScope();

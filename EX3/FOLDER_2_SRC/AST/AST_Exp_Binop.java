@@ -70,6 +70,6 @@ public class AST_Exp_Binop extends AST_Exp {
             }
         }
 
-        throw new Exception("Illegal binary operation");
+        throw new SemanticException("Illegal binary operation");
 	}
 }

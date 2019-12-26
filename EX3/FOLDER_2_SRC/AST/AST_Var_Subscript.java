@@ -29,10 +29,10 @@ public class AST_Var_Subscript extends AST_Var
 
     public Type SemantMe() throws Exception{
         if (subscript.SemantMe() != Type_Int.getInstance())
-            throw new Exception("Var subscript - index is not an int");
+            throw new SemanticException("Var subscript - index is not an int");
         Type arrType = var.SemantMe();
         if (!(arrType instanceof Type_Array))
-            throw new Exception("Var subscript - var is not an array");
+            throw new SemanticException("Var subscript - var is not an array");
         return ((Type_Array)arrType).elementType;
     }
 }
