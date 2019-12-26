@@ -1,6 +1,6 @@
 package TYPES;
 
-public class Type_Array extends Type
+public class Type_Array extends Type_Object
 {
     public Type elementType;
 

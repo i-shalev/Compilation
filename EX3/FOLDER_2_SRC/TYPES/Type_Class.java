@@ -1,6 +1,6 @@
 package TYPES;
 
-public class Type_Class extends Type {
+public class Type_Class extends Type_Object {
     public Type_Class father;          // should be null if is type
     public Type_List data_members;     // contains both variables and methods
 
