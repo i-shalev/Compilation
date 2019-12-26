@@ -3,6 +3,7 @@ package AST;
 import SYMBOL_TABLE.SymbolTable;
 import TYPES.Type;
 
+// TODO: check if necessary
 public class AST_Exp_Var extends AST_Exp
 {
 	public AST_Var var;

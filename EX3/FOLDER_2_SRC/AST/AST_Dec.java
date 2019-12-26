@@ -2,7 +2,7 @@ package AST;
 
 import TYPES.*;
 
-public abstract class AST_Dec extends AST_Node
+public class AST_Dec extends AST_Node
 {
 	public AST_Var_Dec varDec;
 	public AST_Array_Dec arrayDec;

@@ -108,13 +108,13 @@ non terminal AST_Func_Dec funcDec;
 non terminal AST_Class_Dec classDec;
 non terminal AST_Array_Dec arrayDec;
 non terminal AST_Exp_Func_Call callExp;
-non terminal AST_EXP exp;
-non terminal AST_STMT stmt;
+non terminal AST_Exp exp;
+non terminal AST_Stmt stmt;
 non terminal AST_New_Exp newExp;
 non terminal AST_Class_Field cField;
 non terminal AST_Stmt_List stmtList;
 non terminal AST_Params_List paramsList;
-non terminal AST_Class_Field_LIST cFieldList;
+non terminal AST_Class_Field_List cFieldList;
 non terminal AST_Exp_List expList;
 non terminal AST_Var var;
 
@@ -177,7 +177,7 @@ cFieldList  ::=     cField:c cFieldList:cl  {: RESULT = new AST_Class_Field_List
                   | cField:c                {: RESULT = new AST_Class_Field_List(c, null) ;:}
                     ;
 
-arrayDec    ::=     ARRAY ID:id1 EQ ID:id2 LBRACK RBRACK    {: RESULT = new Ast_Array_Dec(id1, id2) ; :}
+arrayDec    ::=     ARRAY ID:id1 EQ ID:id2 LBRACK RBRACK    {: RESULT = new AST_Array_Dec(id1, id2) ; :}
                     ;
 
 exp         ::=     var:v                                       {: RESULT = v; :}
@@ -195,7 +195,7 @@ exp         ::=     var:v                                       {: RESULT = v; :
                   | INT:i							            {: RESULT = new AST_Exp_Int(i); :}
                   | MINUS INT:i						            {: RESULT = new AST_Exp_Int(-i); :}
                   | NIL                                         {: RESULT = new AST_Exp_Nil(); :}
-                  | STRING:st                                   {: RESULT = new AST_EXP_String(st); :}
+                  | STRING:st                                   {: RESULT = new AST_Exp_String(st); :}
                     ;
 
 callExp     ::=     ID:id1 LPAREN RPAREN                        {: RESULT = new AST_Exp_Func_Call(null, id1, null); :}
@@ -214,13 +214,13 @@ var			::=		ID:name								{: RESULT = new AST_Var_Simple(name);       :}
 					;
 
 stmt        ::=     varDec:vc                                               {: RESULT = new AST_Stmt_Var_Dec(vc); :}
-                  | var:v ASSIGN exp:e SEMICOLON		                    {: RESULT = new AST_STMT_ASSIGN(v,e); :}
-                  | var:v ASSIGN newExp:e SEMICOLON		                    {: RESULT = new AST_STMT_ASSIGN_NEW(v,e); :}
+                  | var:v ASSIGN exp:e SEMICOLON		                    {: RESULT = new AST_Stmt_Assign(v,e); :}
+                  | var:v ASSIGN newExp:e SEMICOLON		                    {: RESULT = new AST_Stmt_Assign(v,e); :}
                   | RETURN SEMICOLON                                        {: RESULT = new AST_Stmt_Return(null); :}
                   | RETURN exp:e SEMICOLON                                  {: RESULT = new AST_Stmt_Return(e); :}
                   | IF LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_Stmt_If(cond,body); :}
                   | WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE {: RESULT = new AST_Stmt_While(cond,body); :}
-                  | callExp:e SEMICOLON                                     {: RESULT = new AST_Stmt_Func_Call(null,id1,null); :}
+                  | callExp:e SEMICOLON                                     {: RESULT = new AST_Stmt_Func_Call(e); :}
                     ;
 
 newExp      ::=     NEW ID:id                       {: RESULT = new AST_New_Exp(id, null); :}
