@@ -31,7 +31,7 @@ public class AST_Stmt_While extends AST_Stmt
 	public Type SemantMe() throws Exception{
 		if(cond.SemantMe() != Type_Int.getInstance())
 			throw new Exception("While statement - mismatch condition type");
-		SymbolTable.beginScope();
+		SymbolTable.beginScope(Type_Scope.WHILE);
 		body.SemantMe();
 		SymbolTable.endScope();
 		return null;

@@ -4,24 +4,24 @@ import TYPES.*;
 
 public abstract class AST_Dec extends AST_Node
 {
-	public AST_VAR_DEC varDec;
+	public AST_Var_Dec varDec;
 	public AST_Array_Dec arrayDec;
-	public AST_CLASS_DEC classDec;
-	public AST_FUNC_DEC funcDec;
+	public AST_Class_Dec classDec;
+	public AST_Func_Dec funcDec;
 
-	public AST_Dec(AST_VAR_DEC varDec)
+	public AST_Dec(AST_Var_Dec varDec)
 	{
 		PrintRule("dec", "varDec");
 		this.varDec = varDec;
 	}
 
-	public AST_Dec(AST_FUNC_DEC funcDec)
+	public AST_Dec(AST_Func_Dec funcDec)
 	{
 		PrintRule("dec", "funcDec");
 		this.funcDec = funcDec;
 	}
 
-	public AST_Dec(AST_CLASS_DEC classDec)
+	public AST_Dec(AST_Class_Dec classDec)
 	{
 		PrintRule("dec", "classDec");
 		this.classDec = classDec;

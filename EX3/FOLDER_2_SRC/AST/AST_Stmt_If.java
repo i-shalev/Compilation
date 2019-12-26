@@ -3,6 +3,7 @@ package AST;
 import SYMBOL_TABLE.SymbolTable;
 import TYPES.Type;
 import TYPES.Type_Int;
+import TYPES.Type_Scope;
 
 public class AST_Stmt_If extends AST_Stmt
 {
@@ -33,7 +34,7 @@ public class AST_Stmt_If extends AST_Stmt
 	public Type SemantMe() throws Exception{
 		if(cond.SemantMe() != Type_Int.getInstance())
 			throw new Exception("While statement - mismatch condition type");
-		SymbolTable.beginScope();
+		SymbolTable.beginScope(Type_Scope.IF);
 		body.SemantMe();
 		SymbolTable.endScope();
 		return null;

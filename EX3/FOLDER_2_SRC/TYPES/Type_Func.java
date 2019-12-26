@@ -10,18 +10,6 @@ public class Type_Func extends Type {
         this.params = params;
     }
 
-//    public Type GetReturnType() {
-//        return this.returnType;
-//    }
-
-//    public String GetName() {
-//        return this.name;
-//    }
-
-//    public Type_List GetParams() {
-//        return this.params;
-//    }
-
     public boolean IsValidTypeList(Type_List other_params) {
 
         Type_List selfTail = this.params;
@@ -77,25 +65,24 @@ public class Type_Func extends Type {
         return true;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof Type_Func))
-            return false;
-        Type_Func other = (Type_Func)obj;
+    public boolean isOverride(Type_Func fatherFunc) {
 
-        if (returnType.name != other.name)
+        if (returnType.name != fatherFunc.name)
             return false;
 
-        Type_List params = this.params, otherParams = other.params;
+        Type_List params = this.params, otherParams = fatherFunc.params;
 
         // TODO: finish this
         while (params != null && otherParams != null){
-            // compare params
-
+            // each parameter has to be an object with the same type
+            if (!(params.head instanceof Type_Object && otherParams.head instanceof Type_Object))
+                return false;
+            if (!(params.head.equals(otherParams.head)))
+                return false;
             params = params.next;
-            otherParams = params.next;
+            otherParams = otherParams.next;
         }
 
-        return params == null && otherParams == null;
+        return params == null && otherParams == null; // we reached the end in both
     }
 }

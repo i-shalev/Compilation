@@ -28,12 +28,12 @@ public class AST_Var_Field extends AST_Var
 
     public Type SemantMe() throws Exception
     {
-        Type t = var.SemantMe();
-        if (!(t instanceof Type_Class))
+        Type varType = var.SemantMe();
+        if (!(varType instanceof Type_Class))
             throw new Exception("Var field statement - var is not object of class");
-        Type t1 = ((Type_Class) t).getVarField(fieldName);
-        if(t1 == null)
-            throw new Exception("Var field statement - class not have that field");
+        Type t1 = ((Type_Class) varType).getVarField(fieldName);
+        if (t1 == null)
+            throw new Exception("Var field statement - class doesn't have that field");
         return t1;
     }
 }

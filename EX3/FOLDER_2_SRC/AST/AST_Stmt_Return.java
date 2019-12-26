@@ -33,16 +33,16 @@ public class AST_Stmt_Return extends AST_Stmt
 		if(typeFunc == null)
 			throw new Exception("Return statement - not in a function");
 
-		if(typeFunc.GetReturnType() == Type_Void.getInstance())
+		if (typeFunc.returnType == Type_Void.getInstance())
 		{
-			if(exp != null)
+			if (exp != null)
 				throw new Exception("Return statement - mismatch return type");
 			return typeFunc;
 		}
 
 		Type expType = exp.SemantMe();
-		if(typeFunc.GetReturnType() == expType || ((typeFunc.GetReturnType() instanceof Type_Array ||
-				typeFunc.GetReturnType() instanceof Type_Class) && expType == Type_Nil.getInstance()) )
+		if (typeFunc.returnType == expType || ((typeFunc.returnType instanceof Type_Array ||
+				typeFunc.returnType instanceof Type_Class) && expType == Type_Nil.getInstance()) )
 			return typeFunc;
 
 		throw new Exception("Return statement - mismatch return type");

@@ -3,39 +3,41 @@ package AST;
 import TYPES.*;
 import SYMBOL_TABLE.*;
 
+import javax.lang.model.type.PrimitiveType;
+
 public class AST_Array_Dec extends AST_Node
 {
-    public String left;
-    public String right;
+    public String arrayName;
+    public String typeName;
 
-    public AST_Array_Dec(String left, String right)
+    public AST_Array_Dec(String arrayName, String typeName)
     {
-        PrintRule("arrayDec", "ARRAY ID = ID");
+        PrintRule("arrayDec", "ARRAY ID = ID [ ]");
 
-        this.left = left;
-        this.right = right;
+        this.arrayName = arrayName;
+        this.typeName = typeName;
     }
 
     public void PrintMe()
     {
         AST_Graphviz.getInstance().logNode(
                 SerialNumber,
-                String.format("Array\nDEC\n(%s = %s[])", left, right));
+                String.format("Array\nDEC\n(%s = %s[])", arrayName, typeName));
     }
 
     public Type SemantMe() throws Exception{
         if(!SymbolTable.isGlobalScope())
-            throw new Exception("Declare of Array not in the global scope");
+            throw new Exception("Array declaration not in the global scope");
 
-        if(SymbolTable.find(left) != null)
-            throw new Exception("Declare of Array - invalid name");
+        if(SymbolTable.find(arrayName) != null)
+            throw new Exception("Array declaration - invalid name");
 
-        Type rightType = SymbolTable.findTypeName(right);
-        if (rightType == null)
-            throw new Exception("Declare of Array - invalid type");
+        Type arrayType = SymbolTable.find(typeName);
+        if (!(arrayType instanceof Type_Object))
+            throw new Exception("Array declaration - invalid type");
 
-        SymbolTable.enter(left, new Type_Array(rightType, left));
+        SymbolTable.enter(arrayName, new Type_Array(arrayType, arrayName));
 
-        return new Type_Array(rightType, left);
+        return new Type_Array(arrayType, arrayName);
     }
 }

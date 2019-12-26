@@ -20,7 +20,18 @@ public abstract class AST_Node
 
 	public Type SemantMe() throws Exception { return null; }
 
-	public static void PrintRule(String left, String right) {
+	public class SemanticException extends Exception {
+		public SemanticException() {
+			super();
+		}
+
+		public SemanticException(String message) {
+			super(message);
+		}
+
+	}
+
+		public static void PrintRule(String left, String right) {
 		if (printDerivationRule)
 			System.out.format("======== %s -> %s\n", left, right);
 	}

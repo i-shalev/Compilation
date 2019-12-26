@@ -70,7 +70,7 @@ public class SymbolTable {
         return e != null ? (Type_Class) e.type : null;
     }
 
-    // Returns a Type object that is named typeName, if defined. Otherwise, returns null
+    // Returns a Type object that is named typeName, if defined and it is not a Type_Func. Otherwise, returns null
     public static Type findTypeName(String typeName) {
         Entry e = top;
         while (e != null && !(e.type.name.equals(typeName))) {
@@ -143,6 +143,11 @@ public class SymbolTable {
 
 
     //TODO: end of our editing scope, delete the comment when done
+
+    public static void beginScope(Type_Scope scope) {
+        enter(scope.name, scope);
+        PrintMe();
+    }
 
     public static void beginScope() {
         /************************************************************************/
