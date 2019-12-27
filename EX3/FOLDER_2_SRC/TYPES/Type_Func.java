@@ -67,7 +67,7 @@ public class Type_Func extends Type {
 
     public boolean isOverride(Type_Func fatherFunc) {
 
-        if (returnType.name != fatherFunc.name)
+        if (!returnType.name.equals(fatherFunc.name))
             return false;
 
         Type_List params = this.params, otherParams = fatherFunc.params;
