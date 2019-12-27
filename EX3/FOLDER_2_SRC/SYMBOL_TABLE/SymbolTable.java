@@ -125,6 +125,7 @@ public class SymbolTable {
            int and strings are defined by default */
         enter("int", Type_Int.getInstance());
         enter("string", Type_String.getInstance());
+        enter("void", Type_Void.getInstance());
 
         // Enter lib functions
         Type_Func printIntFunc = new Type_Func(Type_Void.getInstance(), "PrintInt",

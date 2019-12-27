@@ -10,6 +10,7 @@ public class Type_Void extends Type
 		if (instance == null)
 		{
 			instance = new Type_Void();
+			instance.name = "void";
 		}
 		return instance;
 	}
