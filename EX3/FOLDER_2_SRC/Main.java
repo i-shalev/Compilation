@@ -17,6 +17,7 @@ public class Main
 		PrintWriter file_writer;
 		String inputFilename = argv[0];
 		String outputFilename = argv[1];
+
 		boolean printDerivationRule = true;
 		boolean printTokens = true;
 

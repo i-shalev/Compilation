@@ -1,7 +1,7 @@
 package AST;
 
 import TYPES.Type;
-import TYPES.Type_Void;
+import TYPES.Type_Nil;
 
 public class AST_Exp_Nil extends AST_Exp
 {
@@ -18,6 +18,6 @@ public class AST_Exp_Nil extends AST_Exp
     }
 
     public Type SemantMe() {
-        return Type_Void.getInstance();
+        return Type_Nil.getInstance();
     }
 }
