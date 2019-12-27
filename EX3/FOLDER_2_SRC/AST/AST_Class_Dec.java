@@ -50,7 +50,7 @@ public class AST_Class_Dec extends AST_Node
 
         Type_Class classType = new Type_Class(fatherType, className ,null);
         SymbolTable.enter(className, classType);
-        SymbolTable.beginScope(Type_Scope.FUNC);
+        SymbolTable.beginScope(Type_Scope.CLASS);
 
         classType.data_members = cFieldList.SemantMe();
 

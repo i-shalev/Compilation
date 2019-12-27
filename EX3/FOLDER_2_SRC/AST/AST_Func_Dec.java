@@ -52,10 +52,13 @@ public class AST_Func_Dec extends AST_Class_Field
 
         if (SymbolTable.isInScope(Type_Scope.CLASS)) { // function is a class method
             Type_Class currClass = SymbolTable.findClass(); // get current class
-            Type_Func fatherFunc = currClass.father.getFuncField(funcName); // get inherited function
 
-            if (fatherFunc != null && !func.isOverride(fatherFunc))
-                throw new SemanticException("Function overloading is not allowed");
+            Type_Class father = currClass.father;
+            if (father != null) {
+                Type_Func fatherFunc = father.getFuncField(funcName);
+                if (fatherFunc != null && !func.isOverride(fatherFunc))
+                    throw new SemanticException("Function overloading is not allowed");
+            }
         }
 
         return func;
