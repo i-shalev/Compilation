@@ -36,10 +36,10 @@ public class AST_Func_Dec extends AST_Class_Field
 
     public Type_Func SemantDeclaration() throws Exception {
         Type ret = SymbolTable.find(retType);
-        if (!(ret instanceof Type_Object || ret instanceof Type_Void))
+        if (!(ret instanceof Type_Object || retType.equals("void") || ret == Type_Int.getInstance() || ret ==Type_String.getInstance()))
             throw new SemanticException("Return type is invalid");
 
-        if (!SymbolTable.isGlobalScope() || !SymbolTable.isInScope(Type_Scope.CLASS))
+        if (!SymbolTable.isGlobalScope() /*|| !SymbolTable.isInScope(Type_Scope.CLASS)*/)
             throw new SemanticException("Declaration is invalid");
 
         // Get function parameters type
