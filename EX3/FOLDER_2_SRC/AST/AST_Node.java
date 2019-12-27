@@ -8,9 +8,11 @@ public abstract class AST_Node
 {
 	public static boolean printDerivationRule = true; // if false, no derivation rules are printed
 	public int SerialNumber;
-
+	public int lineNumber;
 	public AST_Node(){
+
 		SerialNumber = AST_Node_Serial_Number.getFresh();
+		lineNumber=0;
 	}
 
 	public void PrintMe()
@@ -31,7 +33,7 @@ public abstract class AST_Node
 
 		// TODO: implement
 		public int getLine() {
-			return 0;
+			return lineNumber+1;
 		}
 
 	}
