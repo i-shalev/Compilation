@@ -14,35 +14,50 @@ public class Main
 		Symbol s;
 		AST_Program AST;
 		FileReader file_reader;
-		PrintWriter file_writer = null;
+		PrintWriter file_writer;
 		String inputFilename = argv[0];
 		String outputFilename = argv[1];
-		
+		boolean printDerivationRule = true;
+		boolean printTokens = true;
+
+		try{
+			file_reader = new FileReader(inputFilename);
+			file_writer = new PrintWriter(outputFilename);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return;
+		}
+
+
 		try
 		{
 			SymbolTable.Init();
-			file_reader = new FileReader(inputFilename);
-			file_writer = new PrintWriter(outputFilename);
+			//	file_reader = new FileReader(inputFilename);
+			//	file_writer = new PrintWriter(outputFilename);
 			l = new Lexer(file_reader);
-			p = new Parser(l);
+			p = new Parser(l,file_writer, printTokens);
+			AST_Node.printDerivationRule = printDerivationRule;
 			AST = (AST_Program) p.parse().value;
 			AST.PrintMe();
 			AST.SemantMe();
 			file_writer.println("OK");
 			file_writer.close();
 			AST_Graphviz.getInstance().finalizeFile();
-    	}
+		}
 
-    	catch (AST_Node.SemanticException e){
+		catch (AST_Node.SemanticException e){
 			// TODO: need to extract error line number from e (getLine() is a dummy)
 			file_writer.println(String.format("ERROR(%d)", e.getLine()));
+			file_writer.close();
 			e.printStackTrace();
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
+			file_writer.println("XXX");
+			file_writer.close();
 		}
 	}
 }
-
 
