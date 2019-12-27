@@ -20,6 +20,7 @@ public class Main
 
 		boolean printDerivationRule = false;
 		boolean printTokens = false;
+		boolean printStackTrace = false;
 
 		try{
 			file_reader = new FileReader(inputFilename);
@@ -48,14 +49,15 @@ public class Main
 		}
 
 		catch (AST_Node.SemanticException e){
-			// TODO: need to extract error line number from e (getLine() is a dummy)
 			file_writer.println(String.format("ERROR(%d)", e.getLine()));
 			file_writer.close();
-			e.printStackTrace();
+			if (printStackTrace)
+				e.printStackTrace();
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			if (printStackTrace)
+				e.printStackTrace();
 			file_writer.println("XXX");
 			file_writer.close();
 		}
