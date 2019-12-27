@@ -1,11 +1,11 @@
 package AST;
 
 import SYMBOL_TABLE.SymbolTable;
-import TYPES.Type;
-import TYPES.Type_Array;
+import TYPES.*;
+/*import TYPES.Type_Array;
 import TYPES.Type_Class;
 import TYPES.Type_Int;
-
+*/
 public class AST_New_Exp extends AST_Exp
 {
     public String typeName;
@@ -35,8 +35,8 @@ public class AST_New_Exp extends AST_Exp
     public Type SemantMe() throws Exception {
         Type newType = SymbolTable.find(typeName);
 
-        if (!(newType instanceof Type_Class || newType instanceof Type_Array))
-            throw new SemanticException("Initialize not on an array or a class");
+        if (!(newType instanceof Type_Class || newType instanceof Type_Array || newType == Type_Int.getInstance() || newType == Type_String.getInstance()))
+            throw new SemanticException("Initialize not on an array or a class.");
 
         if (exp != null) { // Array init
             Type expType = exp.SemantMe();
