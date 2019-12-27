@@ -38,7 +38,7 @@ def main():
             continue
 
         if expected == actual:
-            res = f'{test_name} - passed with result: {expected[:-1]}'
+            res = f'{test_name} - succeeded with result: {expected[:-1]}'
             print(res) if PRINT_TO_CONSOLE else test_result_file.write(res)
             passed += 1
         else:
@@ -47,7 +47,7 @@ def main():
 
     res = f"\nSUMMARY: {passed}/{total} tests passed"
     print(res) if PRINT_TO_CONSOLE else test_result_file.write(res)
-    
+
     if not PRINT_TO_CONSOLE:
         test_result_file.close()
 

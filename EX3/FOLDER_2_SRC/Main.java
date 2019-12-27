@@ -20,7 +20,7 @@ public class Main
 
 		boolean printDerivationRule = false;
 		boolean printTokens = false;
-		boolean printStackTrace = false;
+		boolean printSemanticStackTrace = false;
 
 		try{
 			file_reader = new FileReader(inputFilename);
@@ -51,13 +51,12 @@ public class Main
 		catch (AST_Node.SemanticException e){
 			file_writer.println(String.format("ERROR(%d)", e.getLine()));
 			file_writer.close();
-			if (printStackTrace)
+			if (printSemanticStackTrace)
 				e.printStackTrace();
 		}
 		catch (Exception e)
 		{
-			if (printStackTrace)
-				e.printStackTrace();
+			e.printStackTrace();
 			file_writer.println("XXX");
 			file_writer.close();
 		}
