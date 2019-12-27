@@ -167,7 +167,11 @@ public class SymbolTable {
         /**************************************************************************/
         /* Pop elements from the symbol table stack until a SCOPE-BOUNDARY is hit */
         /**************************************************************************/
-        while (top.name != "SCOPE-BOUNDARY") {
+        while (!top.name.equals("Class scope") &&
+                !top.name.equals("Func scope") &&
+                !top.name.equals("If scope") &&
+                !top.name.equals("While scope"))
+        {
             table[top.index] = top.next;
             top_index = top_index - 1;
             top = top.prevtop;
