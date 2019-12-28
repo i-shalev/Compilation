@@ -1,8 +1,8 @@
-CLASS Edge
+class Edge
 {
 Vertex u;
 }
-CLASS Vertex
+class Vertex
 {
 int x;
 }

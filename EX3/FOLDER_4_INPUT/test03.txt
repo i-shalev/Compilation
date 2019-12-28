@@ -1,4 +1,4 @@
-CLASS x
+class x
 {
 void foo(){ bar(8);}
 void bar(int i) {PrintInt(i);}

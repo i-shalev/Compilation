@@ -1,2 +1,2 @@
-CLASS Father {int i;}
-CLASS Son EXTENDS Father {int j=8; }
+class Father {int i;}
+class Son extends Father {int j=8; }

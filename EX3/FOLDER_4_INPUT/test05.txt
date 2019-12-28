@@ -1,8 +1,8 @@
-CLASS Father
+class Father
 {
 int foo() {return 8;}
 }
-CLASS Son EXTENDS Father
+class Son extends Father
 {
 void foo(){ PrintInt(8);}
 }

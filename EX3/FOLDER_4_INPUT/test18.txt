@@ -1,5 +1,5 @@
-CLASS IntList
+class IntList
 {
 int head := -1;
-IntList tail := NEW IntList;
+IntList tail := new IntList;
 }

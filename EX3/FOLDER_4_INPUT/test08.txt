@@ -1,8 +1,8 @@
-CLASS Father
+class Father
 {
 int foo;
 }
-CLASS Son EXTENDS Father
+class Son extends Father
 {
 string foo;
 }

@@ -1,6 +1,6 @@
-CLASS IntList
+class IntList
 {
 int head;
 IntList tail;
-void Init(){ tail :=NEW IntList;}
+void Init(){ tail := new IntList;}
 }

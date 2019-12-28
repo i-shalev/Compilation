@@ -1,5 +1,5 @@
-ARRAY g = int[]
-ARRAY i = int[]
+array g = int[]
+array i = int[]
 void F( i ids){ PrintInt(ids[6]); }
 void main()
 {

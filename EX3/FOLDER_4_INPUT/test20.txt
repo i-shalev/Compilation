@@ -1,5 +1,5 @@
-ARRAY x = int[]
-ARRAY y = int[]
-y i := NEW int[8];
-x g := NEW int[8];
+array x = int[]
+array y = int[]
+y i := new int[8];
+x g := new int[8];
 void foo() { i:=g; }
