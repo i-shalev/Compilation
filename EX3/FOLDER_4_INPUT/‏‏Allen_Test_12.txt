@@ -1,0 +1,10 @@
+string myvar := \80";
+CLASS Father
+{
+    Father myvar := nil;
+    void foo()
+    {
+        int myvar := 100;
+        PrintInt(myvar);
+    }
+}
