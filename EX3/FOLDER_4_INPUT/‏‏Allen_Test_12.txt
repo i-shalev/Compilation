@@ -1,5 +1,5 @@
 string myvar := "80";
-CLASS Father
+class Father
 {
     Father myvar := nil;
     void foo()

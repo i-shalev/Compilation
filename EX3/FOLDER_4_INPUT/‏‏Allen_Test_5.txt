@@ -1,4 +1,4 @@
-CLASS Father {
+class Father {
     int foo() {
         return 8 / 0;
     }

@@ -1,4 +1,4 @@
-CLASS Father { int j; int k; }
+class Father { int j; int k; }
 int foo(Father f)
 {
     int i := 620;

@@ -1,4 +1,4 @@
-CLASS Father {int i; int j;}
+class Father {int i; int j;}
 int Check(Father f) {
     if (f = nil) {
         return 800;
