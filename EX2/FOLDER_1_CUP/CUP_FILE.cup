@@ -20,12 +20,14 @@ parser code
 	}
 	public void report_error(String message, Object info)
 	{
+	    /*
 		System.out.print("ERROR >> ");
 		System.out.print("[");
 		System.out.print(lexer.getLine());
 		System.out.print(":");
 		System.out.print(lexer.getTokenStartPosition());
 		System.out.print("] ");
+        */
 
 		file_writer.println(String.format("ERROR(%d)", lexer.getLine()));
         file_writer.close();

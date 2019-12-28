@@ -30,8 +30,7 @@ public abstract class AST_Node
 		public SemanticException(String message) {
 			super(message);
 		}
-
-		// TODO: implement
+		
 		public int getLine() {
 			return lineNumber+1;
 		}
