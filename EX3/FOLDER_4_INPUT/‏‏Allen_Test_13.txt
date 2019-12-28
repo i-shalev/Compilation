@@ -1,5 +1,5 @@
 int foo(string s) { return 800;}
-CLASS Father
+class Father
 {
     string foo(string s)
     {
