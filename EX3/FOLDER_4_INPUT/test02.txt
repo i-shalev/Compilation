@@ -1,0 +1,8 @@
+CLASS Edge
+{
+Vertex u;
+}
+CLASS Vertex
+{
+int x;
+}

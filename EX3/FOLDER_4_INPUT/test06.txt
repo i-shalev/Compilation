@@ -1,0 +1,8 @@
+CLASS Father
+{
+int foo(int i) {return 8;}
+}
+CLASS Son EXTENDS Father
+{
+int foo(int j) { return j;}
+}

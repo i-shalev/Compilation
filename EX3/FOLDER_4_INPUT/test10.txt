@@ -1,0 +1,3 @@
+CLASS Father {int i;}
+void foo(Father f) {PrintInt(f.i);}
+void main(){ foo(nil); }

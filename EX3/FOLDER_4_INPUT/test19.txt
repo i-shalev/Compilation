@@ -1,0 +1,6 @@
+CLASS IntList
+{
+int head;
+IntList tail;
+void Init(){ tail :=NEW IntList;}
+}

@@ -1,0 +1,8 @@
+CLASS Father
+{
+int foo;
+}
+CLASS Son EXTENDS Father
+{
+string foo;
+}

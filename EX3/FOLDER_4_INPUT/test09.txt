@@ -1,0 +1,10 @@
+CLASS Father
+{
+int i;
+}
+CLASS Son EXTENDS Father
+{
+int j;
+}
+void foo(Father f) {PrintInt(f.i); }
+void main() {Son s; foo(s);}
