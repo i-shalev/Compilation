@@ -52,7 +52,8 @@ public class Type_Func extends Type {
         //array
         if (selfType instanceof Type_Array) {
             return otherType instanceof Type_Array &&
-                    CompatibleTypes(((Type_Array) selfType).elementType, ((Type_Array) otherType).elementType);
+                    selfType == otherType;
+//                    CompatibleTypes(((Type_Array) selfType).elementType, ((Type_Array) otherType).elementType);
         }
 
         //classes
