@@ -1,5 +1,5 @@
-ARRAY gradesArray = int[]
-ARRAY IDsArray = int[]
-IDsArray i:= NEW int[8];
-gradesArray g:=NEW int[8];
+array gradesArray = int[]
+array IDsArray = int[]
+IDsArray i:= new int[8];
+gradesArray g:= new int[8];
 int j := i = g;

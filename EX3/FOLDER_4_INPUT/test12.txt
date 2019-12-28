@@ -3,7 +3,7 @@ array i = int[]
 void F( i ids){ PrintInt(ids[6]); }
 void main()
 {
- i ids := NEW int[8];
- g grades := NEW int[8];
+ i ids := new int[8];
+ g grades := new int[8];
  F(grades);
 }
