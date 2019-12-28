@@ -1,0 +1,4 @@
+int foo (int k) {
+	int a := k * 10;
+	return bar(a, a);
+}

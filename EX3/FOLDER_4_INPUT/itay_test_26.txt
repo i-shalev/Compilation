@@ -1,0 +1,7 @@
+class Base {
+	int x;
+}
+void main() {
+	Base o := new Base;
+	o.x := 1;
+}

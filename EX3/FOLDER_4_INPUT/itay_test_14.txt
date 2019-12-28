@@ -1,0 +1,4 @@
+int main () {
+	string s := "foo";
+	return s + "bar";
+}

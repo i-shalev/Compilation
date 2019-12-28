@@ -1,0 +1,6 @@
+void main () {
+	string x := "A";
+	while (x + "B"){
+		int z := 2;
+	}
+}

@@ -1,0 +1,7 @@
+int g(int x) {
+	return x + 1;
+}
+int main() {
+	string z := "abc";
+	return g(z);
+}

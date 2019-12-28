@@ -1,0 +1,6 @@
+string g() {
+	return "abc";
+}
+int main() {
+	return g() + "d";
+}

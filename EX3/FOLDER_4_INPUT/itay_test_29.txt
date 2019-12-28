@@ -1,0 +1,6 @@
+class Base {
+	int foo() {
+		return a;
+	}
+	int a;
+}

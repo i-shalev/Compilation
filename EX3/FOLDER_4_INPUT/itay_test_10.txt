@@ -1,0 +1,4 @@
+void main () {
+	int k := 0;
+	int x := 7 / k;
+}

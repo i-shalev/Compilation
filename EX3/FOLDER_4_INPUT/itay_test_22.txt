@@ -1,0 +1,4 @@
+array i = int[]
+void foo(void) {
+	i arr := new int["z"];
+}

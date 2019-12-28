@@ -1,0 +1,9 @@
+array i = int[]
+array j = int[]
+void f(i a) 
+{ 
+}
+void g() {
+	j a := new int[10];
+	f(a);
+}

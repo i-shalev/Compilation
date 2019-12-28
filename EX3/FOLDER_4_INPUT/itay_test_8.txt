@@ -1,0 +1,5 @@
+void main () {
+	string x := "A";
+	string y := "B";
+	string z = x * y;
+}

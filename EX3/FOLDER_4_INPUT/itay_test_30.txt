@@ -1,0 +1,8 @@
+class Base {
+	int foo(){
+		return bar();
+	}
+	int bar(){
+		return 17;
+	}
+}

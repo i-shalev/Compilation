@@ -1,0 +1,5 @@
+array i = string[]
+int main(int argc, i argv) {
+	main(2, argv);
+	return 0;
+}

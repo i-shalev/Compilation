@@ -1,0 +1,5 @@
+array i = int[]
+void foo(int d){
+	int k := 3;
+	i arr := new int[10];
+}
