@@ -17,8 +17,8 @@ public class Main
 		String inputFilename = argv[0];
 		String outputFilename = argv[1];
 
-		boolean printDerivationRule = true;
-		boolean printTokens = true;
+		boolean printDerivationRule = false;
+		boolean printTokens = false;
 
 		try
 		{
@@ -31,7 +31,7 @@ public class Main
 			AST.PrintMe();
 			file_writer.println("OK");
 			file_writer.close();
-			AST_GRAPHVIZ.getInstance().finalizeFile(); // Creates AST graphics
+			AST_Graphviz.getInstance().finalizeFile(); // Creates AST graphics
     	}
 			     
 		catch (Exception e)
