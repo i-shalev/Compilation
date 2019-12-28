@@ -210,7 +210,7 @@ expList     ::=     exp:e COMMA expList:el    {: RESULT = new AST_Exp_List(e, el
                   | exp:e               {: RESULT = new AST_Exp_List(e, null) ;:}
                     ;
 
-var			::=		ID:name								{: RESULT = new AST_Var_Simple(name);       :}
+var			::=		ID:name								{: RESULT = new AST_Var_Simple(name);      RESULT.lineNumber=nameleft;  :}
 				  | var:v DOT ID:fieldName			    {: RESULT = new AST_Var_Field(v, fieldName); RESULT.lineNumber=vleft;:}
 				  | var:v LBRACK exp:e RBRACK			{: RESULT = new AST_Var_Subscript(v, e);   RESULT.lineNumber=vleft;  :}
 					;
