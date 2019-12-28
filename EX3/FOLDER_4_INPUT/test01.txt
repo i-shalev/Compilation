@@ -1,0 +1,8 @@
+CLASS Son EXTENDS Father
+{
+int bar;
+}
+CLASS Father
+{
+void foo() {PrintInt(8);}
+}

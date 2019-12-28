@@ -1,0 +1,5 @@
+ARRAY x = int[]
+ARRAY y = int[]
+y i := NEW int[8];
+x g := NEW int[8];
+void foo() { i:=g; }

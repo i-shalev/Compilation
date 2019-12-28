@@ -1,0 +1,5 @@
+ARRAY gradesArray = int[]
+ARRAY IDsArray = int[]
+IDsArray i:= NEW int[8];
+gradesArray g:=NEW int[8];
+int j := i = g;
