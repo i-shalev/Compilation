@@ -1,0 +1,9 @@
+void foo() 
+{
+	int a := 1;
+	if(7)
+	{
+		string a := "A";
+		int b := a+1;
+	}
+}

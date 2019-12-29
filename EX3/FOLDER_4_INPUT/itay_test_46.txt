@@ -1,0 +1,5 @@
+void main()
+{
+	int z := 100;
+	PrintInt(z+1);
+}

@@ -1,0 +1,12 @@
+int z := 1000;
+class A 
+{
+	int z;
+}
+class B extends A
+{
+	int foo()
+	{
+		return z;
+	}
+}

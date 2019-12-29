@@ -1,0 +1,8 @@
+int z := 1000;
+void foo (int z)
+{
+	if(7)
+	{
+		int b := z + 1;
+	}
+}

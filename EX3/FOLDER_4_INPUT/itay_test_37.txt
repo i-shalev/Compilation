@@ -1,0 +1,17 @@
+class A
+{
+	int x;
+}
+class B extends A
+{
+	int z;
+}
+void foo(A a)
+{
+	int z := 3;
+}
+void main()
+{
+	B o := new B;
+	foo(o);
+}

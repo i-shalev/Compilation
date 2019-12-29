@@ -1,0 +1,9 @@
+array g = int[]
+void foo(g arr)
+{
+	int z := 3;
+}
+void main()
+{
+	foo(nil);
+}

@@ -1,0 +1,10 @@
+int z := 23;
+void foo(void) 
+{
+	string a := "A";
+	if(7)
+	{
+		int a := 1;
+		int b := a+1;
+	}
+}

@@ -1,0 +1,6 @@
+class A {
+	int data;
+}
+class B extends A {
+	string data;
+}

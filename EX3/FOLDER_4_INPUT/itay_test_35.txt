@@ -1,0 +1,10 @@
+class A {
+	int foo() {
+		return 17;
+	}
+}
+class B extends A {
+	int foo(int x) {
+		return x+1;
+	}
+}

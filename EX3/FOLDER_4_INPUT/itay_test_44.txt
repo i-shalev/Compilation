@@ -1,0 +1,9 @@
+int z := 1000;
+class A 
+{
+	int z;
+	int foo()
+	{
+		return z;
+	}
+}
