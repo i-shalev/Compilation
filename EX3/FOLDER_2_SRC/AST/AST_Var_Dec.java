@@ -55,7 +55,7 @@ public class AST_Var_Dec extends AST_Class_Field {
         if (SymbolTable.findInScope(name) != null)
             throw new SemanticException("Name already used in this scope");
 
-        if (SymbolTable.isInScope(Type_Scope.CLASS)) { // class member
+        if (SymbolTable.isDirectlyInScope(Type_Scope.CLASS)) { // class member
             if (exp != null && !(exp instanceof AST_Exp_Int || exp instanceof AST_Exp_String
                     || exp instanceof AST_Exp_Nil))
                 throw new SemanticException("Must initialize with simple expression in a class");
