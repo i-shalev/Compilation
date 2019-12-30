@@ -39,7 +39,8 @@ public class AST_Stmt_Return extends AST_Stmt
 				throw new SemanticException("Return statement - expected void, but returned a type");
 			return typeFunc;
 		}
-
+		if(exp==null)
+			throw new SemanticException("Return statement - expected non void return value");
 		Type expType = exp.SemantMe();
 		if (typeFunc.returnType == expType || ((typeFunc.returnType instanceof Type_Array ||
 				typeFunc.returnType instanceof Type_Class) && expType == Type_Nil.getInstance()) )
