@@ -84,29 +84,17 @@ public class SymbolTable {
     // Checks if name appears in the current scope, returns its Type is yes. Otherwise, returns null
     public static Type findInScope(String name) {
         Entry entry = top;
-        //  int i = top_index - 1;
-
 
         while (entry != null && !(entry.type instanceof Type_Scope)) {
             if (name.equals(entry.name))
                 return entry.type;
-            // i--;
+
             entry = entry.prevtop;
 
         }
+
         return null;
-        /*System.out.println("i is " +i);
-        for (entry = table[hash(name)]; entry != null && entry.index > i; entry = entry.next) {
-            System.out.println("inside for, name is "+entry.name + "and index is "+entry.index);
-            if (name.equals(entry.name)) {
-              if(name.equals("x")){
-                  System.out.println("I will return yes! my index is " + entry.index);
-                  PrintMe();
-              }
-                return entry.type;
-            }
-        }
-        return null;*/
+
     }
 
     // Checks if we are currently in the global scope
@@ -129,6 +117,17 @@ public class SymbolTable {
             e = e.prevtop;
         }
         return e != null; // if e.type == Type.CLASS we're in class scope
+    }
+
+    // Checks if we are in the scope which its open bound is given as a parameter
+    public static boolean isDirectlyInScope(Type_Scope scopeType)
+    {
+        Entry e = top;
+        while (e != null && !(e.type instanceof Type_Scope))
+        {
+            e = e.prevtop;
+        }
+        return e != null && e.type == scopeType;
     }
 
     public static void Init() {
