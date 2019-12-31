@@ -32,8 +32,10 @@ public class AST_Var_Field extends AST_Var
         if (!(varType instanceof Type_Class))
             throw new SemanticException("Var field statement - var is not object of class");
         Type t1 = ((Type_Class) varType).getVarField(fieldName);
-        if (t1 == null)
-            throw new SemanticException("Var field statement - class doesn't have that field");
+        if (t1 == null){
+            ((Type_Class) varType).data_members.print();
+            throw new SemanticException("Var field statement - class doesn't have that field ");
+        }
         return t1;
     }
 }

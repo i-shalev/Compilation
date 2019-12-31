@@ -66,6 +66,8 @@ public class AST_Var_Dec extends AST_Class_Field {
             if (father != null)
                 if (father.getVarField(name) != null || father.getFuncField(name) != null)
                     throw new SemanticException("Variable already defined in ancestor");
+                    
+            
         }
 
         // Ended class checks, now we check the assignment is valid, if there is one
@@ -103,6 +105,11 @@ public class AST_Var_Dec extends AST_Class_Field {
         }
 
         SymbolTable.enter(name, varType);
+        if (SymbolTable.isDirectlyInScope(Type_Scope.CLASS)){  
+          Type_Class c1 = SymbolTable.findClass();
+          c1.data_members = Type_List.add(new Type_Var_Dec(varType,name),c1.data_members);
+        }
+        
         return new Type_Var_Dec(varType, name);
     }
 }

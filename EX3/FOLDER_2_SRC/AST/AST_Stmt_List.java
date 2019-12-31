@@ -30,8 +30,9 @@ public class AST_Stmt_List extends AST_Node
 	}
 
 	public Type SemantMe() throws Exception{
-		if (head != null)
+		if (head != null){
 			head.SemantMe();
+   }
 		if (tail != null)
 			tail.SemantMe();
 		return null;

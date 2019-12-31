@@ -1,6 +1,6 @@
 package AST;
 
-import TYPES.Type_List;
+import TYPES.*;
 
 public class AST_Class_Field_List extends AST_Node
 {
@@ -30,6 +30,7 @@ public class AST_Class_Field_List extends AST_Node
     }
 
     public Type_List SemantMe() throws Exception{
-            return new Type_List(head.SemantMe(), tail != null ? tail.SemantMe() : null);
+            Type t1 = head.SemantMe();
+            return new Type_List(t1, tail != null ? tail.SemantMe() : null);
         }
 }

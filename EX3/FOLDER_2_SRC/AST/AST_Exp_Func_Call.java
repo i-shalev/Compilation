@@ -36,7 +36,6 @@ public class AST_Exp_Func_Call extends AST_Exp
 
 
     public Type SemantMe() throws Exception {
-
         Type_Func funcType = null;
 
         if (instanceName != null) {

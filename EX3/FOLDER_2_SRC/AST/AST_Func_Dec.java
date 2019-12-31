@@ -67,8 +67,11 @@ public class AST_Func_Dec extends AST_Class_Field
 
     public Type SemantMe() throws Exception {
         Type_Func funcType = SemantDeclaration();
-
         SymbolTable.enter(funcName, funcType);
+        if (SymbolTable.isDirectlyInScope(Type_Scope.CLASS)){
+          Type_Class c1 = SymbolTable.findClass();
+          c1.data_members = Type_List.add(funcType,c1.data_members);
+        }
         SymbolTable.beginScope(Type_Scope.FUNC);
         if (params != null) params.SemantMe();
         if (statements != null) { statements.SemantMe(); }
