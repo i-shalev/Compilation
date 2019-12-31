@@ -24,4 +24,8 @@ public class AST_Exp_Int extends AST_Exp
 	{
 		return Type_Int.getInstance();
 	}
+ 
+  public boolean isZero(){
+    return value==0;
+  }
 }

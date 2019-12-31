@@ -12,10 +12,10 @@ public class Type_List extends Type
   public static Type_List add(Type newHead,Type_List dataMembers){
     return new Type_List(newHead,dataMembers);
   }
-  public void print(){
+  /*public void print(){
     if(head!=null)
       System.out.print(head.name+"->");
     if(next!=null)
       next.print();
-  }
+  }*/
 }

@@ -44,6 +44,8 @@ public class AST_Exp_Binop extends AST_Exp {
 		if (left  != null) t1 = left.SemantMe();
 		if (right != null) t2 = right.SemantMe();
 		
+    if (t1 == Type_Int.getInstance() && t2 == Type_Int.getInstance() && OP==3 && right instanceof AST_Exp_Int && ((AST_Exp_Int)right).isZero())
+            throw new SemanticException("Cannot divide by zero");
 		if (t1 == Type_Int.getInstance() && t2 == Type_Int.getInstance())
             return Type_Int.getInstance();
 
