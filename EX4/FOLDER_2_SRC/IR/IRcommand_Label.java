@@ -1,25 +1,14 @@
-/***********/
-/* PACKAGE */
-/***********/
 package IR;
 
-/*******************/
-/* GENERAL IMPORTS */
-/*******************/
-
-/*******************/
-/* PROJECT IMPORTS */
-/*******************/
-import TEMP.*;
 import MIPS.*;
 
 public class IRcommand_Label extends IRcommand
 {
-	String label_name;
+	String label;
 	
 	public IRcommand_Label(String label_name)
 	{
-		this.label_name = label_name;
+		this.label = label_name;
 	}
 	
 	/***************/
@@ -27,6 +16,6 @@ public class IRcommand_Label extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
-		sir_MIPS_a_lot.getInstance().label(label_name);
+		MIPS.writer.printf("\n%s:\n", label);
 	}
 }
