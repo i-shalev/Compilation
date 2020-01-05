@@ -1,25 +1,15 @@
 package TYPES;
 
-public class TYPE_INT extends TYPE
+// finished. simple class - only has getInstance method.
+public class Type_Int extends Type_Primitive
 {
-	/**************************************/
-	/* USUAL SINGLETON IMPLEMENTATION ... */
-	/**************************************/
-	private static TYPE_INT instance = null;
-
-	/*****************************/
-	/* PREVENT INSTANTIATION ... */
-	/*****************************/
-	protected TYPE_INT() {}
-
-	/******************************/
-	/* GET SINGLETON INSTANCE ... */
-	/******************************/
-	public static TYPE_INT getInstance()
+	private static Type_Int instance = null;
+	protected Type_Int() {}
+	public static Type_Int getInstance()
 	{
 		if (instance == null)
 		{
-			instance = new TYPE_INT();
+			instance = new Type_Int();
 			instance.name = "int";
 		}
 		return instance;

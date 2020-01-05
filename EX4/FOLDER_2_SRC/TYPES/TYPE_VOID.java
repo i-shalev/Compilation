@@ -1,25 +1,16 @@
 package TYPES;
 
-public class TYPE_VOID extends TYPE
+// finished. simple class - only has getInstance method.
+public class Type_Void extends Type
 {
-	/**************************************/
-	/* USUAL SINGLETON IMPLEMENTATION ... */
-	/**************************************/
-	private static TYPE_VOID instance = null;
-
-	/*****************************/
-	/* PREVENT INSTANTIATION ... */
-	/*****************************/
-	protected TYPE_VOID() {}
-
-	/******************************/
-	/* GET SINGLETON INSTANCE ... */
-	/******************************/
-	public static TYPE_VOID getInstance()
+	private static Type_Void instance = null;
+	protected Type_Void() {}
+	public static Type_Void getInstance()
 	{
 		if (instance == null)
 		{
-			instance = new TYPE_VOID();
+			instance = new Type_Void();
+			instance.name = "void";
 		}
 		return instance;
 	}

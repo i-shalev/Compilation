@@ -1,71 +1,39 @@
 package AST;
 
-import TEMP.*;
-import IR.*;
-import MIPS.*;
+import TYPES.*;
+import SYMBOL_TABLE.*;
 
-public class AST_STMT_WHILE extends AST_STMT
+public class AST_Stmt_While extends AST_Stmt
 {
-	public AST_EXP cond;
-	public AST_STMT_LIST body;
+	public AST_Exp cond;
+	public AST_Stmt_List body;
 
-	/*******************/
-	/*  CONSTRUCTOR(S) */
-	/*******************/
-	public AST_STMT_WHILE(AST_EXP cond,AST_STMT_LIST body)
+	public AST_Stmt_While(AST_Exp cond, AST_Stmt_List body)
 	{
+		PrintRule("stmt", "WHILE ( exp ) { stmtList }");
 		this.cond = cond;
 		this.body = body;
 	}
-	public TEMP IRme()
+
+	public void PrintMe()
 	{
-		/*******************************/
-		/* [1] Allocate 2 fresh labels */
-		/*******************************/
-		String label_end   = IRcommand.getFreshLabel("end");
-		String label_start = IRcommand.getFreshLabel("start");
-	
-		/*********************************/
-		/* [2] entry label for the while */
-		/*********************************/
-		IR.
-		getInstance().
-		Add_IRcommand(new IRcommand_Label(label_start));
+		if (cond != null) cond.PrintMe();
+		if (body != null) body.PrintMe();
 
-		/********************/
-		/* [3] cond.IRme(); */
-		/********************/
-		TEMP cond_temp = cond.IRme();
+		AST_Graphviz.getInstance().logNode(
+				SerialNumber,
+				"WHILE\n");
 
-		/******************************************/
-		/* [4] Jump conditionally to the loop end */
-		/******************************************/
-		IR.
-		getInstance().
-		Add_IRcommand(new IRcommand_Jump_If_Eq_To_Zero(cond_temp,label_end));		
+		AST_Graphviz.getInstance().logEdge(SerialNumber, cond.SerialNumber);
+		AST_Graphviz.getInstance().logEdge(SerialNumber, body.SerialNumber);
+	}
 
-		/*******************/
-		/* [5] body.IRme() */
-		/*******************/
-		body.IRme();
-
-		/******************************/
-		/* [6] Jump to the loop entry */
-		/******************************/
-		IR.
-		getInstance().
-		Add_IRcommand(new IRcommand_Jump_Label(label_start));		
-
-		/**********************/
-		/* [7] Loop end label */
-		/**********************/
-		IR.
-		getInstance().
-		Add_IRcommand(new IRcommand_Label(label_end));
-
-		/*******************/
-		/* [8] return null */
-		/*******************/
+	public Type SemantMe() throws Exception{
+		if(cond.SemantMe() != Type_Int.getInstance())
+			throw new SemanticException("While statement - mismatch condition type");
+		SymbolTable.beginScope(Type_Scope.WHILE);
+		body.SemantMe();
+		SymbolTable.endScope();
 		return null;
 	}
 }

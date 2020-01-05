@@ -1,25 +1,15 @@
 package TYPES;
 
-public class TYPE_STRING extends TYPE
+// finished. simple class - only has getInstance method.
+public class Type_String extends Type_Primitive
 {
-	/**************************************/
-	/* USUAL SINGLETON IMPLEMENTATION ... */
-	/**************************************/
-	private static TYPE_STRING instance = null;
-
-	/*****************************/
-	/* PREVENT INSTANTIATION ... */
-	/*****************************/
-	protected TYPE_STRING() {}
-
-	/******************************/
-	/* GET SINGLETON INSTANCE ... */
-	/******************************/
-	public static TYPE_STRING getInstance()
+	private static Type_String instance = null;
+	protected Type_String() {}
+	public static Type_String getInstance()
 	{
 		if (instance == null)
 		{
-			instance = new TYPE_STRING();
+			instance = new Type_String();
 			instance.name = "string";
 		}
 		return instance;

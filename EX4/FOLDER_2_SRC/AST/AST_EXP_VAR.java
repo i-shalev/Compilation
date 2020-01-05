@@ -1,11 +1,33 @@
 package AST;
 
-import TYPES.*;
+import SYMBOL_TABLE.SymbolTable;
+import TYPES.Type;
 
-public abstract class AST_EXP_VAR extends AST_EXP
+// TODO: check if necessary
+public class AST_Exp_Var extends AST_Exp
 {
-	public TYPE SemantMe()
+	public AST_Var var;
+
+	public AST_Exp_Var(AST_Var var)
 	{
-		return null;
+		PrintRule("exp", "var");
+
+		this.var = var;
+	}
+
+	public void PrintMe()
+	{
+		if (var != null) var.PrintMe();
+
+		AST_Graphviz.getInstance().logNode(
+				SerialNumber,
+				"Exp\nVar");
+
+		AST_Graphviz.getInstance().logEdge(SerialNumber, var.SerialNumber);
+
+	}
+
+	public Type SemantMe() throws Exception{
+		return var.SemantMe();
 	}
 }

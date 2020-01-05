@@ -1,19 +1,9 @@
 package TYPES;
 
-public abstract class TYPE
+//finished. simple abstract father class that all other types inherit from it
+public abstract class Type
 {
-	/******************************/
-	/*  Every type has a name ... */
-	/******************************/
 	public String name;
-
-	/*************/
-	/* isClass() */
-	/*************/
 	public boolean isClass(){ return false;}
-
-	/*************/
-	/* isArray() */
-	/*************/
 	public boolean isArray(){ return false;}
 }

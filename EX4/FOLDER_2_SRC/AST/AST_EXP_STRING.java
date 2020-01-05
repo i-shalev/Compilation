@@ -2,43 +2,26 @@ package AST;
 
 import TYPES.*;
 
-public class AST_EXP_STRING extends AST_EXP
+public class AST_Exp_String extends AST_Exp
 {
-	public String value;
-	
-	/******************/
-	/* CONSTRUCTOR(S) */
-	/******************/
-	public AST_EXP_STRING(String value)
-	{
-		/******************************/
-		/* SET A UNIQUE SERIAL NUMBER */
-		/******************************/
-		SerialNumber = AST_Node_Serial_Number.getFresh();
+	public String str;
 
-		System.out.format("====================== exp -> STRING( %s )\n", value);
-		this.value = value;
+	public AST_Exp_String(String str)
+	{
+		PrintRule("exp", String.format("STRING(%s)", str));
+
+		this.str = str;
 	}
 
-	/******************************************************/
-	/* The printing message for a STRING EXP AST node */
-	/******************************************************/
 	public void PrintMe()
 	{
-		/*******************************/
-		/* AST NODE TYPE = AST STRING EXP */
-		/*******************************/
-		System.out.format("AST NODE STRING( %s )\n",value);
-
-		/***************************************/
-		/* PRINT Node to AST GRAPHVIZ DOT file */
-		/***************************************/
-		AST_GRAPHVIZ.getInstance().logNode(
-			SerialNumber,
-			String.format("STRING\n%s",value.replace('"','\'')));
+		AST_Graphviz.getInstance().logNode(
+				SerialNumber,
+				String.format("STRING(%s)", str));
 	}
-	public TYPE SemantMe()
+
+	public Type SemantMe()
 	{
-		return TYPE_STRING.getInstance();
+		return Type_String.getInstance();
 	}
 }

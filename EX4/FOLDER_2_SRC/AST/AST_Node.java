@@ -1,29 +1,44 @@
 package AST;
 
-import TEMP.*;
+import TYPES.*;
+
+import java.rmi.server.ExportException;
 
 public abstract class AST_Node
 {
-	/*******************************************/
-	/* The serial number is for debug purposes */
-	/* In particular, it can help in creating  */
-	/* a graphviz dot format of the AST ...    */
-	/*******************************************/
+	public static boolean printDerivationRule = true; // if false, no derivation rules are printed
 	public int SerialNumber;
-	
-	/***********************************************/
-	/* The default message for an unknown AST node */
-	/***********************************************/
+	public int lineNumber;
+	public AST_Node(){
+
+		SerialNumber = AST_Node_Serial_Number.getFresh();
+		lineNumber=0;
+	}
+
 	public void PrintMe()
 	{
 		System.out.print("AST NODE UNKNOWN\n");
 	}
 
-	/*****************************************/
-	/* The default IR action for an AST node */
-	/*****************************************/
-	public TEMP IRme()
-	{
-		return null;
+	public Type SemantMe() throws Exception { return null; }
+
+	public class SemanticException extends Exception {
+		public SemanticException() {
+			super();
+		}
+
+		public SemanticException(String message) {
+			super(message);
+		}
+		
+		public int getLine() {
+			return lineNumber+1;
+		}
+
+	}
+
+		public static void PrintRule(String left, String right) {
+		if (printDerivationRule)
+			System.out.format("======== %s -> %s\n", left, right);
 	}
 }

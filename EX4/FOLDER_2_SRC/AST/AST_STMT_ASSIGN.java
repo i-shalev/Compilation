@@ -1,90 +1,68 @@
 package AST;
 
+import SYMBOL_TABLE.SymbolTable;
 import TYPES.*;
-import TEMP.*;
-import IR.*;
 
-public class AST_STMT_ASSIGN extends AST_STMT
+public class AST_Stmt_Assign extends AST_Stmt
 {
-	/***************/
-	/*  var := exp */
-	/***************/
-	public AST_EXP_VAR var;
-	public AST_EXP exp;
+    public AST_Var var;
+    public AST_Exp exp;
 
-	/*******************/
-	/*  CONSTRUCTOR(S) */
-	/*******************/
-	public AST_STMT_ASSIGN(AST_EXP_VAR var,AST_EXP exp)
-	{
-		/******************************/
-		/* SET A UNIQUE SERIAL NUMBER */
-		/******************************/
-		SerialNumber = AST_Node_Serial_Number.getFresh();
+    public AST_Stmt_Assign(AST_Var var, AST_Exp exp)
+    {
+        PrintRule("stmt", "var := exp ;");
+        this.var = var;
+        this.exp = exp;
+    }
 
-		/***************************************/
-		/* PRINT CORRESPONDING DERIVATION RULE */
-		/***************************************/
-		System.out.print("====================== stmt -> var ASSIGN exp SEMICOLON\n");
+    public void PrintMe()
+    {
+        if (var != null) var.PrintMe();
+        if (exp != null) exp.PrintMe();
 
-		/*******************************/
-		/* COPY INPUT DATA NENBERS ... */
-		/*******************************/
-		this.var = var;
-		this.exp = exp;
-	}
+        AST_Graphviz.getInstance().logNode(
+                SerialNumber,
+                "Assign\nvar := exp");
 
-	/*********************************************************/
-	/* The printing message for an assign statement AST node */
-	/*********************************************************/
-	public void PrintMe()
-	{
-		/********************************************/
-		/* AST NODE TYPE = AST ASSIGNMENT STATEMENT */
-		/********************************************/
-		System.out.print("AST NODE ASSIGN STMT\n");
+        if (var != null) AST_Graphviz.getInstance().logEdge(SerialNumber, var.SerialNumber);
+        if (exp != null) AST_Graphviz.getInstance().logEdge(SerialNumber, exp.SerialNumber);
+    }
 
-		/***********************************/
-		/* RECURSIVELY PRINT VAR + EXP ... */
-		/***********************************/
-		if (var != null) var.PrintMe();
-		if (exp != null) exp.PrintMe();
+    public Type SemantMe() throws Exception {
+        Type varType = var.SemantMe();
+        Type expType = exp.SemantMe();
 
-		/***************************************/
-		/* PRINT Node to AST GRAPHVIZ DOT file */
-		/***************************************/
-		AST_GRAPHVIZ.getInstance().logNode(
-			SerialNumber,
-			"ASSIGN\nleft := right\n");
-		
-		/****************************************/
-		/* PRINT Edges to AST GRAPHVIZ DOT file */
-		/****************************************/
-		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
-		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
-	}
-	public TYPE SemantMe()
-	{
-		TYPE t1 = null;
-		TYPE t2 = null;
-		
-		if (var != null) t1 = var.SemantMe();
-		if (exp != null) t2 = exp.SemantMe();
-		
-		if (t1 != t2)
-		{
-			System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);				
-		}
-		return null;
-	}
-	public TEMP IRme()
-	{
-		TEMP src = exp.IRme();
-		IR.
-		getInstance().
-		Add_IRcommand(new IRcommand_Store(((AST_EXP_VAR_SIMPLE) var).name,src));
+        if (varType == null || expType == null)
+            throw new SemanticException("Variable not declared");
 
-		return null;
-	}
+        if (expType instanceof Type_Nil && !(varType instanceof Type_Class || varType instanceof Type_Array))
+            throw new SemanticException("Can't assign nil to non-class or array");
 
+        if (!(expType instanceof Type_Object || expType instanceof Type_Nil))
+            throw new SemanticException("Can't assign a non-object/NIL");
+
+        if (varType instanceof Type_Int && !(expType instanceof Type_Int))
+            throw new SemanticException("Can't assign non-int to int");
+
+        if (varType instanceof Type_String && !(expType instanceof Type_String))
+            throw new SemanticException("Can't assign non-string to string");
+
+        if (varType instanceof Type_Class && !(expType instanceof Type_Class || expType instanceof Type_Nil))
+            throw new SemanticException("Can't assign non-class/NIL to class");
+
+        if (varType instanceof Type_Class && expType instanceof Type_Class &&
+                !((Type_Class)expType).isInheritsFrom(varType.name))
+            throw new SemanticException("Can't assign not-inherited class to a class");
+
+        if (varType instanceof Type_Array) {
+            if (!(expType instanceof Type_Nil)) { // If yes, we are finished
+                if (exp instanceof AST_New_Exp && ((Type_Array) varType).elementType != expType)
+                    throw new SemanticException("Initialize array with wrong type");
+                if (!(varType != expType && exp instanceof AST_New_Exp))
+                    throw new SemanticException("Array assignment between different array types");
+            }
+        }
+
+        return null;
+    }
 }

@@ -1,50 +1,52 @@
 package AST;
 
-public class AST_STMT_RETURN extends AST_STMT
+import TYPES.*;
+import SYMBOL_TABLE.*;
+
+public class AST_Stmt_Return extends AST_Stmt
 {
-	/****************/
-	/* DATA MEMBERS */
-	/****************/
-	public AST_EXP exp;
+	public AST_Exp exp;
 
-	/*******************/
-	/*  CONSTRUCTOR(S) */
-	/*******************/
-	public AST_STMT_RETURN(AST_EXP exp)
+	public AST_Stmt_Return(AST_Exp exp)
 	{
-		/******************************/
-		/* SET A UNIQUE SERIAL NUMBER */
-		/******************************/
-		SerialNumber = AST_Node_Serial_Number.getFresh();
 
+		if (exp != null) PrintRule("stmt", "RETURN exp ;");
+		if (exp == null) PrintRule("stmt", "RETURN ;");
 		this.exp = exp;
 	}
 
-	/************************************************************/
-	/* The printing message for a function declaration AST node */
-	/************************************************************/
 	public void PrintMe()
 	{
-		/*************************************/
-		/* AST NODE TYPE = AST SUBSCRIPT VAR */
-		/*************************************/
-		System.out.print("AST NODE STMT RETURN\n");
-
-		/*****************************/
-		/* RECURSIVELY PRINT exp ... */
-		/*****************************/
 		if (exp != null) exp.PrintMe();
 
-		/***************************************/
-		/* PRINT Node to AST GRAPHVIZ DOT file */
-		/***************************************/
-		AST_GRAPHVIZ.getInstance().logNode(
-			SerialNumber,
-			"RETURN");
+		String ret = exp != null ? "RETURN exp" : "RETURN";
+		AST_Graphviz.getInstance().logNode(
+				SerialNumber,
+				ret);
 
-		/****************************************/
-		/* PRINT Edges to AST GRAPHVIZ DOT file */
-		/****************************************/
-		if (exp != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
+		if (exp != null) AST_Graphviz.getInstance().logEdge(SerialNumber, exp.SerialNumber);
+	}
+
+	public Type SemantMe() throws Exception{
+		Type_Func typeFunc = SymbolTable.findFunc();
+
+		if (typeFunc == null)
+			throw new SemanticException("Return statement - not in a function");
+
+		if (typeFunc.returnType == Type_Void.getInstance())
+		{
+			if (exp != null)
+				throw new SemanticException("Return statement - expected void, but returned a type");
+			return typeFunc;
+		}
+		if(exp==null)
+			throw new SemanticException("Return statement - expected non void return value");
+		Type expType = exp.SemantMe();
+		if (typeFunc.returnType == expType || ((typeFunc.returnType instanceof Type_Array ||
+				typeFunc.returnType instanceof Type_Class) && expType == Type_Nil.getInstance()) )
+			return typeFunc;
+
+		throw new SemanticException(String.format("Return statement: expected %s, but found %s",
+				typeFunc.returnType.name, expType.name));
 	}
 }

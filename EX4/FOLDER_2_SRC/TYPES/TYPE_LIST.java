@@ -1,19 +1,21 @@
 package TYPES;
 
-public class TYPE_LIST
+public class Type_List extends Type
 {
-	/****************/
-	/* DATA MEMBERS */
-	/****************/
-	public TYPE head;
-	public TYPE_LIST tail;
-
-	/******************/
-	/* CONSTRUCTOR(S) */
-	/******************/
-	public TYPE_LIST(TYPE head,TYPE_LIST tail)
+	public Type head;
+	public Type_List next;
+	public Type_List(Type head, Type_List next)
 	{
 		this.head = head;
-		this.tail = tail;
+		this.next = next;
 	}
+  public static Type_List add(Type newHead,Type_List dataMembers){
+    return new Type_List(newHead,dataMembers);
+  }
+  /*public void print(){
+    if(head!=null)
+      System.out.print(head.name+"->");
+    if(next!=null)
+      next.print();
+  }*/
 }
