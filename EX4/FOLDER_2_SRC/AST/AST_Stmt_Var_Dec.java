@@ -1,5 +1,6 @@
 package AST;
 
+import IR.IRReg;
 import TYPES.Type;
 
 public class AST_Stmt_Var_Dec extends AST_Stmt
@@ -25,5 +26,9 @@ public class AST_Stmt_Var_Dec extends AST_Stmt
 
     public Type SemantMe() throws Exception {
         return varDec.SemantMe();
+    }
+    public IRReg IRMe()
+    {
+        return varDec.IRMe();
     }
 }

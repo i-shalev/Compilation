@@ -1,5 +1,6 @@
 package AST;
 
+import IR.*;
 import TYPES.*;
 import SYMBOL_TABLE.*;
 
@@ -48,5 +49,16 @@ public class AST_Stmt_Return extends AST_Stmt
 
 		throw new SemanticException(String.format("Return statement: expected %s, but found %s",
 				typeFunc.returnType.name, expType.name));
+	}
+
+	public IRReg IRMe()
+	{
+		Type_Func typeFunc = SymbolTable.findFunc();
+		if(exp==null)
+			IR.add(new IRcommand_Move(IRReg.v0,  IRReg.zero));
+		else
+			IR.add(new IRcommand_Move(IRReg.v0, exp.IRMe()));
+		IR.add(new IRcommand_Jump(typeFunc.name + "_epilogue"));
+		return null;
 	}
 }
