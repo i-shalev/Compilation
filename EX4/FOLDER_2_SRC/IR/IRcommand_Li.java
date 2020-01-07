@@ -6,7 +6,7 @@ public class IRcommand_Li extends IRcommand {
     IRReg dst;
     int val;
 
-    public IRcommand_Li(IRReg dst, IRReg src, int val) {
+    public IRcommand_Li(IRReg dst, int val) {
         this.dst = dst;
         this.val = val;
     }

@@ -1,5 +1,6 @@
 package AST;
 
+import IR.IRReg;
 import TYPES.*;
 import SYMBOL_TABLE.*;
 
@@ -39,5 +40,10 @@ public class AST_Array_Dec extends AST_Node
         SymbolTable.enter(arrayName, new Type_Array(arrayType, arrayName));
 
         return new Type_Array(arrayType, arrayName);
+    }
+
+    public IRReg IRMe()
+    {
+        return null;  // nothing to do here
     }
 }

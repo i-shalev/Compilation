@@ -1,5 +1,6 @@
 package AST;
 
+import IR.IRReg;
 import TYPES.*;
 
 import java.rmi.server.ExportException;
@@ -20,7 +21,15 @@ public abstract class AST_Node
 		System.out.print("AST NODE UNKNOWN\n");
 	}
 
-	public Type SemantMe() throws Exception { return null; }
+	public Type SemantMe() throws Exception
+	{
+		return null;
+	}
+
+	public IRReg IRMe()
+	{
+		return null;
+	}
 
 	public class SemanticException extends Exception {
 		public SemanticException() {

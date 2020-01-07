@@ -1,5 +1,6 @@
 package AST;
 
+import IR.IRReg;
 import TYPES.*;
 
 public class AST_Class_Field_List extends AST_Node
@@ -29,8 +30,18 @@ public class AST_Class_Field_List extends AST_Node
         if (tail != null) AST_Graphviz.getInstance().logEdge(SerialNumber, tail.SerialNumber);
     }
 
-    public Type_List SemantMe() throws Exception{
+    public Type_List SemantMe() throws Exception
+    {
             Type t1 = head.SemantMe();
             return new Type_List(t1, tail != null ? tail.SemantMe() : null);
-        }
+    }
+
+    public IRReg IRMe()
+    {
+        if (head != null)
+            head.IRMe();
+        if (tail != null)
+            tail.IRMe();
+        return null;
+    }
 }

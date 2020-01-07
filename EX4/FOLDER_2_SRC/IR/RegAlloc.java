@@ -8,11 +8,9 @@ import java.util.regex.*;
 public class RegAlloc {
     public static void allocate(String outputPath) throws IOException
     {
-        List<TmpReg> tempRegs = new ArrayList<TmpReg>();
+        List<TmpReg> tempRegs = new ArrayList<>();
         Pattern p = Pattern.compile("(,|\\s|\\(|\\()");
         int numTempRegs = 0;
-
-        numTempRegs = 0;
 
         // calculate registers liveliness
         while (true)

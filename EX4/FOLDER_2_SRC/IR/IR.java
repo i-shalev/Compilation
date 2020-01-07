@@ -1,8 +1,6 @@
 package IR;
 
-
-import MIPS.MIPS;
-
+import MIPS.*;
 import java.util.*;
 
 public class IR {
@@ -10,16 +8,19 @@ public class IR {
     private static final Deque<IRcommand> commands = new ArrayDeque<>();
     private static int uniqueLabelCounter = 0;
 
-    public static void add(IRcommand cmd) {
+    public static void add(IRcommand cmd)
+    {
         commands.add(cmd);
     }
 
-    public void MIPSme() {
+    public static void MIPSme()
+    {
         for (IRcommand cmd : commands)
             cmd.MIPSme();
     }
 
-    public static String uniqueLabel(String label) {
+    public static String uniqueLabel(String label)
+    {
         return String.format("_%d_%s", uniqueLabelCounter++, label);
     }
 

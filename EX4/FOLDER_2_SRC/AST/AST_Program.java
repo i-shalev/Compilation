@@ -1,5 +1,6 @@
 package AST;
 
+import IR.IRReg;
 import TYPES.Type;
 
 public class AST_Program extends AST_Node
@@ -36,6 +37,14 @@ public class AST_Program extends AST_Node
         if (head != null) head.SemantMe();
         if (tail != null) tail.SemantMe();
 
+        return null;
+    }
+
+    public IRReg IRMe() {
+        if (head != null)
+            head.IRMe();
+        if (tail != null)
+            tail.IRMe();
         return null;
     }
 }
