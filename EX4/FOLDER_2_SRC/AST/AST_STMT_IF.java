@@ -1,5 +1,6 @@
 package AST;
 
+import IR.*;
 import SYMBOL_TABLE.SymbolTable;
 import TYPES.Type;
 import TYPES.Type_Int;
@@ -39,4 +40,14 @@ public class AST_Stmt_If extends AST_Stmt
 		SymbolTable.endScope();
 		return null;
 	}
+
+	public IRReg IRMe()
+	{
+		String endIfLabel = IR.uniqueLabel("if_end");
+		IR.add(new IRcommand_Beqz(cond.IRMe(), endIfLabel));
+		body.IRMe();
+		IR.add(new IRcommand_Label(endIfLabel));
+		return null;
+	}
+
 }

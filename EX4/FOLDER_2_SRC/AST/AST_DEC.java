@@ -1,5 +1,6 @@
 package AST;
 
+import IR.IRReg;
 import TYPES.*;
 
 public class AST_Dec extends AST_Node
@@ -56,6 +57,23 @@ public class AST_Dec extends AST_Node
 		if (funcDec != null) funcDec.SemantMe();
 		if (classDec != null) classDec.SemantMe();
 		if (arrayDec != null) arrayDec.SemantMe();
+
+		return null;
+	}
+
+	public IRReg IRMe()
+	{
+		if (varDec != null)
+			return varDec.IRMe();
+
+		if (funcDec != null)
+			return funcDec.IRMe();
+
+		if (classDec != null)
+			return classDec.IRMe();
+
+		if (arrayDec != null)
+			return arrayDec.IRMe();
 
 		return null;
 	}

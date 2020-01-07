@@ -1,5 +1,6 @@
 package AST;
 
+import IR.*;
 import TYPES.*;
 import SYMBOL_TABLE.*;
 
@@ -34,6 +35,18 @@ public class AST_Stmt_While extends AST_Stmt
 		SymbolTable.beginScope(Type_Scope.WHILE);
 		body.SemantMe();
 		SymbolTable.endScope();
+		return null;
+	}
+
+	public IRReg IRMe()
+	{
+		String whileCondLabel = IR.uniqueLabel("while_cond");
+		String whileEndLabel = IR.uniqueLabel("while_end");
+		IR.add(new IRcommand_Label(whileCondLabel));
+		IR.add(new IRcommand_Beqz(cond.IRMe(), whileEndLabel));
+		body.IRMe();
+		IR.add(new IRcommand_Jump(whileCondLabel));
+		IR.add(new IRcommand_Label(whileEndLabel));
 		return null;
 	}
 }
