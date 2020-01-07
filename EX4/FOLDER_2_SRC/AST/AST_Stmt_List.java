@@ -38,7 +38,7 @@ public class AST_Stmt_List extends AST_Node
 			tail.SemantMe();
 		return null;
 	}
-	public IRReg toIR()
+	public IRReg IRMe()
 	{
 		if (head != null){
 			head.IRMe();

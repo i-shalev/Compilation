@@ -1,5 +1,6 @@
 package AST;
 
+import IR.*;
 import SYMBOL_TABLE.SymbolTable;
 import TYPES.*;
 
@@ -63,6 +64,12 @@ public class AST_Stmt_Assign extends AST_Stmt
             }
         }
 
+        return null;
+    }
+    public IRReg IRMe()
+    {
+        IRReg reg = var.IRMe();  // eval left side first
+        IR.add(new IRcommand_Sw(exp.IRMe(), reg, 0));  // eval right side and assign
         return null;
     }
 }

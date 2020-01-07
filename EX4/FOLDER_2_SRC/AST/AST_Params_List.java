@@ -1,5 +1,6 @@
 package AST;
 
+import IR.IRReg;
 import SYMBOL_TABLE.SymbolTable;
 import TYPES.*;
 
@@ -48,6 +49,10 @@ public class AST_Params_List extends AST_Node
         if (nextParam != null)
             nextParam.SemantMe();
 
+        return null;
+    }
+    public IRReg IRMe()
+    {
         return null;
     }
 }
