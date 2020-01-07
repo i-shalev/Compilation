@@ -1,11 +1,9 @@
 package AST;
 
+import IR.*;
 import SYMBOL_TABLE.SymbolTable;
 import TYPES.*;
-/*import TYPES.Type_Array;
-import TYPES.Type_Class;
-import TYPES.Type_Int;
-*/
+
 public class AST_New_Exp extends AST_Exp
 {
     public String typeName;
@@ -45,5 +43,24 @@ public class AST_New_Exp extends AST_Exp
         }
 
         return newType;
+    }
+
+    public IRReg IRMe()
+    {
+        if(exp != null)     // Array init
+        {
+            IRReg sizeReg = exp.IRMe();
+            IR.add(new IRcommand_Move(IRReg.a0, sizeReg));              // copy array size
+            IR.add(new IRcommand_Addi(IRReg.a0, IRReg.a0, 1));    // add place to remember the size - first element is size
+            IR.add(new IRcommand_Sll(IRReg.a0, IRReg.a0, 4));     // convert to size in bytes - shift 4 to left is to mul 2^4
+            IR.add(new IRcommand_sbrk());                               // allocate heap memory, v0 contain the result
+            IR.add(new IRcommand_Sw(sizeReg, IRReg.v0, 0));      // store size as first element
+        }
+        // TODO: add the Class init
+        else                // Class init
+        {
+
+        }
+        return IRReg.v0;
     }
 }
