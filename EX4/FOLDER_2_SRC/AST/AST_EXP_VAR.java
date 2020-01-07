@@ -1,5 +1,6 @@
 package AST;
 
+import IR.*;
 import SYMBOL_TABLE.SymbolTable;
 import TYPES.Type;
 
@@ -29,5 +30,12 @@ public class AST_Exp_Var extends AST_Exp
 
 	public Type SemantMe() throws Exception{
 		return var.SemantMe();
+	}
+
+	public IRReg IRMe()
+	{
+		IRReg reg = var.IRMe();
+		IR.add(new IRcommand_Lw(reg, reg,0)); // dereference
+		return reg;
 	}
 }
