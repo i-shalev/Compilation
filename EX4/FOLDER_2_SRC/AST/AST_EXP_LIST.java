@@ -1,5 +1,6 @@
 package AST;
 
+import IR.*;
 import TYPES.Type_List;
 
 public class AST_Exp_List extends AST_Node
@@ -31,5 +32,14 @@ public class AST_Exp_List extends AST_Node
 
 	public Type_List SemantMe() throws Exception {
 		return new Type_List(head.SemantMe(), tail != null ? tail.SemantMe() : null);
+	}
+
+	public IRReg IRMe()
+	{
+		if(head != null)
+			head.IRMe();
+		if(tail != null)
+			tail.IRMe();
+		return null;
 	}
 }

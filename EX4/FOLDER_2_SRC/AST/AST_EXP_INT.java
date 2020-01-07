@@ -1,5 +1,6 @@
 package AST;
 
+import IR.*;
 import TYPES.*;
 
 public class AST_Exp_Int extends AST_Exp
@@ -25,7 +26,15 @@ public class AST_Exp_Int extends AST_Exp
 		return Type_Int.getInstance();
 	}
  
-  public boolean isZero(){
+  	public boolean isZero(){
     return value==0;
   }
+
+	public IRReg IRMe()
+	{
+		IRReg reg = new IRReg.TempReg();
+		IR.add(new IRcommand_Li(reg, value));
+		return reg;
+	}
+
 }

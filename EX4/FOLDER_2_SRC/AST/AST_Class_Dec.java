@@ -54,27 +54,6 @@ public class AST_Class_Dec extends AST_Node
 
         classType.data_members = cFieldList.SemantMe();
 
-        // TODO: check if it's necessary
-//        if (fatherType != null)
-//            // Iterate over its class variables and methods
-//            for (Type_List it = fatherType.data_members; it != null; it = it.next) {
-//                Type curr = SymbolTable.findInScope(it.name);
-//
-//                // if curr is not null, it is Type_Var_Dec or Type_Func
-//                if (curr instanceof) {  // We found a variable with the same name in an ancestor
-//                    throw new Exception("Shadowing is not allowed");
-//                }
-//
-//                // TODO: verify override definition
-//                if (curr instanceof Type_Func) { // Need to verify it's overloading
-//                    if (!(curr.equals(it)))
-//                        throw new Exception("Overloading is not allowed");
-//                }
-//            }
-//
-//            fatherType = fatherType.father; // Move up
-//        }
-
         SymbolTable.endScope();
 
         return classType;
