@@ -1,0 +1,234 @@
+/*************/
+/* IMPORT(S) */
+/*************/
+import java_cup.runtime.*;
+import AST.*;
+import java.io.PrintWriter;
+
+parser code 
+{:
+	public Lexer lexer;
+	public PrintWriter file_writer;
+	public boolean printTokens;
+
+	public Parser(Lexer lexer, PrintWriter file_writer, boolean printTokens)
+	{
+		super(lexer);
+		this.lexer = lexer;
+		this.file_writer = file_writer;
+		this.printTokens = printTokens;
+	}
+	public void report_error(String message, Object info)
+	{
+	    /*
+		System.out.print("ERROR >> ");
+		System.out.print("[");
+		System.out.print(lexer.getLine());
+		System.out.print(":");
+		System.out.print(lexer.getTokenStartPosition());
+		System.out.print("] ");
+        */
+
+		file_writer.println(String.format("ERROR(%d)", lexer.getLine()));
+        file_writer.close();
+
+		System.exit(0);
+	}
+:}
+
+/************************/
+/* CUSTOMIZE CUP PARSER */
+/************************/
+scan with
+{:
+	Symbol s;
+	s = lexer.next_token();
+	//System.out.print(s.sym);
+	if (printTokens){
+        System.out.print("[");
+        System.out.print(lexer.getLine());
+        System.out.print(":");
+        System.out.print(lexer.getTokenStartPosition());
+        System.out.print("] ");
+        System.out.print(TokenNames.terminalNames[s.sym]);
+        if (s.value != null)
+        {
+            System.out.print("(");
+            System.out.print(s.value);
+            System.out.print(")");
+        }
+        System.out.print("\n");
+	}
+	return s; 
+:};
+
+/*************/
+/* TERMINALS */
+/*************/
+terminal PLUS;
+terminal MINUS;
+terminal TIMES;
+terminal DIVIDE;
+terminal LPAREN;
+terminal RPAREN;
+terminal SEMICOLON;
+terminal CLASS;
+terminal NIL;
+terminal ARRAY;
+terminal WHILE;
+terminal EXTENDS;
+terminal RETURN;
+terminal NEW;
+terminal IF;
+terminal LBRACE;
+terminal RBRACE;
+terminal LBRACK;
+terminal RBRACK;
+terminal COMMA;
+terminal DOT;
+terminal ELLIPSIS;
+terminal ASSIGN;
+terminal EQ;
+terminal LT;
+terminal GT;
+terminal COMMENT;
+
+/*************/
+/* TERMINALS */
+/*************/
+terminal Integer INT;
+terminal String ID;
+terminal String STRING;
+
+/*****************/
+/* NON TERMINALS */
+/*****************/
+non terminal AST_Program program;
+non terminal AST_Dec dec;
+non terminal AST_Var_Dec varDec;
+non terminal AST_Func_Dec funcDec;
+non terminal AST_Class_Dec classDec;
+non terminal AST_Array_Dec arrayDec;
+non terminal AST_Exp_Func_Call callExp;
+non terminal AST_Exp exp;
+non terminal AST_Stmt stmt;
+non terminal AST_New_Exp newExp;
+non terminal AST_Class_Field cField;
+non terminal AST_Stmt_List stmtList;
+non terminal AST_Params_List paramsList;
+non terminal AST_Class_Field_List cFieldList;
+non terminal AST_Exp_List expList;
+non terminal AST_Var var;
+
+/***********************/
+/* OPERATOR PRECEDENCE */
+/***********************/
+precedence nonassoc ASSIGN;
+precedence left EQ;
+precedence left LT;
+precedence left GT;
+precedence left PLUS;
+precedence left MINUS;
+precedence left TIMES;
+precedence left DIVIDE;
+precedence nonassoc LBRACK;
+precedence nonassoc LPAREN;
+precedence left DOT;
+
+/************************/
+/* START WITH: program */
+/************************/
+start with program;
+
+/********************/
+/* DERIVATION RULES */
+/********************/
+
+program     ::=     dec:d  program:p        {: RESULT = new AST_Program(d, p);  RESULT.lineNumber=dleft;    :}
+                  | dec:d                   {: RESULT = new AST_Program(d, null);    RESULT.lineNumber=dleft;  :}
+                    ;
+
+dec         ::=     varDec:v                {: RESULT = new AST_Dec(v); RESULT.lineNumber=vleft;:}
+                  | funcDec:f               {: RESULT = new AST_Dec(f); RESULT.lineNumber=fleft;:}
+                  | classDec:c              {: RESULT = new AST_Dec(c); RESULT.lineNumber=cleft;:}
+                  | arrayDec:a              {: RESULT = new AST_Dec(a); RESULT.lineNumber=aleft;:}
+                    ;
+
+varDec      ::=     ID:id1 ID:id2 SEMICOLON                 {: RESULT = new AST_Var_Dec(id1, id2); RESULT.lineNumber=id1left;:}
+                  | ID:id1 ID:id2 ASSIGN exp:e SEMICOLON    {: RESULT = new AST_Var_Dec(id1, id2, e); RESULT.lineNumber=id1left;:}
+                  | ID:id1 ID:id2 ASSIGN newExp:e SEMICOLON {: RESULT = new AST_Var_Dec(id1, id2, e); RESULT.lineNumber=id1left;:}
+                    ;
+
+funcDec      ::=    ID:id1 ID:id2 LPAREN RPAREN LBRACE stmtList:stlist RBRACE                {: RESULT = new AST_Func_Dec(id1, id2, null, stlist);RESULT.lineNumber=id1left; :}
+                  | ID:id1 ID:id2 LPAREN paramsList:idlist RPAREN LBRACE stmtList:stlist RBRACE  {: RESULT = new AST_Func_Dec(id1, id2, idlist, stlist); RESULT.lineNumber=id1left;:}
+                    ;
+
+stmtList	::=		stmt:s	stmtList:l		{: RESULT = new AST_Stmt_List(s, l);    RESULT.lineNumber=sleft;:}
+				  | stmt:s				    {: RESULT = new AST_Stmt_List(s, null); RESULT.lineNumber=sleft;:}
+					;
+
+paramsList      ::= 	ID:id1 ID:id2 COMMA paramsList:idL		{: RESULT = new AST_Params_List(id1, id2, idL);  RESULT.lineNumber=id1left;  :}
+                  | ID:id1 ID:id2				        {: RESULT = new AST_Params_List(id1, id2, null);RESULT.lineNumber=id1left; :}
+                	;
+
+classDec    ::=     CLASS ID:id1 EXTENDS ID: id2 LBRACE cFieldList:cList RBRACE {: RESULT = new AST_Class_Dec(id1, id2, cList);RESULT.lineNumber=id1left; :}
+                  | CLASS ID:id1 LBRACE cFieldList:cList RBRACE                 {: RESULT = new AST_Class_Dec(id1, null, cList);RESULT.lineNumber=id1left; :}
+                    ;
+
+cFieldList  ::=     cField:c cFieldList:cl  {: RESULT = new AST_Class_Field_List(c, cl) ;RESULT.lineNumber=cleft;:}
+                  | cField:c                {: RESULT = new AST_Class_Field_List(c, null) ;RESULT.lineNumber=cleft;:}
+                    ;
+
+arrayDec    ::=     ARRAY ID:id1 EQ ID:id2 LBRACK RBRACK    {: RESULT = new AST_Array_Dec(id1, id2) ; RESULT.lineNumber=id1left;:}
+                    ;
+
+exp         ::=     var:v                                       {: RESULT = v; RESULT.lineNumber=vleft;:}
+                  | LPAREN exp:e RPAREN                         {: RESULT = e; RESULT.lineNumber=eleft;:}
+                  // Binop start
+                  | exp:e1 PLUS exp:e2                          {: RESULT = new AST_Exp_Binop(e1, e2, 0); RESULT.lineNumber=e1left;:}
+                  | exp:e1 MINUS exp:e2                         {: RESULT = new AST_Exp_Binop(e1, e2, 1); RESULT.lineNumber=e1left;:}
+                  | exp:e1 TIMES exp:e2                         {: RESULT = new AST_Exp_Binop(e1, e2, 2); RESULT.lineNumber=e1left;:}
+                  | exp:e1 DIVIDE exp:e2                        {: RESULT = new AST_Exp_Binop(e1, e2, 3); RESULT.lineNumber=e1left;:}
+                  | exp:e1 GT exp:e2                            {: RESULT = new AST_Exp_Binop(e1, e2, 4); RESULT.lineNumber=e1left;:}
+                  | exp:e1 LT exp:e2                            {: RESULT = new AST_Exp_Binop(e1, e2, 5); RESULT.lineNumber=e1left;:}
+                  | exp:e1 EQ exp:e2                            {: RESULT = new AST_Exp_Binop(e1, e2, 6); RESULT.lineNumber=e1left;:}
+                  // Binop end
+                  | callExp:e                                   {: RESULT = e; RESULT.lineNumber=eleft;:}
+                  | INT:i							            {: RESULT = new AST_Exp_Int(i); RESULT.lineNumber=ileft;:}
+                  | MINUS INT:i						            {: RESULT = new AST_Exp_Int(-i); RESULT.lineNumber=ileft;:}
+                  | NIL:n                                         {: RESULT = new AST_Exp_Nil(); RESULT.lineNumber=nleft;:}
+                  | STRING:st                                   {: RESULT = new AST_Exp_String(st); RESULT.lineNumber=stleft;:}
+                    ;
+
+callExp     ::=     ID:id1 LPAREN RPAREN                        {: RESULT = new AST_Exp_Func_Call(null, id1, null); RESULT.lineNumber=id1left;:}
+                  | ID:id1 LPAREN expList:el RPAREN             {: RESULT = new AST_Exp_Func_Call(null, id1, el); RESULT.lineNumber=id1left;:}
+                  | var:v DOT ID:id1 LPAREN RPAREN              {: RESULT = new AST_Exp_Func_Call(v, id1, null); RESULT.lineNumber=vleft;:}
+                  | var:v DOT ID:id1 LPAREN expList:el RPAREN   {: RESULT = new AST_Exp_Func_Call(v, id1, el); RESULT.lineNumber=vleft;:}
+                    ;
+
+expList     ::=     exp:e COMMA expList:el    {: RESULT = new AST_Exp_List(e, el) ;:}
+                  | exp:e               {: RESULT = new AST_Exp_List(e, null) ;:}
+                    ;
+
+var			::=		ID:name								{: RESULT = new AST_Var_Simple(name);      RESULT.lineNumber=nameleft;  :}
+				  | var:v DOT ID:fieldName			    {: RESULT = new AST_Var_Field(v, fieldName); RESULT.lineNumber=vleft;:}
+				  | var:v LBRACK exp:e RBRACK			{: RESULT = new AST_Var_Subscript(v, e);   RESULT.lineNumber=vleft;  :}
+					;
+
+stmt        ::=     varDec:vc                                               {: RESULT = new AST_Stmt_Var_Dec(vc);RESULT.lineNumber=vcleft; :}
+                  | var:v ASSIGN exp:e SEMICOLON		                    {: RESULT = new AST_Stmt_Assign(v,e); RESULT.lineNumber=vleft;:}
+                  | var:v ASSIGN newExp:e SEMICOLON		                    {: RESULT = new AST_Stmt_Assign(v,e);RESULT.lineNumber=vleft; :}
+                  | RETURN:r SEMICOLON                                        {: RESULT = new AST_Stmt_Return(null);RESULT.lineNumber=rleft; :}
+                  | RETURN:r exp:e SEMICOLON                                  {: RESULT = new AST_Stmt_Return(e); RESULT.lineNumber=rleft;:}
+                  | IF LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_Stmt_If(cond,body); RESULT.lineNumber=condleft;:}
+                  | WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE {: RESULT = new AST_Stmt_While(cond,body); RESULT.lineNumber=condleft; :}
+                  | callExp:e SEMICOLON                                     {: RESULT = new AST_Stmt_Func_Call(e); RESULT.lineNumber=eleft;:}
+                    ;
+
+newExp      ::=     NEW ID:id                       {: RESULT = new AST_New_Exp(id, null); RESULT.lineNumber=idleft;:}
+                  | NEW ID:id LBRACK exp:e RBRACK   {: RESULT = new AST_New_Exp(id, e); RESULT.lineNumber=idleft;:}
+                    ;
+
+cField      ::=     varDec:v                {: RESULT = v; RESULT.lineNumber=vleft;:}
+                  | funcDec:f               {: RESULT = f; RESULT.lineNumber=fleft;:}
+                    ;
