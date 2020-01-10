@@ -4,6 +4,7 @@ import java.util.*;
 public class Type_Func extends Type {
     public Type returnType;
     public Type_List params;
+    public List<Symbol> params2 = new ArrayList<Symbol>();
     public List<Symbol> locals = new ArrayList<Symbol>();
     public int currMaxLocals =0;
 
@@ -11,6 +12,9 @@ public class Type_Func extends Type {
         this.name = name;
         this.returnType = returnType;
         this.params = params;
+        for(Type_List it=params; it!=null; it=it.next){
+            params2.add(new Symbol(it.name,it));
+        }
     }
 
     public boolean IsValidTypeList(Type_List other_params) {

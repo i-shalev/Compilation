@@ -2,6 +2,7 @@ package AST;
 
 import SYMBOL_TABLE.SymbolTable;
 import TYPES.*;
+import IR.*;
 
 public class AST_Func_Dec extends AST_Class_Field
 {
@@ -9,6 +10,7 @@ public class AST_Func_Dec extends AST_Class_Field
     public String funcName;
     public AST_Params_List params;
     public AST_Stmt_List statements;
+    public Type_Func funcType;
 
     public AST_Func_Dec(String retType, String funcName, AST_Params_List params, AST_Stmt_List statements)
     {
@@ -90,7 +92,49 @@ public class AST_Func_Dec extends AST_Class_Field
         if (params != null) params.SemantMe();
         if (statements != null) { statements.SemantMe(); }
         SymbolTable.endScope();
-
+        this.funcType=funcType;
         return funcType;
+    }
+
+    public IRReg IRMe()
+    {
+        boolean isMain = funcName.equals("main") && funcType.returnType == Type_Void.getInstance() && funcType.params2.size() == 0;
+        int numLocals = funcType.locals.size();
+
+        String funcNameLabel = IR.uniqueLabel("func_name");
+        IR.add(new IRcommand_String_Literal(String.format("\"%s\"", funcName), funcNameLabel));
+
+        IR.add(new IRcommand_Label("_" + funcType.name));
+        if (isMain) {
+            for (String initLabel : IR.globalVars) {
+                IR.add(new IRcommand_Jal(initLabel));
+            }
+        }
+
+        // prologue
+        IR.add(new IRcommand_Addi(IRReg.sp, IRReg.sp, -3 * 4));
+        IR.add(new IRcommand_Sw(IRReg.fp, IRReg.sp, 0));  // save fp
+        IR.add(new IRcommand_Sw(IRReg.ra, IRReg.sp, 4));  // save ra
+        IR.add(new IRcommand_La(IRReg.ra, funcNameLabel));  // get function name
+        IR.add(new IRcommand_Sw(IRReg.ra, IRReg.sp, 8));  // save function name
+        IR.add(new IRcommand_Move(IRReg.fp, IRReg.sp));  // update to new fp
+        IR.add(new IRcommand_Addi(IRReg.sp, IRReg.sp, -(numLocals + 8) * 4));  // allocate stack
+        IR.add(new IRcommand_Jal("store_tmp_regs"));
+
+        statements.IRMe();
+
+        // epilogue
+        IR.add(new IRcommand_Label(funcType.name + "_epilogue"));
+        if (isMain) {
+            IR.add(new IRcommand_exit());
+        }
+        IR.add(new IRcommand_Jal("retrieve_tmp_regs"));
+        IR.add(new IRcommand_Addi(IRReg.sp, IRReg.sp, (numLocals + 8) * 4));  // deallocate stack
+        IR.add(new IRcommand_Lw(IRReg.ra, IRReg.sp, 4));  // retrieve ra
+        IR.add(new IRcommand_Lw(IRReg.fp, IRReg.sp, 0));  // retrieve fp
+        IR.add(new IRcommand_Addi(IRReg.sp, IRReg.sp, 3 * 4));
+        IR.add(new IRcommand_Jr(IRReg.ra));  // return
+
+        return null;
     }
 }

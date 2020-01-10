@@ -123,6 +123,14 @@ public class AST_Var_Dec extends AST_Class_Field {
               throw new SemanticException("invalid initialization type for class member");
           }
         }
+
+        if (SymbolTable.isDirectlyInScope(Type_Scope.FUNC))  // local variable
+        {
+            Type_Func funcType = SymbolTable.findFunc();
+            numLocal = funcType.locals.size();
+            funcType.locals.add(new Symbol(name, varType));
+            funcType.currMaxLocals++;
+        }
         
         return new Type_Var_Dec(varType, name);
     }
