@@ -71,6 +71,20 @@ public class AST_Func_Dec extends AST_Class_Field
         if (SymbolTable.isDirectlyInScope(Type_Scope.CLASS)){
           Type_Class c1 = SymbolTable.findClass();
           c1.data_members = Type_List.add(funcType,c1.data_members);
+
+
+            boolean isFound = false;
+            for (Symbol symbol : c1.methods)
+            {
+                if (funcName.equals(symbol.name))
+                {
+                    symbol.type = funcType; //update override method
+                    isFound = true;
+                }
+            }
+            if (!isFound) { // need to add the func if we didn't
+                c1.methods.add(new Symbol(funcName, funcType));
+            }
         }
         SymbolTable.beginScope(Type_Scope.FUNC);
         if (params != null) params.SemantMe();
