@@ -3,7 +3,6 @@ package AST;
 import SYMBOL_TABLE.SymbolTable;
 import TYPES.*;
 
-// was public class AST_Var_Dec extends AST_Class_Field
 public class AST_Var_Dec extends AST_Class_Field {
 
     public String typeName;
@@ -64,7 +63,7 @@ public class AST_Var_Dec extends AST_Class_Field {
         }
 
         // Ended class checks, now we check the assignment is valid, if there is one
-        Type expType = null;
+        Type expType;
         if (exp != null) {
             expType = exp.SemantMe();
 
@@ -96,6 +95,10 @@ public class AST_Var_Dec extends AST_Class_Field {
                 }
             }
         }
+        else
+        {
+            expType = Type_Nil.getInstance();
+        }
 
         SymbolTable.enter(name, varType);
         if (SymbolTable.isDirectlyInScope(Type_Scope.CLASS)){  
@@ -103,7 +106,7 @@ public class AST_Var_Dec extends AST_Class_Field {
           c1.data_members = Type_List.add(new Type_Var_Dec(varType,name),c1.data_members);
           c1.members.add(new Symbol(name, varType));
 
-          if(expType == null)
+          if(expType == Type_Nil.getInstance())
           {
             c1.initVals.add(0);
           }
