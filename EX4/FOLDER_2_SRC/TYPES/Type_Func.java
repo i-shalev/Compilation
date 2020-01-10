@@ -1,8 +1,11 @@
 package TYPES;
+import java.util.*;
 
 public class Type_Func extends Type {
     public Type returnType;
     public Type_List params;
+    public List<Symbol> locals = new ArrayList<Symbol>();
+    public int currMaxLocals =0;
 
     public Type_Func(Type returnType, String name, Type_List params) {
         this.name = name;

@@ -1,4 +1,5 @@
 package TYPES;
+import java.util.*;
 
 public class Type_Class extends Type_Object {
     public Type_Class father;          // should be null if not extending anything
@@ -45,5 +46,31 @@ public class Type_Class extends Type_Object {
         }
         if (father != null) { return father.getFuncField(funcFieldName); }
         return null;
+    }
+    // not include functions from father, only those who defined in this class
+    public List<Symbol> getFuncList(){
+        List<Symbol> l1 = new ArrayList<Symbol>();
+        for (Type_List it = data_members; it != null; it = it.next)
+        {
+            if (it.head instanceof Type_Func)
+            {
+                Type_Func func = (Type_Func)it.head; 
+                l1.add(new Symbol(func.name,it)); 
+            }
+        }
+        return l1;
+        
+    }
+
+    // not include vars from father, only those who defined in this class
+    public List<Symbol> getVarsList(){
+        List<Symbol> l1 = new ArrayList<Symbol>();
+        for (Type_List it = data_members; it != null; it = it.next) {
+            if (it.head instanceof Type_Var_Dec) {
+                Type_Var_Dec member = (Type_Var_Dec) it.head;
+                l1.add(new Symbol(member.name, it));
+            }
+        }
+        return l1;
     }
 }
