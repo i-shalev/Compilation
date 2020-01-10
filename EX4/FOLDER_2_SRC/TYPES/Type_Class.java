@@ -2,14 +2,21 @@ package TYPES;
 import java.util.*;
 
 public class Type_Class extends Type_Object {
-    public Type_Class father;          // should be null if not extending anything
-    public Type_List data_members;     // contains both variables and methods
-    public List<Object> initVals = new ArrayList<Object>();
+    public Type_Class father;                                   // should be null if not extending anything
+    public Type_List data_members;                              // contains both variables and methods
+    public List<Symbol> members  = new ArrayList<>();     // contains variables only
+    public List<Object> initVals = new ArrayList<>();     // contains variables values
 
     public Type_Class(Type_Class father, String name, Type_List data_members) {
         this.name = name;
         this.father = father;
         this.data_members = data_members;
+
+        if(father != null)
+        {
+            members  = new ArrayList<>(father.members);
+            initVals = new ArrayList<>(father.initVals);
+        }
     }
 
     public boolean isInheritsFrom(String name) {

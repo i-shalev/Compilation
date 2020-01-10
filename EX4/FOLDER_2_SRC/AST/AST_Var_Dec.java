@@ -9,6 +9,8 @@ public class AST_Var_Dec extends AST_Class_Field {
     public String typeName;
     public String name;
     public AST_Exp exp;
+    public int numLocal = -1;
+    public int numMember = -1;
 //    public AST_New_Exp newExp;
 
     public AST_Var_Dec(String typeName, String name)
@@ -25,14 +27,6 @@ public class AST_Var_Dec extends AST_Class_Field {
         this.name = name;
         this.exp = exp;
     }
-//
-//    public AST_VAR_DEC(String typeName, String name, AST_New_Exp newExp)
-//    {
-//        PrintRule("varDec", "ID ID := newExp ;");
-//        this.typeName = typeName;
-//        this.name = name;
-//        this.newExp = newExp;
-//    }
 
     public void PrintMe()
     {
@@ -67,14 +61,12 @@ public class AST_Var_Dec extends AST_Class_Field {
             if (father != null)
                 if (father.getVarField(name) != null || father.getFuncField(name) != null)
                     throw new SemanticException("Variable already defined in ancestor");
-                    
-            
         }
 
         // Ended class checks, now we check the assignment is valid, if there is one
-
+        Type expType = null;
         if (exp != null) {
-            Type expType = exp.SemantMe();
+            expType = exp.SemantMe();
 
             if (expType instanceof Type_Nil && !(varType instanceof Type_Class || varType instanceof Type_Array))
                 throw new SemanticException("Can't assign nil to non-class or array");
@@ -109,6 +101,24 @@ public class AST_Var_Dec extends AST_Class_Field {
         if (SymbolTable.isDirectlyInScope(Type_Scope.CLASS)){  
           Type_Class c1 = SymbolTable.findClass();
           c1.data_members = Type_List.add(new Type_Var_Dec(varType,name),c1.data_members);
+          c1.members.add(new Symbol(name, varType));
+
+          if(expType == null)
+          {
+            c1.initVals.add(0);
+          }
+          else if(expType instanceof Type_Int )
+          {
+              c1.initVals.add(((AST_Exp_Int)exp).value);
+          }
+          else if(expType instanceof Type_String )
+          {
+              c1.initVals.add(((AST_Exp_String)exp).label);
+          }
+          else
+          {
+              throw new SemanticException("invalid initialization type for class member");
+          }
         }
         
         return new Type_Var_Dec(varType, name);

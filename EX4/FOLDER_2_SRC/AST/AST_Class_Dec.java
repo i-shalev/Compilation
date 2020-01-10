@@ -8,6 +8,7 @@ public class AST_Class_Dec extends AST_Node
     public String className;
     public String father;
     public AST_Class_Field_List cFieldList;
+    public Type_Class classType;
 
     public AST_Class_Dec(String className, String father, AST_Class_Field_List cFieldList)
     {
@@ -48,7 +49,8 @@ public class AST_Class_Dec extends AST_Node
         }
 
 
-        Type_Class classType = new Type_Class(fatherType, className ,null);
+        classType = new Type_Class(fatherType, className ,null);
+
         SymbolTable.enter(className, classType);
         SymbolTable.beginScope(Type_Scope.CLASS);
 
