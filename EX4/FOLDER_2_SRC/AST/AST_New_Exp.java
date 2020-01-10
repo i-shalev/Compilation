@@ -8,6 +8,8 @@ public class AST_New_Exp extends AST_Exp
 {
     public String typeName;
     public AST_Exp exp;
+    public Type_Class classType;
+    public int numMembers;
 
     public AST_New_Exp(String typeName, AST_Exp exp)
     {
@@ -42,6 +44,12 @@ public class AST_New_Exp extends AST_Exp
                 throw new SemanticException("Array size declared with a non-int");
         }
 
+        else if (newType instanceof Type_Class)       // Class init
+        {
+            classType = (Type_Class)newType;
+            numMembers = ((Type_Class)newType).members.size();
+        }
+
         return newType;
     }
 
@@ -56,10 +64,37 @@ public class AST_New_Exp extends AST_Exp
             IR.add(new IRcommand_sbrk());                               // allocate heap memory, v0 contain the result
             IR.add(new IRcommand_Sw(sizeReg, IRReg.v0, 0));      // store size as first element
         }
-        // TODO: add the Class init
+
         else                // Class init
         {
-
+            IR.add(new IRcommand_Li(IRReg.a0, numMembers));  // copy class size
+            IR.add(new IRcommand_Addi(IRReg.a0, IRReg.a0, 1));  // first element is vtable
+            IR.add(new IRcommand_Sll(IRReg.a0, IRReg.a0, 4));  // convert to size in bytes
+            IR.add(new IRcommand_sbrk());  // allocate heap memory, v0 contain the result
+            if (classType.getFuncList().size() == 0)
+            {
+                IR.add(new IRcommand_Sw(IRReg.zero, IRReg.v0, 0));  // store zero as vtable address
+            }
+            else  // where there are methods there is a vtable
+            {
+                String vtableLabel = String.format("_%s_vtable", classType.name);
+                IRReg vtable = new IRReg.TempReg();
+                IR.add(new IRcommand_La(vtable, vtableLabel));  // get vtable
+                IR.add(new IRcommand_Sw(vtable, IRReg.v0, 0));  // store vtable as first element
+            }
+            for (int i = 0; i < numMembers; i++)  // init all members
+            {
+                Object initVal = classType.initVals.get(i);
+                if (initVal instanceof Integer)
+                {
+                    IR.add(new IRcommand_Li(IRReg.a0, (Integer)initVal));
+                }
+                else if (initVal instanceof String)
+                {
+                    IR.add(new IRcommand_La(IRReg.a0, (String)initVal));
+                }
+                IR.add(new IRcommand_Sw(IRReg.a0, IRReg.v0, (i + 1) * 4));
+            }
         }
         return IRReg.v0;
     }
