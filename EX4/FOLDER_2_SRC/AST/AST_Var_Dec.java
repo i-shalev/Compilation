@@ -3,7 +3,8 @@ package AST;
 import SYMBOL_TABLE.SymbolTable;
 import TYPES.*;
 
-public class AST_Var_Dec extends AST_Class_Field {
+// was public class AST_Var_Dec extends AST_Class_Field
+public class AST_Var_Dec extends AST_Var {
 
     public String typeName;
     public String name;
