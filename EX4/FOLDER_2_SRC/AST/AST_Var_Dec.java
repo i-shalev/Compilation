@@ -4,7 +4,7 @@ import SYMBOL_TABLE.SymbolTable;
 import TYPES.*;
 
 // was public class AST_Var_Dec extends AST_Class_Field
-public class AST_Var_Dec extends AST_Var {
+public class AST_Var_Dec extends AST_Class_Field {
 
     public String typeName;
     public String name;
