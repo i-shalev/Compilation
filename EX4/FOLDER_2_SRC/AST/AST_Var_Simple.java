@@ -1,10 +1,9 @@
 package AST;
 
+import IR.*;
 import SYMBOL_TABLE.SymbolTable;
-import TYPES.Symbol;
-import TYPES.Type;
-import TYPES.Type_Class;
-import TYPES.Type_Scope;
+import TYPES.*;
+
 
 import java.util.List;
 
@@ -78,5 +77,30 @@ public class AST_Var_Simple extends AST_Var
         if (ret == null)
             throw new SemanticException("Variable not found: " + name);
         return ret;
+    }
+
+    public IRReg IRMe()
+    {
+        IRReg reg = new IRReg.TempReg();
+        if (local != -1)
+        {
+            // TODO maybe should be 1 instead of 9
+
+            IR.add(new IRcommand_Addi(reg, IRReg.fp, (-local - 9) * 4));
+        }
+        else if (param != -1)
+        {
+            IR.add(new IRcommand_Addi(reg, IRReg.fp, (param + 4) * 4));
+        }
+        else if (member != -1)
+        {
+            IR.add(new IRcommand_Lw(reg, IRReg.fp, 3 * 4));  // "this"
+            IR.add(new IRcommand_Addi(reg, reg, (member + 1) * 4));  // calculate address of member
+        }
+        else
+        {
+            IR.add(new IRcommand_Get_Global(name, reg));
+        }
+        return reg;
     }
 }
