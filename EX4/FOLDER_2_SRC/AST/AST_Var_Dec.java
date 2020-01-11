@@ -2,14 +2,14 @@ package AST;
 
 import SYMBOL_TABLE.SymbolTable;
 import TYPES.*;
-
+import IR.*;
 public class AST_Var_Dec extends AST_Class_Field {
 
     public String typeName;
     public String name;
     public AST_Exp exp;
-    public int numLocal = -1;
-    public int numMember = -1;
+    public int local = -1;
+    public int member = -1;
 //    public AST_New_Exp newExp;
 
     public AST_Var_Dec(String typeName, String name)
@@ -103,6 +103,7 @@ public class AST_Var_Dec extends AST_Class_Field {
         SymbolTable.enter(name, varType);
         if (SymbolTable.isDirectlyInScope(Type_Scope.CLASS)){  
           Type_Class c1 = SymbolTable.findClass();
+            member = c1.members.size();
           c1.data_members = Type_List.add(new Type_Var_Dec(varType,name),c1.data_members);
           c1.members.add(new Symbol(name, varType));
 
@@ -127,11 +128,37 @@ public class AST_Var_Dec extends AST_Class_Field {
         if (SymbolTable.isDirectlyInScope(Type_Scope.FUNC))  // local variable
         {
             Type_Func funcType = SymbolTable.findFunc();
-            numLocal = funcType.locals.size();
+            local = funcType.locals.size();
             funcType.locals.add(new Symbol(name, varType));
             funcType.currMaxLocals++;
         }
         
         return new Type_Var_Dec(varType, name);
+    }
+    public IRReg IRMe()
+    {
+        if (local != -1)  // local variable
+        {
+            IRReg valReg = exp == null ? IRReg.zero : exp.IRMe();
+            IR.add(new IRcommand_Sw(valReg, IRReg.fp, (-local - 9) * 4));
+        }
+        else if (member != -1)
+        {
+            String initLabel = IR.uniqueLabel("init_" + name);
+            IR.globalVars.add(initLabel);
+            IR.add(new IRcommand_Label(initLabel));
+            if (exp != null) { exp.IRMe(); }
+            IR.add(new IRcommand_Jr(IRReg.ra));
+        }
+        else  // global variable
+        {
+            String initLabel = IR.uniqueLabel("init_" + name);
+            IR.globalVars.add(initLabel);
+            IR.add(new IRcommand_Label(initLabel));
+            IRReg valReg = exp == null ? IRReg.zero : exp.IRMe();
+            IR.add(new IRcommand_Declare_Global(name, valReg));
+            IR.add(new IRcommand_Jr(IRReg.ra));
+        }
+        return null;
     }
 }
