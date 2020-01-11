@@ -62,7 +62,7 @@ public class AST_Class_Dec extends AST_Node
         return classType;
     }
 
-    public IRReg toIR()
+    public IRReg IRMe()
     {
         for (AST_Class_Field_List it = cFieldList; it != null; it = it.tail) { it.head.IRMe(); }
 
