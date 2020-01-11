@@ -2,6 +2,7 @@ package AST;
 
 import SYMBOL_TABLE.SymbolTable;
 import TYPES.*;
+import IR.*;
 
 public class AST_Class_Dec extends AST_Node
 {
@@ -59,5 +60,33 @@ public class AST_Class_Dec extends AST_Node
         SymbolTable.endScope();
 
         return classType;
+    }
+
+    public IRReg toIR()
+    {
+        for (AST_Class_Field_List it = cFieldList; it != null; it = it.tail) { it.head.IRMe(); }
+
+        int numMethods = classType.methods.size();
+        if (numMethods > 0)  // create vtable
+        {
+            String initLabel = IR.uniqueLabel("init_" + className + "_vtable");
+            IR.globalVars.add(initLabel);
+            IR.add(new IRcommand_Label(initLabel));
+
+            // allocate vtable
+            String vtableLabel = String.format("_%s_vtable", className);
+            IR.add(new IRcommand_Declare_Data(vtableLabel, numMethods * 4));  // allocate vtable
+            IRReg vtable = new IRReg.TempReg();
+            IR.add(new IRcommand_La(vtable, vtableLabel));  // get vtable address
+            IRReg tmpReg = new IRReg.TempReg();
+            for (int i = 0; i < numMethods; i++)
+            {
+                String methodLabel = ((Type_Func)classType.methods.get(i).type).name;
+                IR.add(new IRcommand_La(tmpReg, "_" + methodLabel));  // get method address
+                IR.add(new IRcommand_Sw(tmpReg, vtable, i * 4));  // store in vtable
+            }
+            IR.add(new IRcommand_Jr(IRReg.ra));
+        }
+        return null;
     }
 }
