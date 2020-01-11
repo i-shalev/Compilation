@@ -11,9 +11,6 @@ import java.util.List;
 public class AST_Var_Simple extends AST_Var
 {
     public String name;
-    public int local = -1;
-    public int param = -1;
-    public int member = -1;
 
 
     public AST_Var_Simple(String name)
