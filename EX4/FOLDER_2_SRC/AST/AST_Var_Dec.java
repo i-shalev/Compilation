@@ -125,7 +125,7 @@ public class AST_Var_Dec extends AST_Class_Field {
           }
         }
 
-        if (SymbolTable.isDirectlyInScope(Type_Scope.FUNC))  // local variable
+        if (SymbolTable.isInScope(Type_Scope.FUNC))  // local variable
         {
             Type_Func funcType = SymbolTable.findFunc();
             local = funcType.locals.size();
