@@ -11,6 +11,7 @@ public class AST_Func_Dec extends AST_Class_Field
     public AST_Params_List params;
     public AST_Stmt_List statements;
     public Type_Func funcType;
+    public String fullName;
 
     public AST_Func_Dec(String retType, String funcName, AST_Params_List params, AST_Stmt_List statements)
     {
@@ -21,6 +22,7 @@ public class AST_Func_Dec extends AST_Class_Field
         this.funcName = funcName;
         this.params = params;
         this.statements = statements;
+        this.fullName=funcName;
     }
 
     public void PrintMe()
@@ -73,7 +75,7 @@ public class AST_Func_Dec extends AST_Class_Field
         if (SymbolTable.isDirectlyInScope(Type_Scope.CLASS)){
           Type_Class c1 = SymbolTable.findClass();
           c1.data_members = Type_List.add(funcType,c1.data_members);
-
+          this.fullName = c1.name+"_"+this.fullName;
 
             boolean isFound = false;
             for (Symbol symbol : c1.methods)
@@ -104,7 +106,7 @@ public class AST_Func_Dec extends AST_Class_Field
         String funcNameLabel = IR.uniqueLabel("func_name");
         IR.add(new IRcommand_String_Literal(String.format("\"%s\"", funcName), funcNameLabel));
 
-        IR.add(new IRcommand_Label("_" + funcType.name));
+        IR.add(new IRcommand_Label("_" + this.fullName));
         if (isMain) {
             for (String initLabel : IR.globalVars) {
                 IR.add(new IRcommand_Jal(initLabel));
@@ -124,7 +126,7 @@ public class AST_Func_Dec extends AST_Class_Field
         statements.IRMe();
 
         // epilogue
-        IR.add(new IRcommand_Label(funcType.name + "_epilogue"));
+        IR.add(new IRcommand_Label(this.fullName + "_epilogue"));
         if (isMain) {
             IR.add(new IRcommand_exit());
         }
