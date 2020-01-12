@@ -35,11 +35,12 @@ public class Main
             l = new Lexer(file_reader);
             Parser parser = new Parser(l, file_writer, printTokens);
 
+            AST_Node.printDerivationRule = printDerivationRule;
             AST_Program AST = (AST_Program) parser.parse().value;
 
             SymbolTable.Init();
             AST.SemantMe();
-            AST_Node.printDerivationRule = printDerivationRule;
+
 
             file_writer.close();
             // SymbolTable.toGraphviz("./FOLDER_5_OUTPUT/SymbolTable.txt");
