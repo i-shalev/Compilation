@@ -140,13 +140,13 @@ public class SymbolTable {
 
         // Enter lib functions
         Type_Func printIntFunc = new Type_Func(Type_Void.getInstance(), "PrintInt",
-                new Type_List(Type_Int.getInstance(), null));
+                new Type_List(Type_Int.getInstance(), null), null);
 
         Type_Func printStringFunc = new Type_Func(Type_Void.getInstance(), "PrintString",
-                new Type_List(Type_String.getInstance(), null));
+                new Type_List(Type_String.getInstance(), null), null);
 
         Type_Func printTraceFunc = new Type_Func(Type_Void.getInstance(), "PrintTrace",
-                null);
+                null, null);
 
         enter("PrintInt", printIntFunc);
         enter("PrintString", printStringFunc);
@@ -307,7 +307,7 @@ public class SymbolTable {
                             "PrintInt",
                             new Type_List(
                                     Type_Int.getInstance(),
-                                    null)));
+                                    null), null));
 
         }
         return instance;

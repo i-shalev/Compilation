@@ -48,7 +48,7 @@ public class AST_Func_Dec extends AST_Class_Field
         // Get function parameters type
         Type_List paramsTypes = params != null ? params.SemantDeclaration() : null;
 
-        Type_Func func = new Type_Func(ret, funcName, paramsTypes);
+        Type_Func func = new Type_Func(ret, funcName, paramsTypes, params);
 
         if (SymbolTable.findInScope(funcName) != null)
             throw new SemanticException("Function already declared in scope");

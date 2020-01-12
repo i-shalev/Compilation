@@ -1,25 +1,32 @@
 package TYPES;
+import AST.AST_Params_List;
+
 import java.util.*;
 
 public class Type_Func extends Type {
     public Type returnType;
-    public Type_List params;
-    public List<Symbol> params2 = new ArrayList<Symbol>();
-    public List<Symbol> locals = new ArrayList<Symbol>();
+    public Type_List paramsType;
+    public AST_Params_List params;
+    public List<Symbol> params2 = new ArrayList<>();
+    public List<Symbol> locals = new ArrayList<>();
     public int currMaxLocals =0;
 
-    public Type_Func(Type returnType, String name, Type_List params) {
+    public Type_Func(Type returnType, String name, Type_List paramsType, AST_Params_List params) {
         this.name = name;
         this.returnType = returnType;
+        this.paramsType = paramsType;
         this.params = params;
-        for(Type_List it=params; it!=null; it=it.next){
-            params2.add(new Symbol(it.name,it));
+
+        Type_List tmpType = paramsType;
+        for(AST_Params_List it=params; it!=null; it=it.nextParam){
+            params2.add(new Symbol(it.paramName, tmpType));
+            tmpType = tmpType.next;
         }
     }
 
     public boolean IsValidTypeList(Type_List other_params) {
 
-        Type_List selfTail = this.params;
+        Type_List selfTail = this.paramsType;
         Type_List otherTail = other_params;
         while (selfTail != null && otherTail != null) {
 
@@ -78,7 +85,7 @@ public class Type_Func extends Type {
         if (!returnType.name.equals(fatherFunc.returnType.name))
             return false;
 
-        Type_List params = this.params, otherParams = fatherFunc.params;
+        Type_List params = this.paramsType, otherParams = fatherFunc.paramsType;
 
         // TODO: finish this
         while (params != null && otherParams != null){
