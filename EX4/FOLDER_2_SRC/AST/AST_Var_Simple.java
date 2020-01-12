@@ -101,6 +101,7 @@ public class AST_Var_Simple extends AST_Var
         {
             IR.add(new IRcommand_Get_Global(name, reg));
         }
+        IR.add(new IRcommand_Lw(reg, reg, 0));  // dereference
         return reg;
     }
 }

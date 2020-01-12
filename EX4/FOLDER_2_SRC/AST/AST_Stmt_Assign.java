@@ -68,8 +68,8 @@ public class AST_Stmt_Assign extends AST_Stmt
     }
     public IRReg IRMe()
     {
-        IRReg reg = var.IRMe();  // eval left side first
-        IR.add(new IRcommand_Sw(exp.IRMe(), reg, 0));  // eval right side and assign
+        IRReg reg = var.IRMe();                               // get the reg of var
+        IR.add(new IRcommand_Sw(exp.IRMe(), reg, 0));  // get the reg of exp and assign
         return null;
     }
 }
