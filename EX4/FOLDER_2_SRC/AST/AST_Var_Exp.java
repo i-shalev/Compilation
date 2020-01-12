@@ -11,12 +11,16 @@ public class AST_Var_Exp extends AST_Exp{
             this.var = var;
         }
 
-//        public void PrintMe()
-//        {
-//            AST_Graphviz.getInstance().logNode(
-//                    SerialNumber,
-//                    String.format("Var\nExp\n(%s)", var));
-//        }
+        public void PrintMe()
+        {
+            if (var != null) var.PrintMe();
+
+            AST_Graphviz.getInstance().logNode(
+                    SerialNumber,
+                    String.format("Var\nExp"));
+
+            if (var != null) AST_Graphviz.getInstance().logEdge(SerialNumber, var.SerialNumber);
+        }
 
         @Override
         public Type SemantMe() throws Exception {
