@@ -7,6 +7,7 @@ public class Type_Func extends Type {
     public Type returnType;
     public Type_List paramsType;
     public AST_Params_List params;
+    public String fullName;
     public List<Symbol> params2 = new ArrayList<>();
     public List<Symbol> locals = new ArrayList<>();
     public int currMaxLocals =0;
@@ -16,6 +17,7 @@ public class Type_Func extends Type {
         this.returnType = returnType;
         this.paramsType = paramsType;
         this.params = params;
+        this.fullName=name;
 
         Type_List tmpType = paramsType;
         for(AST_Params_List it=params; it!=null; it=it.nextParam){

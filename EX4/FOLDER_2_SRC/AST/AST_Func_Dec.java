@@ -20,9 +20,9 @@ public class AST_Func_Dec extends AST_Class_Field
 
         this.retType = retType;
         this.funcName = funcName;
+        this.fullName=funcName;
         this.params = params;
         this.statements = statements;
-        this.fullName=funcName;
     }
 
     public void PrintMe()
@@ -76,6 +76,7 @@ public class AST_Func_Dec extends AST_Class_Field
           Type_Class c1 = SymbolTable.findClass();
           c1.data_members = Type_List.add(funcType,c1.data_members);
           this.fullName = c1.name+"_"+this.fullName;
+          funcType.fullName=this.fullName;
 
             boolean isFound = false;
             for (Symbol symbol : c1.methods)

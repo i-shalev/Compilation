@@ -8,6 +8,7 @@ public class AST_Stmt_Return extends AST_Stmt
 {
 	public AST_Exp exp;
 	public String typeFuncName;
+  public Type_Func func;
 
 	public AST_Stmt_Return(AST_Exp exp)
 	{
@@ -31,10 +32,10 @@ public class AST_Stmt_Return extends AST_Stmt
 
 	public Type SemantMe() throws Exception{
 		Type_Func typeFunc = SymbolTable.findFunc();
-
+    
 		if (typeFunc == null)
 			throw new SemanticException("Return statement - not in a function");
-
+    this.func=typeFunc;
 		typeFuncName = typeFunc.name;
 
 		if (typeFunc.returnType == Type_Void.getInstance())
@@ -60,7 +61,7 @@ public class AST_Stmt_Return extends AST_Stmt
 			IR.add(new IRcommand_Move(IRReg.v0,  IRReg.zero));
 		else
 			IR.add(new IRcommand_Move(IRReg.v0, exp.IRMe()));
-		IR.add(new IRcommand_Jump(typeFuncName + "_epilogue"));
+		IR.add(new IRcommand_Jump(func.fullName + "_epilogue"));
 		return null;
 	}
 }
