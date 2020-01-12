@@ -7,6 +7,7 @@ import SYMBOL_TABLE.*;
 public class AST_Stmt_Return extends AST_Stmt
 {
 	public AST_Exp exp;
+	public String typeFuncName;
 
 	public AST_Stmt_Return(AST_Exp exp)
 	{
@@ -34,6 +35,8 @@ public class AST_Stmt_Return extends AST_Stmt
 		if (typeFunc == null)
 			throw new SemanticException("Return statement - not in a function");
 
+		typeFuncName = typeFunc.name;
+
 		if (typeFunc.returnType == Type_Void.getInstance())
 		{
 			if (exp != null)
@@ -53,12 +56,11 @@ public class AST_Stmt_Return extends AST_Stmt
 
 	public IRReg IRMe()
 	{
-		Type_Func typeFunc = SymbolTable.findFunc();
 		if(exp==null)
 			IR.add(new IRcommand_Move(IRReg.v0,  IRReg.zero));
 		else
 			IR.add(new IRcommand_Move(IRReg.v0, exp.IRMe()));
-		IR.add(new IRcommand_Jump(typeFunc.name + "_epilogue"));
+		IR.add(new IRcommand_Jump(typeFuncName + "_epilogue"));
 		return null;
 	}
 }

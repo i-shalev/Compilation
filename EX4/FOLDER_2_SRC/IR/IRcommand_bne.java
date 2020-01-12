@@ -14,6 +14,6 @@ public class IRcommand_bne extends IRcommand {
     }
 
     public void MIPSme() {
-        MIPS.writer.printf("\tbeq %s, %s, %s\n", src1.MIPSme(), src2.MIPSme(), label);
+        MIPS.writer.printf("\tbne %s, %s, %s\n", src1.MIPSme(), src2.MIPSme(), label);
     }
 }
