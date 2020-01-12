@@ -7,6 +7,7 @@ TEST_RESULTS = "./FOLDER_5_OUTPUT/test_results.txt"  # if PRINT_TO_CONSOLE is fa
 SKIP = ["Input"]
 OUTPUT_FILENAME = "SemanticStatus"
 REFERENCE_JAR = "COMPILER_REF"
+SHOW_DIFF = False
 
 def main():
     total = 0
@@ -29,7 +30,7 @@ def main():
         total += 1
 
         os.system(f'java -jar ./COMPILER {test} {output_file}')  # execute test on our program
-        os.system(f'java -jar ./{REFERENCE_JAR} {test} {output_file}')  # execute test on reference
+        os.system(f'java -jar ./{REFERENCE_JAR} {test} {output_file_ref}')  # execute test on reference
 
         actual = open(output_file).read()
         expected = open(output_file_ref).read()
@@ -41,6 +42,10 @@ def main():
         else:
             res = f'{test_name} - failed'  # : expected {expected[:-1]} but found {actual[:-1]}'
             print(res) if PRINT_TO_CONSOLE else test_result_file.write(res)
+            if SHOW_DIFF:
+                print('\ndifference:\n')
+                os.system(f'diff {output_file} {output_file_ref}')
+                print('\n')
 
     res = f"\nSUMMARY: {passed}/{total} tests passed"
     print(res) if PRINT_TO_CONSOLE else test_result_file.write(res)
