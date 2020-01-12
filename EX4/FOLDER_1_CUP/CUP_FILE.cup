@@ -118,6 +118,7 @@ non terminal AST_Stmt_List stmtList;
 non terminal AST_Params_List paramsList;
 non terminal AST_Class_Field_List cFieldList;
 non terminal AST_Exp_List expList;
+non terminal AST_Var_Exp varExp;
 non terminal AST_Var var;
 
 /***********************/
@@ -182,7 +183,7 @@ cFieldList  ::=     cField:c cFieldList:cl  {: RESULT = new AST_Class_Field_List
 arrayDec    ::=     ARRAY ID:id1 EQ ID:id2 LBRACK RBRACK    {: RESULT = new AST_Array_Dec(id1, id2) ; RESULT.lineNumber=id1left;:}
                     ;
 
-exp         ::=     var:v                                       {: RESULT = v; RESULT.lineNumber=vleft;:}
+exp         ::=     varExp:v                                    {: RESULT = v; RESULT.lineNumber=vleft;:}
                   | LPAREN exp:e RPAREN                         {: RESULT = e; RESULT.lineNumber=eleft;:}
                   // Binop start
                   | exp:e1 PLUS exp:e2                          {: RESULT = new AST_Exp_Binop(e1, e2, 0); RESULT.lineNumber=e1left;:}
@@ -208,6 +209,9 @@ callExp     ::=     ID:id1 LPAREN RPAREN                        {: RESULT = new 
 
 expList     ::=     exp:e COMMA expList:el    {: RESULT = new AST_Exp_List(e, el) ;:}
                   | exp:e               {: RESULT = new AST_Exp_List(e, null) ;:}
+                    ;
+
+varExp      ::=     var:v                   {: RESULT = new AST_Var_Exp(v); RESULT.lineNumber = vleft; :}
                     ;
 
 var			::=		ID:name								{: RESULT = new AST_Var_Simple(name);      RESULT.lineNumber=nameleft;  :}
