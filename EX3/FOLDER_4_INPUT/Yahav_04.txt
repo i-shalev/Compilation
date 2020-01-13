@@ -1,0 +1,19 @@
+class Dog{
+  int x:=8;
+  int foo(){
+    return 6;
+  }
+}
+class Cat{
+  int x1;
+  int x2;
+  string x3;
+  Dog d := nil;
+  int num:=8;
+}
+
+void main(){
+  Cat c1 := new Cat;
+  int t;
+  t:=c1.num;
+}

@@ -64,7 +64,7 @@ public class SymbolTable {
     // Returns the current class, or null if not in a class
     public static Type_Class findClass() {
         Entry e = top;
-        while (e != null && !(e.type instanceof Type_Class)) {
+        while (e != null && !(e.type instanceof Type_Class && e.type.name == e.name)) {
             e = e.prevtop;
         }
         return e != null ? (Type_Class) e.type : null;

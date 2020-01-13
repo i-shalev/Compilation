@@ -1,0 +1,5 @@
+class Dog {
+	int x := 5;
+	Dog y := nill
+	string y := 5;
+}

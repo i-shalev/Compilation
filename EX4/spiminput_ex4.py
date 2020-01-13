@@ -41,7 +41,12 @@ def main(argv):
     expected = open(spim_output_ref).read()
     print(f'Test name: {input}')
     if expected == actual:
-        print(f'Result: passed')
+        actual = open(output_file).read()
+        expected = open(output_file_ref).read()
+        if (actual == expected):
+            print('Result: succeeded (identical MIPS instructions)')
+        else:
+            print(f'Result: succeeded')
     else:
         print(f'Result: failed')
         print('Difference:')
