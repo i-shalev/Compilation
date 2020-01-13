@@ -15,7 +15,10 @@ public class Type_Class extends Type_Object {
 
         if(father != null)
         {
-            methods.addAll(father.methods);
+            for(int i = 0; i < father.methods.size(); i++)
+            {
+                methods.add(new Symbol(father.methods.get(i).name, father.methods.get(i).type));
+            }
             members  = new ArrayList<>(father.members);
             initVals = new ArrayList<>(father.initVals);
         }
