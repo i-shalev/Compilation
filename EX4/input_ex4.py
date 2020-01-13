@@ -2,38 +2,46 @@ from pathlib import Path
 from subprocess import *
 import os
 
-PRINT_TO_CONSOLE = True
-TEST_RESULTS = "./FOLDER_5_OUTPUT/test_results.txt"  # if PRINT_TO_CONSOLE is false
 SKIP = ["Input"]
 OUTPUT_FILENAME = "SemanticStatus"
 REFERENCE_JAR = "COMPILER_REF"
 
 
-def main():
-    input = Path("./FOLDER_4_INPUT/Input.txt")
+def main(argv):
+    input_dir = Path("./FOLDER_4_INPUT")
+
+    if len(argv) == 1:
+        input = 'Input.txt'
+    else:
+        input = None
+        target = argv[1].lower()
+        for test in input_dir.iterdir():
+            test_name = test.stem.lower()
+            if test_name.startswith(target):
+                input = test.stem + ".txt"
+                break
+
+    if not input:
+        print('Error: test not found')
+        exit(0)
+
     output_file = Path("./FOLDER_5_OUTPUT") / (OUTPUT_FILENAME + ".txt")
     output_file_ref = Path("./FOLDER_5_OUTPUT") / (OUTPUT_FILENAME + "_REF" + ".txt")
 
-    if not PRINT_TO_CONSOLE:
-        test_result_file = open(TEST_RESULTS, "w")
-
-    os.system(f'java -jar ./COMPILER {input} {output_file}')  # execute test on our program
-    os.system(f'java -jar ./{REFERENCE_JAR} {input} {output_file_ref}')  # execute test on our program
+    os.system(f'java -jar ./COMPILER {input_dir / input} {output_file}')  # execute test on our program
+    os.system(f'java -jar ./{REFERENCE_JAR} {input_dir / input} {output_file_ref}')  # execute test on our program
 
     actual = open(output_file).read()
     expected = open(output_file_ref).read()
-
+    print(f'Test name: {input}')
     if expected == actual:
-        res = f'Test passed'
-        print(res) if PRINT_TO_CONSOLE else test_result_file.write(res)
+        print(f'Result: passed')
     else:
-        res = f'Test failed'
+        print(f'Result: failed')
+        print('Difference:')
         os.system(f'diff {output_file} {output_file_ref}')  # execute test on our program
-        print(res) if PRINT_TO_CONSOLE else test_result_file.write(res)
-
-    if not PRINT_TO_CONSOLE:
-        test_result_file.close()
 
 
 if __name__ == '__main__':
-    main()
+    import sys
+    main(sys.argv)

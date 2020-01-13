@@ -58,7 +58,7 @@ public class AST_Stmt_Assign extends AST_Stmt
             if (!(expType instanceof Type_Nil)) { // If yes, we are finished
                 if (exp instanceof AST_New_Exp && ((Type_Array) varType).elementType != expType)
                     throw new SemanticException("Initialize array with wrong type");
-                if (!(varType != expType && exp instanceof AST_New_Exp))
+                if (!(exp instanceof AST_New_Exp) && varType != expType)
                     throw new SemanticException("Array assignment between different array types");
             }
         }
