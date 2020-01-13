@@ -90,7 +90,7 @@ public class AST_Var_Dec extends AST_Class_Field {
                 if (!(expType instanceof Type_Nil)) { // If yes, we are finished
                     if (exp instanceof AST_New_Exp && ((Type_Array) varType).elementType != expType)
                         throw new SemanticException("Initialize array with wrong type");
-                    if (!(exp instanceof AST_New_Exp && varType != expType))
+                    if (!(exp instanceof AST_New_Exp) && varType != expType)
                         throw new SemanticException("Array assignment between different array types");
                 }
             }

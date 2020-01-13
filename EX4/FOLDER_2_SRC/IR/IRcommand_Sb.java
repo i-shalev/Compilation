@@ -7,9 +7,9 @@ public class IRcommand_Sb extends IRcommand {
     IRReg src;
     int offset;
 
-    public IRcommand_Sb(IRReg dst, IRReg src, int offset) {
-        this.dst = dst;
+    public IRcommand_Sb(IRReg src, IRReg dst, int offset) {
         this.src = src;
+        this.dst = dst;
         this.offset = offset;
     }
 
