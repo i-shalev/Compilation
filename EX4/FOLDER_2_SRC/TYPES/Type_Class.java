@@ -15,7 +15,7 @@ public class Type_Class extends Type_Object {
 
         if(father != null)
         {
-            methods = new ArrayList<>(father.methods);
+            methods.addAll(father.methods);
             members  = new ArrayList<>(father.members);
             initVals = new ArrayList<>(father.initVals);
         }
