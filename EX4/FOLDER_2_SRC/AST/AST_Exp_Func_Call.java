@@ -58,6 +58,7 @@ public class AST_Exp_Func_Call extends AST_Exp
                 if (funcName.equals(method.name))
                 {
                     numMethod = i;
+                    funcName = ((Type_Func)method.type).fullName;
                     break;
                 }
             }

@@ -81,7 +81,7 @@ public class AST_Class_Dec extends AST_Node
             IRReg tmpReg = new IRReg.TempReg();
             for (int i = 0; i < numMethods; i++)
             {
-                String methodLabel = ((Type_Func)classType.methods.get(i).type).name;
+                String methodLabel = ((Type_Func)classType.methods.get(i).type).fullName;
                 IR.add(new IRcommand_La(tmpReg, "_" + methodLabel));  // get method address
                 IR.add(new IRcommand_Sw(tmpReg, vtable, i * 4));  // store in vtable
             }
