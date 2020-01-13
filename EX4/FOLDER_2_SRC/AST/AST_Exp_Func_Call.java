@@ -11,7 +11,7 @@ public class AST_Exp_Func_Call extends AST_Exp
     public String funcName;
     public AST_Exp_List args;
     public int numMethod =-1;
-    public List<AST_Exp> args2 = new ArrayList<AST_Exp>();
+    public List<AST_Exp> args2 = new ArrayList<>();
 
     public AST_Exp_Func_Call(AST_Var var, String ID, AST_Exp_List expList)
     {
