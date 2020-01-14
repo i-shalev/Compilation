@@ -7,7 +7,7 @@ public class AST_Exp_Binop extends AST_Exp {
 	int OP;
 	public AST_Exp left;
 	public AST_Exp right;
-	public boolean isStringsExpessions;
+	public boolean isStringsExpressions;
 
 	public AST_Exp_Binop(AST_Exp left, AST_Exp right, int OP) {
 		PrintRule("exp", "exp BINOP exp");
@@ -15,7 +15,7 @@ public class AST_Exp_Binop extends AST_Exp {
 		this.left = left;
 		this.right = right;
 		this.OP = OP;
-		this.isStringsExpessions = false;
+		this.isStringsExpressions = false;
 	}
 
 	public void PrintMe() {
@@ -58,11 +58,13 @@ public class AST_Exp_Binop extends AST_Exp {
 
 		if (OP == 0 && t1 == Type_String.getInstance() && t2 == Type_String.getInstance()) // 0 is '+'
 		{
-			isStringsExpessions = true;
+			isStringsExpressions = true;
 			return Type_String.getInstance();
 		}
 
 		if (OP == 6) { // 6 is '='
+			if(t1 == Type_String.getInstance() && t2 == Type_String.getInstance())
+				isStringsExpressions = true;
 		    if (t1 == t2)
 		        return Type_Int.getInstance();
 
@@ -90,7 +92,7 @@ public class AST_Exp_Binop extends AST_Exp {
 		IRReg leftReg = left.IRMe();
 		IRReg rightReg = right.IRMe();
 
-		if(isStringsExpessions)
+		if(isStringsExpressions)
 		{
 			IRReg dst = new IRReg.TempReg();
 
@@ -165,7 +167,7 @@ public class AST_Exp_Binop extends AST_Exp {
 					String strcmpEndLabel = IR.uniqueLabel("strcmp_end");
 
 					// TODO maybe should be different 0 <-> 1
-					IR.add(new IRcommand_Li(dst, 1));  // assume equality
+					IR.add(new IRcommand_Li(dst, 0));  // assume equality
 					IR.add(new IRcommand_Label(strcmpLoopLabel));
 					IRReg leftVal = new IRReg.TempReg();
 					IRReg rightVal = new IRReg.TempReg();
@@ -177,7 +179,7 @@ public class AST_Exp_Binop extends AST_Exp {
 					IR.add(new IRcommand_Addi(rightReg, rightReg, 1));
 					IR.add(new IRcommand_Jump(strcmpLoopLabel));
 					IR.add(new IRcommand_Label(strcmpFalseLabel));
-					IR.add(new IRcommand_Li(dst, 0));
+					IR.add(new IRcommand_Li(dst, 1));
 					IR.add(new IRcommand_Label(strcmpEndLabel));
 					return dst;
 			}
