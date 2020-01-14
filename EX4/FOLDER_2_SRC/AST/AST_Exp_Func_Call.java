@@ -64,10 +64,28 @@ public class AST_Exp_Func_Call extends AST_Exp
             }
         }
         else {
-            Type t = SymbolTable.find(funcName);
-            if (!(t instanceof Type_Func))
-                throw new SemanticException("function not declared");
-            funcType = (Type_Func) t;
+            if(SymbolTable.findClass() != null)
+            {
+                Type_Class classType = SymbolTable.findClass();
+                funcType = classType.getFuncField(funcName);
+                for (int i = 0; i < classType.methods.size(); i++)
+                {
+                    Symbol method = classType.methods.get(i);
+                    if (funcName.equals(method.name))
+                    {
+                        numMethod = i;
+                        funcName = ((Type_Func)method.type).fullName;
+                        break;
+                    }
+                }
+            }
+            if(numMethod == -1)
+            {
+                Type t = SymbolTable.find(funcName);
+                if (!(t instanceof Type_Func))
+                    throw new SemanticException("function not declared");
+                funcType = (Type_Func) t;
+            }
         }
         if (funcType == null)
             throw new SemanticException("function not declared");
