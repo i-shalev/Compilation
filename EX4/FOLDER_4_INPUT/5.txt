@@ -1,0 +1,59 @@
+class Node {
+	int i;
+	Node next;
+	
+	void setValue(int x) {
+		i := x;
+	}
+	
+	int getValue() {
+		return i;
+	}
+	
+	void setNext(Node node) {
+		next := node;
+	}
+	
+	Node getNext() {
+		return next;
+	}
+}
+
+class DoubleNode extends Node {
+	
+	int getValue() {
+		return i * 2;
+	}
+}
+
+void main() {
+	Node head := new Node;
+	head.setValue(100);
+	Node curr := head;
+	Node next;
+	
+	int i := 2;
+	int even := 1;
+	while (i < 11) {
+		if (even = 1) {
+			next := new DoubleNode;
+		}
+		if (even = 0) {
+			next := new Node;
+		}
+		next.setValue(i * 100);
+		curr.setNext(next);
+		curr := next;
+		even := 1 - even;
+		i := i + 1;
+	}
+	
+	int loopVariable := 1;
+	while (loopVariable = 1) { // head is not null
+		PrintInt(head.getValue());
+		head := head.getNext();
+		if (head = nil) {
+			loopVariable := 0; // exit loop
+		}
+	}
+}

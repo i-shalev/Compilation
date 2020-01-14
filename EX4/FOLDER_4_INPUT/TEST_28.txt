@@ -1,0 +1,11 @@
+class MyClass {
+   int x:=4;
+   void f(int x){
+   PrintInt(x);
+   }
+}
+
+void main() {
+  MyClass c := new MyClass;
+  c.f(1);
+}

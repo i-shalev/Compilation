@@ -1,0 +1,15 @@
+int foo(string s) { return 800;}
+class Father {
+	string foo(string s) {
+		return s;
+	}
+	void Print() {
+		PrintString(foo("Jerry"));
+	}
+}
+
+void main() {
+	Father a := new Father;
+	a.Print();
+	PrintInt(foo(""));
+}

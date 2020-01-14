@@ -1,0 +1,56 @@
+class Node
+{
+    int data;
+    Node left;
+    Node right;
+
+    void init(int item)
+    {
+        data := item;
+        right := nil;
+        left := right;
+    }
+}
+
+class BinaryTree
+{
+    Node root;
+    int maxlevel := 0;
+
+    void leftViewUtil(Node node, int level)
+    {
+        if (node =nil) {return;}
+
+        if (maxlevel < level)
+        {
+           PrintInt(node.data);
+            maxlevel := level;
+        }
+
+        leftViewUtil(node.left, level+1);
+        leftViewUtil(node.right, level+1);
+    }
+
+    void leftView()
+    {
+        leftViewUtil(root, 1);
+    }
+}
+
+void main()
+    {
+        BinaryTree tree := new BinaryTree;
+
+        tree.root := new Node;
+        tree.root.init(12);
+        tree.root.left := new Node;
+        tree.root.left.init(10);
+        tree.root.right := new Node;
+        tree.root.right.init(30);
+        tree.root.right.left := new Node;
+        tree.root.right.left.init(25);
+        tree.root.right.right := new Node;
+        tree.root.right.right.init(40);
+
+        tree.leftView();
+    }

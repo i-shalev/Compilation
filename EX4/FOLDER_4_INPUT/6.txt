@@ -1,0 +1,79 @@
+int staticSerialNumber := 0;
+
+class Vertex {
+	int value;
+	int serialNumber;
+}
+
+class Edge {
+	Vertex v1;
+	Vertex v2;
+}
+
+array vertexArray = Vertex []
+array edgeArray = Edge []
+
+class Graph {
+	vertexArray vertices;
+	int lastV := -1;
+	
+	edgeArray edges;
+	int lastE := -1;
+		
+	Vertex addVertex(int value) {
+		Vertex v := new Vertex;
+		v.value := value;
+		v.serialNumber := staticSerialNumber;
+		staticSerialNumber := staticSerialNumber + 1;
+		lastV := lastV + 1;
+		vertices[lastV] := v;
+		return v;
+	}
+	
+	void addEdge(Vertex v1, Vertex v2) {
+		Edge e := new Edge;
+		e.v1 := v1;
+		e.v2 := v2;
+		lastE := lastE + 1;
+		edges[lastE] := e;
+	}
+}
+
+void PrintNeighboursOf(Graph G, Vertex v) {
+	int i := 0;
+	while (i < 3) {
+		Edge e := G.edges[i];
+		if (e.v1.serialNumber = v.serialNumber) {
+			PrintInt(e.v2.value);
+		}
+		if (e.v2.serialNumber = v.serialNumber) {
+			PrintInt(e.v1.value);
+		}
+		i := i + 1;
+	}
+}
+		
+
+void main() {
+	Graph G := new Graph;
+	G.vertices := new Vertex[4];
+	G.edges := new Edge[3];
+	Vertex v1 := G.addVertex(100);
+	Vertex v2 := G.addVertex(200);
+	Vertex v3 := G.addVertex(300);		
+	Vertex v4 := G.addVertex(400);
+	G.addEdge(v1, v2);
+	G.addEdge(v1, v3);
+	G.addEdge(v1, v4);
+	
+	PrintString("vOneNeighbours");
+	PrintNeighboursOf(G, v1);
+	
+	PrintString("AllNeighboursOfVOneNeighboursWhichAreExactlyVOne");
+	PrintNeighboursOf(G, v2);
+	PrintNeighboursOf(G, v3);
+	PrintNeighboursOf(G, v4);
+}
+
+		
+		

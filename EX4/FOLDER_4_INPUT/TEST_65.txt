@@ -1,0 +1,57 @@
+array intArr = int[]
+
+
+int minJumps(intArr arr, int l, int h)
+{
+
+		if (h = l){
+		return 0; }
+
+
+		if (arr[l] = 0){
+		return 32767; }
+
+		int min := 32767;
+		int i := l+1;
+		while(i<h+1){
+		int z := i<l+1+arr[l];
+
+		    if(z =1){
+		    int jumps := minJumps(arr, i, h);
+
+           int w := jumps = 32767;
+           int q := jumps + 1 < min;
+           if(w=0){
+           if(q=1){
+                       			min := jumps + 1;
+           }
+           }
+
+		    i := i+1;
+		    }
+		    if(z=0){
+		    i := h+1;
+		    }
+
+
+		}
+		return min;
+
+}
+
+void main()
+{
+		intArr arr := new int[10];
+		arr[0] := 1;
+		arr[1] := 3;
+		arr[2] := 6;
+		arr[3] := 3;
+		arr[4] := 2;
+		arr[5] := 3;
+		arr[6] := 6;
+		arr[7] := 8;
+		arr[8] := 9;
+		arr[9] := 5;
+	int n := 10;
+		PrintInt(minJumps(arr, 0, n-1));
+}

@@ -1,0 +1,30 @@
+
+class a {
+	int i := 100;
+}
+
+
+int foo() {
+	a local := new a;
+	return local.i + 100;
+}
+
+
+
+array aArr = a[]
+
+
+
+aArr globalArr := new a[foo()*2 +foo()/foo()*300];  //700 	
+
+void main() {
+	globalArr[699] := new a;
+	a local := globalArr[699];
+	local.i := local.i *10;
+	PrintInt(local.i);
+	PrintInt(globalArr[699].i);
+	globalArr[700] := new a;
+}
+
+		
+		

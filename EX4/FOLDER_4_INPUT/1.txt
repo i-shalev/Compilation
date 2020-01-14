@@ -1,0 +1,14 @@
+class a {
+	int i;
+}
+
+array myArr = a[]
+
+
+void main() {
+	myArr loc := new a[10];
+	loc[9] := new a;
+	PrintInt(loc[9].i);
+	PrintInt(loc[5].i);
+}
+

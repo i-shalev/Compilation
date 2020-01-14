@@ -1,4 +1,105 @@
-void main()
-{
-    PrintInt(2);
+class Pokemon {
+	int hp := 0;
+
+	void Attack(Pokemon other) {
+		return;
+	}
 }
+
+class FirePokemon extends Pokemon {
+	void BreathFire() {
+		PrintString("Shhhahahaha");
+	}
+}
+
+class Charmander extends FirePokemon {
+	void Growl() {
+		PrintString("Rawr");
+	}
+	
+	int Flamethrower() {
+		return 100;
+	}
+	
+	void Attack(Pokemon other) {
+		other.hp := other.hp - Flamethrower();
+	}
+}
+
+class Charmeleon extends Charmander {
+	void Growl() {
+		PrintString("Raaaawr");
+	}
+}
+
+class Charizard extends Charmeleon {
+	void Growl() {
+		PrintString("Raaaaaaaaahahahar");
+	}
+	
+	int Flamethrower() {
+		return 1000;
+	}
+}
+
+
+class WaterPokemon extends Pokemon {
+	void ShootWater() {
+		PrintString("Pshhhhhh");
+	}
+}
+
+class Squirtle extends WaterPokemon {
+	void Bubble() {
+		PrintString("Bloop");
+	}
+	
+	void Attack(Pokemon other) {
+		other.hp := other.hp - WaterGun();
+	}
+	
+	int WaterGun() {
+		return 100;
+	}
+}
+
+class Watortle extends Squirtle {
+	void Bubble() {
+		PrintString("Blooploop");
+	}
+}
+
+class Blastoise extends Watortle {
+	void Bubble() {
+		PrintString("Blauauauauaooop");
+	}
+	
+	int WaterGun() {
+		return 1000;
+	}
+}
+
+array FireArray = Charmander[]
+array WaterArray = Squirtle[]
+
+void main() {
+	FireArray fp := new Charmander[3];
+	WaterArray wp := new Squirtle[3];
+	fp[0] := new Charmander;
+	fp[1] := new Charmeleon;
+	fp[2] := new Charizard;
+	wp[0] := new Squirtle;
+	wp[1] := new Watortle;
+	wp[2] := new Blastoise;
+	
+	Charmander f;
+	Squirtle w;
+	
+	int i := 0;
+	while (i < 3) {
+		PrintInt(fp[i].Flamethrower());
+		PrintInt(wp[i].WaterGun());
+		i := i + 1;
+	}
+}
+

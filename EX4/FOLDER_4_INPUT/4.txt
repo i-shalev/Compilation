@@ -1,0 +1,46 @@
+class Node {
+	int i;
+	Node next;
+	
+	void setValue(int x) {
+		i := x;
+	}
+	
+	int getValue() {
+		return i;
+	}
+	
+	void setNext(Node node) {
+		next := node;
+	}
+	
+	Node getNext() {
+		return next;
+	}
+}
+
+
+void main() {
+	Node head := new Node;
+	head.setValue(100);
+	Node curr := head;
+	Node next;
+	
+	int i := 2;
+	while (i < 11) {
+		next := new Node;
+		next.setValue(i * 100);
+		curr.setNext(next);
+		curr := next;
+		i := i + 1;
+	}
+	
+	int loopVariable := 1;
+	while (loopVariable = 1) { // head is not null
+		PrintInt(head.getValue());
+		head := head.getNext();
+		if (head = nil) {
+			loopVariable := 0; // exit loop
+		}
+	}
+}

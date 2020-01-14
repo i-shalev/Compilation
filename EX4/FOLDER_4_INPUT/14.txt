@@ -1,0 +1,14 @@
+class Father {
+	int foo(int i) { return 8; }
+} 
+class Son extends Father {
+	int foo(int j) { return j; }
+}
+
+
+void main() {
+	Father a := new Father;
+	Father b := new Son;
+	PrintInt(a.foo(157));
+	PrintInt(b.foo(157));
+}

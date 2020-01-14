@@ -1,0 +1,11 @@
+class C{
+int x := 1;
+}
+
+C c;
+
+
+void main()
+{
+PrintInt(c.x);
+}

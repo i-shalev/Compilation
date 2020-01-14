@@ -1,0 +1,14 @@
+
+void main(){
+
+string a := "a";
+string b := a;
+
+PrintString(a);
+PrintString(b);
+
+b := "b";
+
+PrintString(a);
+PrintString(b);
+}

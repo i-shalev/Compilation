@@ -1,0 +1,45 @@
+class Father {
+
+	void swim() {
+		PrintString("FatherSwim");
+	}
+
+	void run() {
+		PrintString("FatherRun");
+	}
+
+	void play() {
+		PrintString("FatherPlay");
+	}
+
+}
+
+
+class Son extends Father {
+
+	void play() {
+		PrintString("SonPlay");
+	}
+
+	void swim() {
+		PrintString("SonSwim");
+	}
+
+	void run() {
+		PrintString("SonRun");
+	}
+
+
+}
+
+void main() {
+	Father a := new Son;
+	a.swim();
+	a.run();
+	a.play();
+	a := nil;
+	a := new Father;
+	a.swim();
+	a.run();
+	a.play();
+}

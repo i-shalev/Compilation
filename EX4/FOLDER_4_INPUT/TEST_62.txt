@@ -1,0 +1,99 @@
+   class Node {
+
+        int data;
+        Node link;
+    }
+class StackUsingLinkedlist {
+
+
+    Node top := nil;
+
+   void push(int x)
+      {
+
+          Node temp := new Node;
+
+          if (temp = nil) {
+              PrintString("HeapOverflow");
+              return;
+          }
+
+          temp.data := x;
+
+          temp.link := top;
+
+          top := temp;
+
+      }
+
+       int isEmpty()
+      {
+          return top = nil;
+      }
+
+       int peek()
+      {
+
+      int y := isEmpty();
+
+          if ( y= 0) {
+              return top.data;
+          }
+          if(y = 1) {
+              PrintString("Stackisempty");
+              return -1;
+          }
+      }
+
+       void pop()
+      {
+          if (top = nil) {
+              PrintString("StackUnderflow");
+              return;
+          }
+
+          top := top.link;
+      }
+
+       void display()
+      {
+      int y:=top = nil;
+          if (y =1) {
+              PrintString("StackUnderflow");
+          }
+          if(y=0) {
+              Node temp := top;
+              int x := temp = nil;
+              while (x = 0) {
+
+                  PrintInt(temp.data);
+
+                  temp := temp.link;
+                  x := temp = nil;
+              }
+          }
+      }
+  }
+      void main()
+      {
+          StackUsingLinkedlist obj := new StackUsingLinkedlist;
+          obj.push(11);
+          obj.push(22);
+          obj.push(33);
+          obj.push(44);
+
+          obj.display();
+
+
+          PrintString("Topelementis");
+          PrintInt(obj.peek());
+
+          obj.pop();
+          obj.pop();
+
+          obj.display();
+
+          PrintString("Topelementis");
+          PrintInt(obj.peek());
+      }
+

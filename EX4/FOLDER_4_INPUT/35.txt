@@ -1,0 +1,12 @@
+int x := 3;
+
+void func() {
+	PrintInt(x);
+}
+
+void main() {
+	PrintInt(x);
+	int x := 5;
+	PrintInt(x);
+	func();
+}

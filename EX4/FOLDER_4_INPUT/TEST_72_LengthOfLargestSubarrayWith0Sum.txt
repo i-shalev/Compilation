@@ -1,0 +1,42 @@
+array intArr = int[]
+
+ int maxLen(intArr arr, int n)
+{
+    int maxlen := 0;
+    int i := 0;
+
+    while(i<n){
+        int currsum := 0;
+        int j := i;
+        while(j<n){
+          currsum := currsum + arr[j];
+          if (currsum = 0) {
+                if( j-i+1 > maxlen){
+                     maxlen := j-i+1;
+                }
+            }
+            j := j+1;
+        }
+        i:=i+1;
+    }
+
+    return maxlen;
+}
+
+  void main()
+{
+
+    intArr arr := new int[8];
+     arr[0]:=15;
+     arr[1]:=-2;
+     arr[2]:=2;
+     arr[3]:=-8;
+     arr[4]:=1;
+     arr[5]:=7;
+     arr[6]:=10;
+     arr[7]:=23;
+
+    int n :=8;
+    PrintInt(maxLen(arr, n));
+
+}

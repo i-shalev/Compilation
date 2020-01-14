@@ -1,0 +1,16 @@
+int Check(string s) {
+	return s = "LosPollosHermanos";
+}
+
+
+string s1;
+string s2 := "HankSchrader";
+int i;
+
+
+void main () {
+	PrintInt(Check("LosPollosHermanos"));
+	PrintInt(Check("Hermanos"));
+	i := s1 = s2;
+	PrintInt(i);
+}

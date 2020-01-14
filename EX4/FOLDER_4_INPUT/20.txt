@@ -1,0 +1,3 @@
+void main() {
+	PrintInt(2 * 4 / 8);
+}

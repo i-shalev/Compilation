@@ -1,0 +1,13 @@
+array intArr = int[]
+
+int foo(){
+PrintInt(1);
+return 4;
+}
+
+void main(){
+intArr a := new int[3];
+
+a[5] := foo();
+
+}

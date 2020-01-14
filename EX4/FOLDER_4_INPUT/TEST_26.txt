@@ -1,0 +1,19 @@
+void main(){
+    string a := "a";
+    string b := "a";
+    string c := "c";
+
+    int x := a = b;
+    int y := a = c;
+
+    PrintInt(x);
+    PrintInt(y);
+
+    if(a = b){
+    PrintString("abdifferent");
+    }
+    if(a = c){
+    PrintString("acdifferent");
+    }
+
+}

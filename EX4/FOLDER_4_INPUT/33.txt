@@ -1,0 +1,44 @@
+class Pikachu {
+	int HP;
+	
+	void updateHP() {
+		HP := 100;
+	}
+
+	void spark() {
+		PrintString("Zzzzzztttt");
+	}
+	
+	int getHP() {
+		return HP + 30;
+	}
+}
+
+class Raichu extends Pikachu {
+	
+	int getHP() {
+		return HP + 50;
+	}
+	
+	void updateHP() {
+		HP := 200;
+	}
+}
+
+
+void main() {
+	Pikachu p := new Pikachu;
+	Pikachu r := new Raichu;
+	
+	p.updateHP();
+	r.updateHP();
+	
+	p.spark();
+	r.spark();
+	
+	p.HP := p.HP - r.getHP();
+	PrintInt(p.HP);
+	PrintInt(p.getHP());
+	PrintInt(r.HP);
+	PrintInt(r.getHP());
+}

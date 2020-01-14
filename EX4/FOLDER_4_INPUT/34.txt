@@ -1,0 +1,36 @@
+array IntArray = int[]
+
+IntArray memo := new int[8];
+
+int factorialWithMemoization(int n) {
+	if (n > 7) {
+		PrintString("TooBig");
+		return -1;
+	}
+	
+	int fakeBool := 0;
+	if (memo[n] = 0) {
+		fakeBool := 1;
+	}
+	if (fakeBool = 0) {
+		return memo[n];
+	}
+	
+	if (n = 0) {
+		return 1;
+	}
+	
+	int x := factorialWithMemoization(n - 1) * n;
+	memo[n] := x;
+	return x;
+}
+
+void main() {
+	PrintInt(factorialWithMemoization(5));
+	memo := new int[8];
+	PrintInt(factorialWithMemoization(0));
+	memo := new int[8];
+	PrintInt(factorialWithMemoization(7));
+	memo := new int[8];
+	PrintInt(factorialWithMemoization(8));
+}

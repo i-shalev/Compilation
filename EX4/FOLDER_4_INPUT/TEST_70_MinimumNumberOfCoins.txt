@@ -1,0 +1,40 @@
+
+array intArr = int[]
+
+ int minCoins(intArr coins, int m, int V)
+    {
+       if (V = 0) {return 0;}
+
+       int res := 32767;
+       int i := 0;
+       while(i<m){
+          if (coins[i] < 1+V)
+             {
+                 int subres := minCoins(coins, m, V-coins[i]);
+                 int x := subres = 32767;
+                 int y := (subres + 1) < res;
+                 if(x=0){
+                    if(y=1){
+                        res := subres + 1;
+                    }
+                 }
+             }
+       i:=i+1;
+       }
+
+       return res;
+    }
+   void main()
+    {
+       intArr coins := new int[4];
+        coins[0] := 9;
+        coins[1] := 6;
+        coins[2] := 5;
+        coins[3] := 1;
+
+       int m := 4;
+       int V := 11;
+       PrintString("MinimumCoinsRequiredIs");
+       PrintInt(minCoins(coins, m, V));
+
+    }

@@ -1,0 +1,22 @@
+class Father {
+string s1;
+string s2;
+
+void foo() {
+	PrintString( (((s1 +     (((s2))))))) ;
+}
+
+}
+void foo(Father f) {
+	f.s1 := f.s1 + f.s2;
+}
+
+
+void main() {
+	Father a := new Father;
+	a.s1 := "Hello";
+	a.s2 := "world";
+	a.foo();
+	foo(a);
+	PrintString(a.s1);
+}

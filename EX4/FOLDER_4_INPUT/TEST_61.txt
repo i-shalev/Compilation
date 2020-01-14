@@ -1,0 +1,62 @@
+    class Node {
+
+        int data;
+        Node next;
+
+        void init(int d)
+                {
+                    data := d;
+                    next := nil;
+                }
+    }
+
+class LinkedList {
+
+     Node head;
+
+    Node reverse(Node node) {
+        Node prev := nil;
+        Node current := node;
+        Node next := nil;
+        int x := current = nil;
+        while (x = 0) {
+            next := current.next;
+            current.next := prev;
+            prev := current;
+            current := next;
+            x := current = nil;
+        }
+        node := prev;
+        return node;
+    }
+
+    void printList(Node node) {
+    int x := node = nil ;
+        while (x = 0) {
+           PrintInt(node.data);
+            node := node.next;
+            x := node = nil;
+        }
+    }
+
+}
+
+
+
+void main() {
+        LinkedList list := new LinkedList;
+        list.head := new Node;
+         list.head.init(85);
+        list.head.next := new Node;
+        list.head.next.init(15);
+        list.head.next.next := new Node;
+        list.head.next.next.init(4);
+        list.head.next.next.next := new Node;
+         list.head.next.next.next.init(20);
+
+        PrintString("GivenLinkedlist");
+        list.printList(list.head);
+        list.head := list.reverse(list.head);
+        PrintString("Reversedlinkedlist");
+        list.printList(list.head);
+    }

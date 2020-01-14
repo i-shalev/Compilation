@@ -1,0 +1,12 @@
+class Father{
+int i;
+int j;
+
+}
+
+Father f;
+int i:=f.i;
+
+void main(){
+int x;
+}

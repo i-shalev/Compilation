@@ -1,0 +1,32 @@
+void main(){
+
+int x := 6;
+
+int z := x + 20000 + 20000;
+PrintInt(z);
+
+z := x * 20000;
+PrintInt(z);
+
+z := (z+1)/1;
+PrintInt(z);
+
+x := -10;
+
+z := x + (-20000) + (-20000);
+PrintInt(z);
+
+z := x - 20000 - 20000;
+PrintInt(z);
+
+z := x*10000;
+PrintInt(z);
+
+z := x*-10000;
+PrintInt(z);
+
+z := x +-20000+-20000;
+PrintInt(z);
+
+
+}

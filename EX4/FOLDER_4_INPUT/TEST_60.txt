@@ -1,0 +1,94 @@
+    class Node 
+    { 
+        int data; 
+        Node next; 
+        
+        
+        void init(int d) 
+        { 
+            data := d;
+            next := nil;
+        } 
+    } 
+
+class LinkedList 
+{ 
+    Node head;
+
+    void printMiddle() 
+    {
+        Node slowptr := head;
+        Node fastptr := head;
+        int x := head = nil;
+        if (x = 0)
+        {
+            int y := fastptr = nil;
+            int z := fastptr.next = nil;
+
+
+            while (y+z = 0)
+            {
+
+                fastptr := fastptr.next.next;
+                slowptr := slowptr.next;
+
+                 y := fastptr = nil;
+                    if(y=0){
+                        z := fastptr.next = nil;}
+            }
+
+           PrintString("Themiddleelementis");
+           PrintInt(slowptr.data);
+
+        }
+    }
+
+    void push(int newdata)
+    {
+
+        Node newnode := new Node;
+        newnode.init(newdata);
+
+
+        newnode.next := head;
+
+
+        head := newnode;
+    }
+
+
+    void printList()
+    {
+        Node tnode := head;
+        int x := tnode = nil;
+        while (x = 0)
+        {
+           PrintInt(tnode.data);
+            tnode := tnode.next;
+
+            x := tnode = nil;
+        }
+        PrintString("NULL");
+
+    }
+
+
+}
+
+
+
+   void main()
+    {
+        LinkedList llist := new LinkedList;
+        int i := 5;
+
+
+        while(i>0){
+         llist.push(i);
+         llist.printList();
+        llist.printMiddle();
+        i:=i-1;
+        }
+
+
+}

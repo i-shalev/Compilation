@@ -1,0 +1,13 @@
+class A{
+int x;
+}
+
+void main(){
+A a := new A;
+A b := a;
+
+if(a=b){
+    PrintString("success");
+}
+
+}

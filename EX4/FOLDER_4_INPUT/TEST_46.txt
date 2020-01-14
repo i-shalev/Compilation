@@ -1,0 +1,23 @@
+class B{
+int y := 1;
+}
+
+class A{
+int x;
+B y;
+}
+
+
+
+void main(){
+B b := new B;
+A a := new A;
+A c := a;
+a.y := b;
+
+
+if(a.y=c.y){
+    PrintString("success");
+}
+
+}

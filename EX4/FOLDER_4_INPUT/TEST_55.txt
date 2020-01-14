@@ -1,0 +1,6 @@
+array IntArray = int[]
+
+void main(){
+    IntArray a;
+    PrintInt(a[1]);
+}

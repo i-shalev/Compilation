@@ -1,0 +1,68 @@
+class QNode
+{
+    int key;
+    QNode next;
+
+    void init(int k) {
+        key := k;
+        next := nil;
+    }
+}
+
+class Queue
+{
+    QNode front;
+    QNode rear;
+
+     void init() {
+     rear := nil;
+        front := rear;
+    }
+
+    void enqueue(int key)
+    {
+
+        QNode temp := new QNode;
+        temp.init(key);
+
+        if (rear = nil)
+        { rear := temp;
+           front := rear;
+           return;
+        }
+
+        rear.next := temp;
+        rear := temp;
+    }
+
+    QNode dequeue()
+    {
+        if (front = nil){
+           return nil; }
+
+        QNode temp := front;
+        front := front.next;
+
+        if (front = nil){
+           rear := nil;}
+        return temp;
+    }
+}
+
+
+
+void main()
+    {
+        Queue q:=new Queue;
+        q.init();
+        q.enqueue(10);
+        q.enqueue(20);
+        q.dequeue();
+        q.dequeue();
+        q.enqueue(30);
+        q.enqueue(40);
+        q.enqueue(50);
+
+       QNode n := q.dequeue();
+        PrintInt(n.key);
+    }

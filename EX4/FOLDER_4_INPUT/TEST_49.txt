@@ -1,0 +1,11 @@
+array intArr = int[]
+
+
+void main(){
+intArr a := new int[3];
+intArr b := a;
+if(a=b){
+    PrintString("yes");
+}
+
+}

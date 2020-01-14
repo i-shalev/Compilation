@@ -1,0 +1,22 @@
+array IntArray = int[]
+
+IntArray arr := new int[3];
+
+void bar(IntArray arr,IntArray arrbla) {
+	arr[1] := 477;
+	arrbla := nil;
+	return;
+}
+
+void main() {
+	arr[1] := 899;
+	IntArray arr2 := new int[3];
+	if (arr = nil) { PrintInt(arr[1]); }
+	PrintInt(arr[1]);
+	bar(arr2, arr);
+	PrintInt(arr2[1]);
+	if (arr = nil) { PrintString("bad"); }
+	arr := nil;
+	if (arr = nil) { PrintString("good"); }
+	return;
+}

@@ -1,0 +1,7 @@
+void main() {
+	if(4>5) {
+   int x := 0;
+		PrintInt(4/x);
+	}
+	PrintString("ShouldBeFine");
+}

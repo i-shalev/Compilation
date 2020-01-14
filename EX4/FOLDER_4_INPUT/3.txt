@@ -1,0 +1,31 @@
+class A {
+	int x;
+	
+	void func() {
+		PrintInt(x);
+	}
+	
+	int set() {
+		x := 1000;
+	}
+}
+
+class B extends A {
+	
+	int set() {
+		x := 2000;
+	}
+}
+
+
+void main() {
+	A a := new A;
+	B b := new B;
+	
+	PrintInt(a.x);
+	PrintInt(b.x);
+	a.set();
+	b.set();
+	a.func();
+	b.func();
+}

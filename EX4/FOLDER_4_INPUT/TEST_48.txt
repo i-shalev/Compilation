@@ -1,0 +1,12 @@
+array intArr = int[]
+
+
+void main(){
+intArr a := new int[3];
+intArr b := new int[4];
+if(a=b){
+    PrintString("not");
+}
+PrintString("good");
+
+}

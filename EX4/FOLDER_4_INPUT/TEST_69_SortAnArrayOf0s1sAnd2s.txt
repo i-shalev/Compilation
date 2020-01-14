@@ -1,0 +1,80 @@
+array intArr = int[]
+
+ void sort(intArr a, int arrsize)
+    {
+        int lo := 0;
+        int hi := arrsize - 1;
+        int mid := 0;
+        int temp:=0;
+
+
+        while (mid < hi + 1)
+        {
+
+
+        int case := a[mid];
+
+            if(case = 0){
+                temp   :=  a[lo];
+                a[lo]  := a[mid];
+                a[mid] := temp;
+                lo := lo+1;
+                mid := mid+1;
+            }
+
+
+            if(case = 1){
+                mid := mid+1;
+            }
+
+            if(case = 2)
+            {
+
+
+                temp := a[mid];
+
+
+                a[mid] := a[hi];
+
+                a[hi] := temp;
+
+                hi := hi-1;
+
+            }
+
+
+        }
+    }
+
+     void printArray(intArr arr, int arrsize)
+        {
+            int i := 0;
+            while(i<arrsize){
+
+            PrintInt(arr[i]);
+            i := i+1;
+            }
+        }
+
+     void main ()
+        {
+            intArr arr := new int[12];
+            arr[0]:=0;
+            arr[1]:=1;
+            arr[2]:=1;
+            arr[3]:=0;
+            arr[4]:=1;
+            arr[5]:=2;
+            arr[6]:=1;
+            arr[7]:=2;
+            arr[8]:=0;
+            arr[9]:=0;
+            arr[10]:=0;
+            arr[11]:=1;
+
+
+            int arrsize := 12;
+            sort(arr, arrsize);
+            PrintString("Arrayafterseggregation");
+            printArray(arr, arrsize);
+        } 

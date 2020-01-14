@@ -1,0 +1,25 @@
+void boo() {
+	PrintTrace();
+	return;
+}
+
+
+void goo() {
+	boo();
+}
+
+int foo(int a, int b) {
+	a := a+1;
+	b := b+2;
+	PrintInt (a+b);
+	goo();
+	return a+b;
+}
+
+
+void main() {
+	int local;
+	local := 10;
+	foo (local, local);
+	PrintInt (local);
+}

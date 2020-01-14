@@ -1,0 +1,38 @@
+array intArr = int[]
+
+
+    int maxSubArraySum(intArr a)
+    {
+        int size := 8;
+        int maxsofar := -32768;
+        int maxendinghere := 0;
+
+        int i := 0;
+
+        while(i<size){
+        maxendinghere := maxendinghere + a[i];
+        if (maxsofar < maxendinghere) {
+            maxsofar := maxendinghere;}
+        if (maxendinghere < 0) {
+            maxendinghere := 0; }
+        i := i+1;
+        }
+
+        return maxsofar;
+    }
+
+
+void main ()
+    {
+        intArr a := new int[8];
+        a[0] := -2;
+        a[1] := -3;
+        a[2] := 4;
+        a[3] := -1;
+        a[4] := -2;
+        a[5] := 1;
+        a[6] := 5;
+        a[7] := -3;
+        PrintString("MaximumContiguousSumIs");
+        PrintInt(maxSubArraySum(a));
+    }
