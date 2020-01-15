@@ -68,7 +68,7 @@ public class SymbolTable {
         while (e != null && !(e.name.equals("Class scope") && e.prevtop.type.name == e.prevtop.name)) {
             e = e.prevtop;
         }
-        return e != null ? (Type_Class) e.type : null;
+        return e != null ? (Type_Class) e.prevtop.type : null;
     }
 
     // Returns a Type object that is named typeName, if defined and it is not a Type_Func. Otherwise, returns null
