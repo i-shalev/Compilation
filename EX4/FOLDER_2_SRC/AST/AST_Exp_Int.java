@@ -21,8 +21,10 @@ public class AST_Exp_Int extends AST_Exp
 				String.format("INT(%d)", value));
 	}
 
-	public Type SemantMe()
+	public Type SemantMe() throws Exception
 	{
+		if(value==32768)
+			throw new SemanticException("too big integer");
 		return Type_Int.getInstance();
 	}
  

@@ -136,7 +136,7 @@ ID				        = {Letters}({Letters}|{Digits0})*
  			return symbol(TokenNames.error);
  		}
  finally{
-        if(new Integer(yytext())>Math.pow(2,15)-1 || new Integer(yytext())<-1*Math.pow(2,15))
+        if(new Integer(yytext())>Math.pow(2,15) || new Integer(yytext())<-1*Math.pow(2,15))
             return symbol(TokenNames.error);
          else{
             return symbol(TokenNames.INT, new Integer(yytext()));
