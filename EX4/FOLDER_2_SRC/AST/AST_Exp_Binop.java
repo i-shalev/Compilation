@@ -99,6 +99,9 @@ public class AST_Exp_Binop extends AST_Exp {
 			switch(this.OP)
 			{
 				case 0:
+					IR.add(new IRcommand_beq(leftReg, IRReg.zero, "exit_invalid_dereference"));
+					IR.add(new IRcommand_beq(rightReg, IRReg.zero, "exit_invalid_dereference"));
+
 					IRReg tempReg = new IRReg.TempReg();
 					IRReg charReg = new IRReg.TempReg();
 
@@ -162,6 +165,9 @@ public class AST_Exp_Binop extends AST_Exp {
 					return dst;
 
 				case 6:
+					IR.add(new IRcommand_beq(leftReg, IRReg.zero, "exit_invalid_dereference"));
+					IR.add(new IRcommand_beq(rightReg, IRReg.zero, "exit_invalid_dereference"));
+
 					String strcmpLoopLabel = IR.uniqueLabel("strcmp_loop");
 					String strcmpFalseLabel = IR.uniqueLabel("strcmp_false");
 					String strcmpEndLabel = IR.uniqueLabel("strcmp_end");
