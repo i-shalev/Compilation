@@ -8,53 +8,44 @@ import java.util.regex.*;
 public class RegAlloc {
     public static void allocate(String outputPath) throws IOException
     {
-        List<TmpReg> tempRegs = new ArrayList<>();
-        Pattern p = Pattern.compile("(,|\\s|\\(|\\()");
+        Pattern pattern = Pattern.compile("(,|\\s|\\(|\\()");
         int numTempRegs = 0;
-
-        // calculate registers liveliness
+        List<TmpReg> listTempRegs = new LinkedList<TmpReg>();
+        
         while (true)
         {
-            int start = 0;
-            int end = 0;
-            int lineNum = 1;
+            int start = 0, end = 0, lineNum = 1;
+
             for (String line : Files.readAllLines(Paths.get(outputPath)))
             {
-                for (String splited : p.split(line))
+                for (String splited : pattern.split(line))
                 {
                     String s = splited;
-                    if (splited.contains(")")) { s = splited.substring(0, splited.indexOf(")") ); }
+                    if (splited.contains(")"))
+                        s = splited.substring(0, splited.indexOf(")") );
                     if (s.equals("Temp_" + numTempRegs))
                     {
-                        if (start == 0) { start = lineNum; }
+                        if (start == 0)
+                            start = lineNum;
                         end = lineNum;
                         break;
                     }
                 }
                 lineNum++;
             }
-            if (start == 0 && end == 0) { break; }  // break if no more temp registers
-            tempRegs.add(new TmpReg(numTempRegs, start, end));
+            if (start == 0 && end == 0) { break; }
+            listTempRegs.add(new TmpReg(numTempRegs, start, end));
             numTempRegs++;
         }
 
-        // create and fill the interference graph
-        Graph interferenceGraph = new Graph(tempRegs.size());
-        for (TmpReg reg1 : tempRegs)
-        {
-            for (TmpReg reg2 : tempRegs)
-            {
+        Graph graph = new Graph(listTempRegs.size());
+        for (TmpReg reg1 : listTempRegs)
+            for (TmpReg reg2 : listTempRegs)
                 if (reg1.isInterfering(reg2) && reg1.id != reg2.id)
-                {
-                    interferenceGraph.addEdge(reg1.id, reg2.id);
-                }
-            }
-        }
+                    graph.addEdge(reg1.id, reg2.id);
 
-        // calculate the coloring
-        HashMap<Integer, Integer> colors = interferenceGraph.doColor();
+        HashMap<Integer, Integer> colors = graph.doColor();
 
-        // apply the coloring
         String text = new String(Files.readAllBytes(Paths.get(outputPath)));
         for (int i = numTempRegs; i >= 0; i--)
         {
@@ -81,12 +72,13 @@ class TmpReg
 
     public boolean isInterfering(TmpReg t)
     {
-        int x1 = t.start;
-        int x2 = t.end;
-        int y1 = this.start;
-        int y2 = this.end;
-        return (x1 >= y1 && x1 <= y2) || (x2 >= y1 && x2 <= y2) ||
-                (y1 >= x1 && y1 <= x2) || (y2 >= x1 && y2 <= x2);
+        int start1 = t.start, end1 = t.end;
+        int start2 = this.start, end2 = this.end;
+
+        return (start1 >= start2 && start1 <= end2) ||
+               (end1 >= start2 && end1 <= end2)     ||
+               (start2 >= start1 && start2 <= end1) ||
+               (end2 >= start1 && end2 <= end1)     ;
     }
 
 }
@@ -95,50 +87,50 @@ class TmpReg
 class Graph
 {
 
-    private final int numVertices; // number of vertices
-    private LinkedList<Integer> adj[];  // adjacency List
+    private final int numVer;
+    private List<Integer> adjList[];
 
-    Graph(int numVertices)
+    Graph(int numVer)
     {
-        this.numVertices = numVertices;
-        adj = new LinkedList[numVertices];
-        for (int i = 0; i < numVertices; i++) { adj[i] = new LinkedList(); }
+        this.numVer = numVer;
+        adjList = new LinkedList[numVer];
+        for (int i = 0; i < numVer; i++)
+            adjList[i] = new LinkedList();
     }
 
     void addEdge(int v, int w)
     {
-        adj[v].add(w);
-        adj[w].add(v); // graph is undirected
+        adjList[v].add(w);
+        adjList[w].add(v);
     }
 
     HashMap<Integer, Integer> doColor()
     {
-        int result[] = new int[numVertices];
-        Arrays.fill(result, -1);  // initialize all vertices as unassigned
-        result[0] = 0;  // assign the first color to first vertex
+        int result[] = new int[numVer];
+        Arrays.fill(result, -1);
+        result[0] = 0;
 
-        // A temporary array to store the available colors. False
-        // value of available[color] would mean that the color is
-        // assigned to one of its adjacent vertices
-        boolean available[] = new boolean[numVertices];
+        boolean available[] = new boolean[numVer];
 
-        // assign colors to remaining numVertices-1 vertices
-        for (int u = 1; u < numVertices; u++)
+        for (int i = 1; i < numVer; i++)
         {
-            Arrays.fill(available, true);  // initially, all colors are available
+            Arrays.fill(available, true);
 
-            // process all adjacent vertices and flag their colors as unavailable
-            for (Integer v : adj[u])
+            for (Integer v : adjList[i])
             {
                 if (result[v] != -1) { available[result[v]] = false; }
             }
-            int color;  // find the first available color
-            for (color = 0; color < numVertices; color++) { if (available[color]) break; }
-            result[u] = color; // assign the found color
+            int color;
+            for (color = 0; color < numVer; color++)
+                if (available[color])
+                    break;
+            result[i] = color;
         }
 
         HashMap<Integer, Integer> colors = new HashMap<Integer, Integer>();
-        for (int u = 0; u < numVertices; u++) { colors.put(u, result[u]); }
+        for (int i = 0; i < numVer; i++)
+            colors.put(i, result[i]);
+
         return colors;
     }
 
